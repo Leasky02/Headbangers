@@ -10,6 +10,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int speed;
     [SerializeField] private int rotationSpeed;
 
+    [SerializeField] private Animator decoyAnimator;
+
+    private bool isWalking = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,19 +25,29 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //get input direction and move
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
 
+        //move the player
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         Vector3 lookDirection = new Vector3(-horizontalInput, 0, verticalInput);
         movementDirection.Normalize();
         rb.AddForce(movementDirection * speed * Time.deltaTime);
 
-        if(movementDirection != Vector3.zero)
+        //if player is moving
+        if (movementDirection != Vector3.zero)
         {
+            //rotate the player
             Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-
             cj.targetRotation = toRotation;
+
+            isWalking = true;
+            decoyAnimator.Play("Walk");
+        }
+        else
+        {
+            isWalking = false;
+            decoyAnimator.Play("Idle");
         }
     }
 }
