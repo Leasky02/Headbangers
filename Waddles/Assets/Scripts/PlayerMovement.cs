@@ -25,14 +25,15 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+        Vector3 lookDirection = new Vector3(-horizontalInput, 0, verticalInput);
         movementDirection.Normalize();
         rb.AddForce(movementDirection * speed * Time.deltaTime);
 
         if(movementDirection != Vector3.zero)
         {
-            Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
-            cj.targetRotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed);
+            cj.targetRotation = toRotation;
         }
     }
 }
