@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private int speed;
     [SerializeField] private int jumpForce;
-    [SerializeField] private int rotationSpeed;
 
     [SerializeField] private Animator decoyAnimator;
 
@@ -30,8 +29,8 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //get input direction and move
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
         //move the player
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
@@ -40,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(movementDirection * speed * Time.deltaTime);
 
         //if player is moving
-        if (movementDirection != Vector3.zero && !isSitting)
+        if ((movementDirection.magnitude > 0.4f || movementDirection.magnitude < -0.4f) && !isSitting)
         {
             //rotate the player
             Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
