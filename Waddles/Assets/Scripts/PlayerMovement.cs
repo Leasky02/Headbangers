@@ -8,11 +8,16 @@ public class PlayerMovement : MonoBehaviour
     private ConfigurableJoint cj;
 
     [SerializeField] private int speed;
+    [SerializeField] private int jumpForce;
     [SerializeField] private int rotationSpeed;
 
     [SerializeField] private Animator decoyAnimator;
 
+    [SerializeField] private GroundedDetector groundDetector;
+
     private bool isWalking = false;
+    private bool justJumped = false;
+    [HideInInspector] public bool isSitting = false;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(movementDirection * speed * Time.deltaTime);
 
         //if player is moving
-        if (movementDirection != Vector3.zero)
+        if (movementDirection != Vector3.zero && !isSitting)
         {
             //rotate the player
             Quaternion toRotation = Quaternion.LookRotation(lookDirection, Vector3.up);
@@ -47,7 +52,40 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             isWalking = false;
+        }
+
+        //sit
+        if(Input.GetButton("Sit") && !isWalking)
+        {
+            isSitting = true;
+
+            decoyAnimator.Play("Sit");
+        }
+        else
+        {
+            isSitting = false;
+        }
+        //if not moving or sitting
+        if(!isSitting && !isWalking)
+        {
             decoyAnimator.Play("Idle");
         }
+
+        //jump and not sitting
+        if(Input.GetButtonDown("Jump") && !isSitting)
+        {
+            //if on ground
+            if (groundDetector.isGrounded && !justJumped)
+            {
+                StartCoroutine("Jump");
+            }
+        }
+    }
+    private IEnumerator Jump()
+    {
+        justJumped = true;
+        rb.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.2f);
+        justJumped = false;
     }
 }
