@@ -70,13 +70,17 @@ public class PlayerMovement : MonoBehaviour
         {
             decoyAnimator.Play("Idle");
         }
+    }
 
+    private void Update()
+    {
         //jump and not sitting
-        if(Input.GetButtonDown("Jump") && !isSitting)
+        if (Input.GetButtonDown("Jump") && !isSitting)
         {
             //if on ground
             if (groundDetector.isGrounded && !justJumped)
             {
+                Debug.Log("Jump");
                 StartCoroutine("Jump");
             }
         }
