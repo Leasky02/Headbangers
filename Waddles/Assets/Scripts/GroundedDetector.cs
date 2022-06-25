@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class GroundedDetector : MonoBehaviour
 {
-    [HideInInspector] public bool isGrounded = true;
+    private bool isGrounded = true;
 
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Ground"))
         {
-            Debug.Log("LANDED");
             isGrounded = true;
         }
     }
@@ -20,5 +19,10 @@ public class GroundedDetector : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    public bool IsGrounded()
+    {
+        return isGrounded;
     }
 }

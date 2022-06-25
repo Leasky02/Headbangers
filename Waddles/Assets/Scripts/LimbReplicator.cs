@@ -16,19 +16,7 @@ public class LimbReplicator : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
-        if(isLeg)
-        {
-            if(activePlayer.GetComponent<PlayerMovement>().isSitting)
-            {
-                return;
-            }
-            else
-            {
-                cj.targetRotation = limbToReplilcate.transform.rotation;
-            }
-        }
-        else
+        if(!(isLeg && activePlayer.GetComponent<PlayerMovement>().IsSitting()))
         {
             cj.targetRotation = limbToReplilcate.transform.rotation;
         }
