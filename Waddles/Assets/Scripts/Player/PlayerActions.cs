@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-    [SerializeField] private int playerID;
+    [SerializeField] private PlayerData playerData;
 
     private Rigidbody rb;
     private ConfigurableJoint cj;
+    [SerializeField] private ConfigurableJoint cjBody;
 
     [SerializeField] private int speed;
     [SerializeField] private int jumpForce;
@@ -20,7 +21,14 @@ public class PlayerActions : MonoBehaviour
 
     private bool isWalking = false;
     private bool isAttacking = false;
+    private bool canAttack = true;
     private bool isSitting = false;
+
+    [SerializeField] private float attackLength;
+    [SerializeField] private float cooldownLength;
+
+    [SerializeField] private float normalSpringValue;
+    [SerializeField] private float attackSpringValue;
 
     // Start is called before the first frame update
     void Start()
@@ -33,8 +41,8 @@ public class PlayerActions : MonoBehaviour
     void FixedUpdate()
     {
         //get input direction and move
-        float horizontalInput = Input.GetAxis("Horizontal" + playerID);
-        float verticalInput = Input.GetAxis("Vertical" + playerID);
+        float horizontalInput = Input.GetAxis("Horizontal" + playerData.GetPlayerID());
+        float verticalInput = Input.GetAxis("Vertical" + playerData.GetPlayerID());
 
         //calculate movement direction of the player
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
@@ -51,14 +59,14 @@ public class PlayerActions : MonoBehaviour
     private void Update()
     {
         //Attack
-        bool shouldAttack = Input.GetButtonDown("Attack" + playerID) && !isSitting;
+        bool shouldAttack = Input.GetButtonDown("Attack" + playerData.GetPlayerID()) && !isSitting && canAttack;
         if (shouldAttack)
         {
             StartCoroutine("Attack");
         }
 
         //Jump
-        bool shouldJump = Input.GetButtonDown("Jump" + playerID) && !isSitting;
+        bool shouldJump = Input.GetButtonDown("Jump" + playerData.GetPlayerID()) && !isSitting;
         if (shouldJump)
         {
             //if on ground
@@ -74,7 +82,7 @@ public class PlayerActions : MonoBehaviour
         }
 
         //Sit
-        isSitting = Input.GetButton("Sit" + playerID) && !isWalking;
+        isSitting = Input.GetButton("Sit" + playerData.GetPlayerID());
         if (isSitting)
         {
             PlaySitAnimation();
@@ -89,10 +97,34 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        JointDrive springDriveX = cjBody.angularXDrive;
+        JointDrive springDriveYZ = cjBody.angularYZDrive;
+
+        springDriveX.positionSpring = attackSpringValue;
+        springDriveYZ.positionSpring = attackSpringValue;
+
+        cjBody.angularXDrive = springDriveX;
+        cjBody.angularYZDrive = springDriveYZ;
+
+        canAttack = false;
         isAttacking = true;
         PlayAttackAnimation();
-        yield return new WaitForSeconds(0.3f);
+
+        yield return new WaitForSeconds(attackLength/2);
+
+        springDriveX.positionSpring = normalSpringValue;
+        springDriveYZ.positionSpring = normalSpringValue;
+
+        cjBody.angularXDrive = springDriveX;
+        cjBody.angularYZDrive = springDriveYZ;
+
+        yield return new WaitForSeconds(attackLength / 2);
+
         isAttacking = false;
+
+        yield return new WaitForSeconds(cooldownLength);
+
+        canAttack = true;
     }
 
     private void PlayAttackAnimation()

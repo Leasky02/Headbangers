@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerData : MonoBehaviour
+{
+    [SerializeField] private int playerID;
+
+    private void Start()
+    {
+        gameObject.name = "Player " + playerID;
+    }
+
+    public int GetPlayerID()
+    {
+        return playerID;
+    }
+}
