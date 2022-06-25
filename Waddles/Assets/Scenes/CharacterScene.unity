@@ -1474,7 +1474,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a02e9f8560d07a4991a1cfa4087d109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGrounded: 1
 --- !u!1 &596279520
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,11 +1797,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efa16e9685998447885c639be1b8301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerID: 1
   speed: 1400
   jumpForce: 40
   decoyAnimator: {fileID: 2003321177}
   groundDetector: {fileID: 562001825}
-  isSitting: 0
 --- !u!1 &635696680
 GameObject:
   m_ObjectHideFlags: 0

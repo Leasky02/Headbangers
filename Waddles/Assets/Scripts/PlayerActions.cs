@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerActions : MonoBehaviour
 {
+    [SerializeField] private int playerID;
+
     private Rigidbody rb;
     private ConfigurableJoint cj;
 
@@ -17,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GroundedDetector groundDetector;
 
     private bool isWalking = false;
-    private bool justJumped = false;
     private bool isAttacking = false;
     private bool isSitting = false;
 
@@ -32,8 +33,8 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         //get input direction and move
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal" + playerID);
+        float verticalInput = Input.GetAxis("Vertical" + playerID);
 
         //calculate movement direction of the player
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
@@ -50,14 +51,14 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         //Attack
-        bool shouldAttack = Input.GetButtonDown("Attack") && !isSitting;
+        bool shouldAttack = Input.GetButtonDown("Attack" + playerID) && !isSitting;
         if (shouldAttack)
         {
             StartCoroutine("Attack");
         }
 
         //Jump
-        bool shouldJump = Input.GetButtonDown("Jump") && !isSitting;
+        bool shouldJump = Input.GetButtonDown("Jump" + playerID) && !isSitting;
         if (shouldJump)
         {
             //if on ground
@@ -73,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Sit
-        isSitting = Input.GetButton("Sit") && !isWalking;
+        isSitting = Input.GetButton("Sit" + playerID) && !isWalking;
         if (isSitting)
         {
             PlaySitAnimation();
