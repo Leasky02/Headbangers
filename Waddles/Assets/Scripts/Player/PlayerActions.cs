@@ -8,8 +8,11 @@ public class PlayerActions : MonoBehaviour
 
     private Rigidbody rb;
     private ConfigurableJoint cj;
-    private PlayerHealth ph;
+    private PlayerKO ph;
     [SerializeField] private ConfigurableJoint cjBody;
+    private AudioSource myAudioSource;
+
+    [SerializeField] private AudioClip attack_CLIP;
 
     [SerializeField] private int speed;
     [SerializeField] private int jumpForce;
@@ -26,6 +29,8 @@ public class PlayerActions : MonoBehaviour
     private bool canAttack = true;
     private bool isSitting = false;
 
+    private bool canPlayHitSound = true;
+
     [SerializeField] private float attackLength;
     [SerializeField] private float cooldownLength;
 
@@ -37,7 +42,8 @@ public class PlayerActions : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cj = GetComponent<ConfigurableJoint>();
-        ph = GetComponent<PlayerHealth>();
+        ph = GetComponent<PlayerKO>();
+        myAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -65,7 +71,7 @@ public class PlayerActions : MonoBehaviour
         bool shouldAttack = Input.GetButtonDown("Attack" + playerData.GetPlayerID()) && !isSitting && canAttack && !ph.IsKnockedOut();
         if (shouldAttack)
         {
-            StartCoroutine("Attack");
+            StartCoroutine(Attack());
         }
 
         //Jump
@@ -97,13 +103,21 @@ public class PlayerActions : MonoBehaviour
             PlayIdleAnimation();
         }
 
-        bool attackingPlayer = attemptingAttack && bodyDetector.IsTouchingBody() != null;
-        if(attackingPlayer)
+        bool attackingPlayer = attemptingAttack && bodyDetector.IsTouchingBody() != null ;
+        if (attackingPlayer)
         {
-            PlayerHealth victim = bodyDetector.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerHealth>();
-            if(!victim.IsAttackInProgress())
+            if(canPlayHitSound)
             {
-                victim.StartCoroutine("Attacked", gameObject);
+                myAudioSource.clip = attack_CLIP;
+                myAudioSource.pitch = Random.Range(0.8f, 1.2f);
+                myAudioSource.Play();
+                canPlayHitSound = false;
+            }
+
+            PlayerKO victim = bodyDetector.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
+            if (!victim.IsAttackInProgress())
+            {
+                victim.StartCoroutine(victim.Attacked(gameObject , cjBody.gameObject.transform.localRotation.eulerAngles.x));
             }
         }
     }
@@ -139,6 +153,7 @@ public class PlayerActions : MonoBehaviour
         yield return new WaitForSeconds(cooldownLength);
 
         canAttack = true;
+        canPlayHitSound = true;
     }
 
     private void PlayAttackAnimation()
