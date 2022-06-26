@@ -11,22 +11,27 @@ public class PlayerKO : MonoBehaviour
 
     [SerializeField] private AudioClip knockOut_CLIP;
 
-    private bool attackInProgress = false;
+    private bool headButtInProgress = false;
     private bool knockedOut = false;
 
     [SerializeField] private float deadSpringValue;
 
-    [SerializeField] private float rotationForce;
     [SerializeField] private float knockbackForce;
     [SerializeField] private float knockbackHeightVelocity;
 
     [SerializeField] private float startingHealth;
     [SerializeField] private float currentHealth;
+    private int recoveryHealth;
+    [SerializeField] private int minRecoveryHealth;
+    [SerializeField] private int maxRecoveryHealth;
+    [SerializeField] private int recoveryHealthReduction;
 
     [SerializeField] private float minimumDamage;
     [SerializeField] private float maximumDamage;
     [SerializeField] private float minimumAngle;
     [SerializeField] private float maximumAngle;
+
+    [SerializeField] private float kickingDamage;
 
     [SerializeField] private float startingKnockoutTime;
     [SerializeField] private float knockoutTime;
@@ -44,101 +49,139 @@ public class PlayerKO : MonoBehaviour
 
         currentHealth = startingHealth;
         knockoutTime = startingKnockoutTime;
+        recoveryHealth = maxRecoveryHealth;
 
         StartCoroutine(RegenerateHealth());
-        StartCoroutine(ReduceKnockoutTime());
+        StartCoroutine(ImproveEndurance());
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator HeadButted(GameObject headButtingPlayer, float angle)
     {
-        
-    }
+        headButtInProgress = true;
 
-    public IEnumerator Attacked(GameObject attackingPlayer, float angle)
-    {
-        attackInProgress = true;
-
-        if (!actionScript.IsAttemptingAttack())
+        bool fightingBack = actionScript.IsAttemptingHeadButt();
+        if (!fightingBack)
         {
-            if (angle > 75f)
-                angle = 75f;
-            if (angle < 0f)
-                angle = 0f;
-
-            Vector2 pointA = new Vector2(minimumAngle, minimumDamage);
-            Vector2 pointB = new Vector2(maximumAngle, maximumDamage);
-            float m = ((pointA.y - pointB.y) / (pointA.x - pointB.x));
-            float c = pointA.y - m * pointA.x;
-            float damage = m * angle + c;
-
-            currentHealth = Mathf.Round(currentHealth - damage);
-        }
-
-        if (currentHealth <= 0 && !knockedOut)
-        {
-            currentHealth = 70f;
-
-            knockedOut = true;
-
-            myAudioSource.clip = knockOut_CLIP;
-            myAudioSource.pitch = Random.Range(0.8f, 1.2f);
-            myAudioSource.Play();
-
-            Vector3 attackerPosition = attackingPlayer.transform.position;
-            Vector3 selfPosition = transform.position;
-            Vector3 direction = new Vector3(selfPosition.x - attackerPosition.x, 0f, selfPosition.z - attackerPosition.z);
-            direction.Normalize();
-
-            Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z);
-            rb.AddForceAtPosition(direction * rotationForce, forcePosition, ForceMode.Impulse);
-
-            direction.y = knockbackHeightVelocity;
-            rb.velocity = new Vector3(direction.x * knockbackForce, 10f, direction.z * knockbackForce);
-
-
-            ConfigurableJoint[] bodyParts = gameObject.GetComponentsInChildren<ConfigurableJoint>();
-            foreach (ConfigurableJoint bodyPart in bodyParts)
-            {
-                JointDrive springDriveX = bodyPart.angularXDrive;
-                JointDrive springDriveYZ = bodyPart.angularYZDrive;
-
-                springDriveX.positionSpring /= 100;
-                springDriveYZ.positionSpring /= 100;
-
-                bodyPart.angularXDrive = springDriveX;
-                bodyPart.angularYZDrive = springDriveYZ;
-            }
-
-            yield return new WaitForSeconds(knockoutTime);
-
-            knockoutTime += 0.4f;
-            knockedOut = false;
-
-            foreach (ConfigurableJoint bodyPart in bodyParts)
-            {
-                JointDrive springDriveX = bodyPart.angularXDrive;
-                JointDrive springDriveYZ = bodyPart.angularYZDrive;
-
-                springDriveX.positionSpring *= 100;
-                springDriveYZ.positionSpring *= 100;
-
-                bodyPart.angularXDrive = springDriveX;
-                bodyPart.angularYZDrive = springDriveYZ;
-            }
-
-            StartCoroutine(RegenerateHealth());
-            StartCoroutine(ReduceKnockoutTime());
-
-            yield return new WaitForSeconds(graceTime);
-
-            attackInProgress = false;
+            currentHealth = Mathf.Round(currentHealth - CalculateDamage(angle));
         }
         else
         {
-            yield return new WaitForSeconds(graceTime/2f);
-            attackInProgress = false;
+            currentHealth = Mathf.Round(currentHealth - (CalculateDamage(angle) * 0.5f));
         }
+
+        bool shouldKO = currentHealth <= 0 && !knockedOut;
+        if (shouldKO)
+        {
+            StartCoroutine(KO(headButtingPlayer));
+        }
+        else
+        {
+            Knockback(headButtingPlayer);
+
+            yield return new WaitForSeconds(graceTime/2f);
+            headButtInProgress = false;
+        }
+    }
+
+    public void Kicked(GameObject headButtingPlayer)
+    {
+        currentHealth -= kickingDamage;
+
+        if(currentHealth <= 0 && !knockedOut)
+        {
+            StartCoroutine(KO(headButtingPlayer));
+        }
+        else
+        {
+            Knockback(headButtingPlayer);
+        }
+    }
+
+    private IEnumerator KO(GameObject headButtingPlayer)
+    {
+        currentHealth = recoveryHealth;
+        recoveryHealth = Mathf.Clamp(recoveryHealth - recoveryHealthReduction, minRecoveryHealth, maxRecoveryHealth);
+        
+
+        knockedOut = true;
+
+        myAudioSource.clip = knockOut_CLIP;
+        myAudioSource.pitch = Random.Range(0.8f, 1.2f);
+        myAudioSource.Play();
+
+        Vector3 headButterPosition = headButtingPlayer.transform.position;
+        Vector3 selfPosition = transform.position;
+        Vector3 direction = new Vector3(selfPosition.x - headButterPosition.x, 0f, selfPosition.z - headButterPosition.z);
+        direction.Normalize();
+
+        Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z);
+        rb.AddForceAtPosition(direction * knockbackForce * 0.3f, forcePosition, ForceMode.Impulse);
+
+        direction.y = knockbackHeightVelocity;
+        rb.velocity = new Vector3(direction.x, direction.y, direction.z);
+
+
+        ConfigurableJoint[] bodyParts = gameObject.GetComponentsInChildren<ConfigurableJoint>();
+        foreach (ConfigurableJoint bodyPart in bodyParts)
+        {
+            JointDrive springDriveX = bodyPart.angularXDrive;
+            JointDrive springDriveYZ = bodyPart.angularYZDrive;
+
+            springDriveX.positionSpring /= 100;
+            springDriveYZ.positionSpring /= 100;
+
+            bodyPart.angularXDrive = springDriveX;
+            bodyPart.angularYZDrive = springDriveYZ;
+        }
+
+        yield return new WaitForSeconds(knockoutTime);
+
+        knockoutTime += 0.5f;
+        knockedOut = false;
+
+        foreach (ConfigurableJoint bodyPart in bodyParts)
+        {
+            JointDrive springDriveX = bodyPart.angularXDrive;
+            JointDrive springDriveYZ = bodyPart.angularYZDrive;
+
+            springDriveX.positionSpring *= 100;
+            springDriveYZ.positionSpring *= 100;
+
+            bodyPart.angularXDrive = springDriveX;
+            bodyPart.angularYZDrive = springDriveYZ;
+        }
+
+        StartCoroutine(RegenerateHealth());
+        StartCoroutine(ImproveEndurance());
+
+        yield return new WaitForSeconds(graceTime);
+
+        headButtInProgress = false;
+    }
+
+    private void Knockback(GameObject headButtingPlayer)
+    {
+        Vector3 headButterPosition = headButtingPlayer.transform.position;
+        Vector3 selfPosition = transform.position;
+        Vector3 direction = new Vector3(selfPosition.x - headButterPosition.x, 0f, selfPosition.z - headButterPosition.z);
+        direction.Normalize();
+
+        rb.AddForce(direction * knockbackForce, ForceMode.Impulse);
+
+        direction.y = knockbackHeightVelocity;
+        rb.velocity = new Vector3(direction.x, direction.y, direction.z);
+    }
+
+    private float CalculateDamage(float angle)
+    {
+        angle = Mathf.Clamp(angle, 0f, 75f);
+
+        Vector2 pointA = new Vector2(minimumAngle, minimumDamage);
+        Vector2 pointB = new Vector2(maximumAngle, maximumDamage);
+        float m = ((pointA.y - pointB.y) / (pointA.x - pointB.x));
+        float c = pointA.y - m * pointA.x;
+        float damage = m * angle + c;
+        return damage;
     }
 
     private IEnumerator RegenerateHealth()
@@ -153,21 +196,32 @@ public class PlayerKO : MonoBehaviour
         }
     }
 
-    private IEnumerator ReduceKnockoutTime()
+    private IEnumerator ImproveEndurance()
     {
         if (!knockedOut)
         {
-            if (knockoutTime > startingKnockoutTime)
-                knockoutTime -= 0.1f;
+            ReduceKnockoutTime();
+            IncreaseRecoveryHealth();
 
             yield return new WaitForSeconds(knockoutReduceTimeDelay);
-            StartCoroutine(ReduceKnockoutTime());
+
+            StartCoroutine(ImproveEndurance());
         }
     }
 
-    public bool IsAttackInProgress()
+    private void ReduceKnockoutTime()
     {
-        return attackInProgress;
+        if (knockoutTime > startingKnockoutTime)
+            knockoutTime -= 0.1f;
+    }
+    private void IncreaseRecoveryHealth()
+    {
+        recoveryHealth = Mathf.Clamp(recoveryHealth + 2, minRecoveryHealth, maxRecoveryHealth);
+    }
+
+    public bool IsHeadButtInProgress()
+    {
+        return headButtInProgress;
     }
 
     public bool IsKnockedOut()

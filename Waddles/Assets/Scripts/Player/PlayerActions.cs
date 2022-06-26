@@ -7,9 +7,11 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private PlayerData playerData;
 
     private Rigidbody rb;
+
     private ConfigurableJoint cj;
-    private PlayerKO ph;
     [SerializeField] private ConfigurableJoint cjBody;
+    [SerializeField] private ConfigurableJoint cjLeftThigh;
+    private PlayerKO KOscript;
     private AudioSource myAudioSource;
 
     [SerializeField] private AudioClip attack_CLIP;
@@ -22,27 +24,36 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Animator decoyAnimator;
 
     [SerializeField] private GroundedDetector groundDetector;
-    [SerializeField] private BodyDetector bodyDetector;
+    [SerializeField] private BodyDetector bodyDetector_HEAD;
+    [SerializeField] private BodyDetector bodyDetector_FOOT;
 
-    private bool isWalking = false;
-    [HideInInspector] public bool attemptingAttack = false;
-    private bool canAttack = true;
-    private bool isSitting = false;
+    private bool canHeadButt = true;
+    private bool canKick = true;
 
     private bool canPlayHitSound = true;
 
-    [SerializeField] private float attackLength;
+    [HideInInspector] public bool attemptingHeadButt = false;
+    private bool isWalking = false;
+    private bool isSitting = false;
+    private bool isKicking = false;
+
+    [SerializeField] private float kickTimeLength;
+
+
+    [SerializeField] private float HeadButtLength;
     [SerializeField] private float cooldownLength;
 
-    [SerializeField] private float normalSpringValue;
-    [SerializeField] private float attackSpringValue;
+    [SerializeField] private float normalSpringValue_BODY;
+    [SerializeField] private float normalSpringValue_LeftThigh;
+    [SerializeField] private float attackSpringValue_BODY;
+    [SerializeField] private float attackSpringValue_LeftThigh;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         cj = GetComponent<ConfigurableJoint>();
-        ph = GetComponent<PlayerKO>();
+        KOscript = GetComponent<PlayerKO>();
         myAudioSource = GetComponent<AudioSource>();
     }
 
@@ -58,7 +69,7 @@ public class PlayerActions : MonoBehaviour
         direction.Normalize();
 
         //Walk
-        isWalking = (Mathf.Abs(direction.magnitude) > 0.4f) && !isSitting && !attemptingAttack && !ph.IsKnockedOut();
+        isWalking = (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !KOscript.IsKnockedOut();
         if (isWalking)
         {
             Walk(direction);
@@ -67,15 +78,22 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        //Attack
-        bool shouldAttack = Input.GetButtonDown("Attack" + playerData.GetPlayerID()) && !isSitting && canAttack && !ph.IsKnockedOut();
-        if (shouldAttack)
+        //Kick
+        bool shouldKick = Input.GetButtonDown("Kick" + playerData.GetPlayerID()) && ShouldKick();
+        if (shouldKick)
         {
-            StartCoroutine(Attack());
+            StartCoroutine(Kick());
+        }
+
+        //HeadButt
+        bool shouldHeadButt = Input.GetButtonDown("HeadButt" + playerData.GetPlayerID()) && ShouldHeadButt();
+        if (shouldHeadButt)
+        {
+            StartCoroutine(HeadButt());
         }
 
         //Jump
-        bool shouldJump = Input.GetButtonDown("Jump" + playerData.GetPlayerID()) && !isSitting && !ph.IsKnockedOut();
+        bool shouldJump = Input.GetButtonDown("Jump" + playerData.GetPlayerID()) && ShouldJump();
         if (shouldJump)
         {
             //if on ground
@@ -91,20 +109,22 @@ public class PlayerActions : MonoBehaviour
         }
 
         //Sit
-        isSitting = Input.GetButton("Sit" + playerData.GetPlayerID()) && !ph.IsKnockedOut();
+        isSitting = Input.GetButton("Sit" + playerData.GetPlayerID()) && ShouldSit();
         if (isSitting)
         {
             PlaySitAnimation();
         }
 
         //Idle
-        if (IsIdle())
+        bool shouldIdle = ShouldIdle();
+        if (shouldIdle)
         {
             PlayIdleAnimation();
         }
 
-        bool attackingPlayer = attemptingAttack && bodyDetector.IsTouchingBody() != null ;
-        if (attackingPlayer)
+        //successful HeadButt
+        bool HeadButtingPlayer = attemptingHeadButt && bodyDetector_HEAD.IsTouchingBody() != null;
+        if (HeadButtingPlayer)
         {
             if(canPlayHitSound)
             {
@@ -114,57 +134,137 @@ public class PlayerActions : MonoBehaviour
                 canPlayHitSound = false;
             }
 
-            PlayerKO victim = bodyDetector.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
-            if (!victim.IsAttackInProgress())
+            PlayerKO victim = bodyDetector_HEAD.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
+            if (!victim.IsHeadButtInProgress())
             {
-                victim.StartCoroutine(victim.Attacked(gameObject , cjBody.gameObject.transform.localRotation.eulerAngles.x));
+                victim.StartCoroutine(victim.HeadButted(gameObject , cjBody.gameObject.transform.localRotation.eulerAngles.x));
             }
         }
+
+        //successful kick
+        bool kickingPlayer = isKicking && bodyDetector_FOOT.IsTouchingBody() != null;
+        if(kickingPlayer)
+        {
+            isKicking = false;
+
+            myAudioSource.clip = attack_CLIP;
+            myAudioSource.pitch = Random.Range(0.8f, 1.2f);
+            myAudioSource.Play();
+
+            PlayerKO victim = bodyDetector_FOOT.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
+            victim.Kicked(gameObject);
+        }
+    }
+    private bool ShouldKick()
+    {
+        return canKick && !isSitting && !KOscript.IsKnockedOut();
+    }
+    private bool ShouldHeadButt()
+    {
+        return !isSitting && canHeadButt && !KOscript.IsKnockedOut();
+    }
+    private bool ShouldJump()
+    {
+        return !isKicking && !isSitting && !KOscript.IsKnockedOut();
+    }
+    private bool ShouldSit()
+    {
+        return !isKicking && !KOscript.IsKnockedOut();
+    }
+    private bool ShouldIdle()
+    {
+        return !isKicking && !isSitting && !isWalking && !attemptingHeadButt;
     }
 
-    private IEnumerator Attack()
+    private IEnumerator HeadButt()
     {
         JointDrive springDriveX = cjBody.angularXDrive;
         JointDrive springDriveYZ = cjBody.angularYZDrive;
 
-        springDriveX.positionSpring = attackSpringValue;
-        springDriveYZ.positionSpring = attackSpringValue;
+        springDriveX.positionSpring = attackSpringValue_BODY;
+        springDriveYZ.positionSpring = attackSpringValue_BODY;
 
         cjBody.angularXDrive = springDriveX;
         cjBody.angularYZDrive = springDriveYZ;
 
-        canAttack = false;
-        attemptingAttack = true;
+        canHeadButt = false;
+        attemptingHeadButt = true;
 
-        PlayAttackAnimation();
+        PlayHeadButtAnimation();
 
-        yield return new WaitForSeconds(attackLength/2);
+        yield return new WaitForSeconds(HeadButtLength/2);
 
-        springDriveX.positionSpring = normalSpringValue;
-        springDriveYZ.positionSpring = normalSpringValue;
+        springDriveX.positionSpring = normalSpringValue_BODY;
+        springDriveYZ.positionSpring = normalSpringValue_BODY;
 
         cjBody.angularXDrive = springDriveX;
         cjBody.angularYZDrive = springDriveYZ;
 
-        yield return new WaitForSeconds(attackLength / 2);
+        yield return new WaitForSeconds(HeadButtLength / 2);
 
-        attemptingAttack = false;
+        attemptingHeadButt = false;
 
         yield return new WaitForSeconds(cooldownLength);
 
-        canAttack = true;
+        canHeadButt = true;
         canPlayHitSound = true;
-    }
-
-    private void PlayAttackAnimation()
-    {
-        decoyAnimator.Play("Attack");
     }
 
     private void Jump()
     {
         jumpCount++;
         rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+    }
+
+    private IEnumerator Kick()
+    {
+        canKick = false;
+
+        isKicking = true;
+        PlayKickAnimation();
+
+        JointDrive springDriveX = cjLeftThigh.angularXDrive;
+        JointDrive springDriveYZ = cjLeftThigh.angularYZDrive;
+
+        springDriveX.positionSpring = attackSpringValue_LeftThigh;
+        springDriveYZ.positionSpring = attackSpringValue_LeftThigh;
+
+        cjLeftThigh.angularXDrive = springDriveX;
+        cjLeftThigh.angularYZDrive = springDriveYZ;
+
+        yield return new WaitForSeconds(kickTimeLength / 2);
+
+        isKicking = false;
+
+        springDriveX.positionSpring = normalSpringValue_LeftThigh;
+        springDriveYZ.positionSpring = normalSpringValue_LeftThigh;
+
+        cjLeftThigh.angularXDrive = springDriveX;
+        cjLeftThigh.angularYZDrive = springDriveYZ;
+
+        yield return new WaitForSeconds(kickTimeLength / 2);
+
+        canKick = true;
+    }
+    private void Walk(Vector3 direction)
+    {
+        //move the player
+        rb.AddForce(direction * speed * Time.deltaTime);
+        //rotate the player
+        Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
+        cj.targetRotation = toRotation;
+
+        PlayWalkAnimation();
+    }
+
+    private void PlayHeadButtAnimation()
+    {
+        decoyAnimator.Play("HeadButt");
+    }
+
+    private void PlayKickAnimation()
+    {
+        decoyAnimator.Play("Kick");
     }
 
     private void PlaySitAnimation()
@@ -181,30 +281,17 @@ public class PlayerActions : MonoBehaviour
         decoyAnimator.Play("Walk");
     }
 
-
-    private void Walk(Vector3 direction)
-    {
-        //move the player
-        rb.AddForce(direction * speed * Time.deltaTime);
-        //rotate the player
-        Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
-        cj.targetRotation = toRotation;
-
-        PlayWalkAnimation();
-    }
-
     public bool IsSitting()
     {
         return isSitting;
     }
-
-    private bool IsIdle()
+    public bool IsKicking()
     {
-        return !isSitting && !isWalking && !attemptingAttack;
+        return isKicking;
     }
 
-    public bool IsAttemptingAttack()
+    public bool IsAttemptingHeadButt()
     {
-        return attemptingAttack;
+        return attemptingHeadButt;
     }
 }
