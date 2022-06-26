@@ -8,6 +8,7 @@ public class PlayerActions : MonoBehaviour
 
     private Rigidbody rb;
     private ConfigurableJoint cj;
+    private PlayerHealth ph;
     [SerializeField] private ConfigurableJoint cjBody;
 
     [SerializeField] private int speed;
@@ -18,9 +19,10 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private Animator decoyAnimator;
 
     [SerializeField] private GroundedDetector groundDetector;
+    [SerializeField] private BodyDetector bodyDetector;
 
     private bool isWalking = false;
-    private bool isAttacking = false;
+    [HideInInspector] public bool attemptingAttack = false;
     private bool canAttack = true;
     private bool isSitting = false;
 
@@ -35,6 +37,7 @@ public class PlayerActions : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cj = GetComponent<ConfigurableJoint>();
+        ph = GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -49,7 +52,7 @@ public class PlayerActions : MonoBehaviour
         direction.Normalize();
 
         //Walk
-        isWalking = (Mathf.Abs(direction.magnitude) > 0.4f) && !isSitting && !isAttacking;
+        isWalking = (Mathf.Abs(direction.magnitude) > 0.4f) && !isSitting && !attemptingAttack && !ph.IsKnockedOut();
         if (isWalking)
         {
             Walk(direction);
@@ -59,14 +62,14 @@ public class PlayerActions : MonoBehaviour
     private void Update()
     {
         //Attack
-        bool shouldAttack = Input.GetButtonDown("Attack" + playerData.GetPlayerID()) && !isSitting && canAttack;
+        bool shouldAttack = Input.GetButtonDown("Attack" + playerData.GetPlayerID()) && !isSitting && canAttack && !ph.IsKnockedOut();
         if (shouldAttack)
         {
             StartCoroutine("Attack");
         }
 
         //Jump
-        bool shouldJump = Input.GetButtonDown("Jump" + playerData.GetPlayerID()) && !isSitting;
+        bool shouldJump = Input.GetButtonDown("Jump" + playerData.GetPlayerID()) && !isSitting && !ph.IsKnockedOut();
         if (shouldJump)
         {
             //if on ground
@@ -82,7 +85,7 @@ public class PlayerActions : MonoBehaviour
         }
 
         //Sit
-        isSitting = Input.GetButton("Sit" + playerData.GetPlayerID());
+        isSitting = Input.GetButton("Sit" + playerData.GetPlayerID()) && !ph.IsKnockedOut();
         if (isSitting)
         {
             PlaySitAnimation();
@@ -92,6 +95,16 @@ public class PlayerActions : MonoBehaviour
         if (IsIdle())
         {
             PlayIdleAnimation();
+        }
+
+        bool attackingPlayer = attemptingAttack && bodyDetector.IsTouchingBody() != null;
+        if(attackingPlayer)
+        {
+            PlayerHealth victim = bodyDetector.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerHealth>();
+            if(!victim.IsAttackInProgress())
+            {
+                victim.StartCoroutine("Attacked", gameObject);
+            }
         }
     }
 
@@ -107,7 +120,8 @@ public class PlayerActions : MonoBehaviour
         cjBody.angularYZDrive = springDriveYZ;
 
         canAttack = false;
-        isAttacking = true;
+        attemptingAttack = true;
+
         PlayAttackAnimation();
 
         yield return new WaitForSeconds(attackLength/2);
@@ -120,7 +134,7 @@ public class PlayerActions : MonoBehaviour
 
         yield return new WaitForSeconds(attackLength / 2);
 
-        isAttacking = false;
+        attemptingAttack = false;
 
         yield return new WaitForSeconds(cooldownLength);
 
@@ -171,6 +185,11 @@ public class PlayerActions : MonoBehaviour
 
     private bool IsIdle()
     {
-        return !isSitting && !isWalking && !isAttacking;
+        return !isSitting && !isWalking && !attemptingAttack;
+    }
+
+    public bool IsAttemptingAttack()
+    {
+        return attemptingAttack;
     }
 }
