@@ -7,9 +7,7 @@ public class PlayerKO : MonoBehaviour
     private PlayerActions actionScript;
     private ConfigurableJoint cj;
     private Rigidbody rb;
-    private AudioSource myAudioSource;
-
-    [SerializeField] private AudioClip knockOut_CLIP;
+    [SerializeField] private AudioSource audioSource_KO;
 
     private bool headButtInProgress = false;
     private bool knockedOut = false;
@@ -45,7 +43,6 @@ public class PlayerKO : MonoBehaviour
         actionScript = GetComponent<PlayerActions>();
         cj = GetComponent<ConfigurableJoint>();
         rb = GetComponent<Rigidbody>();
-        myAudioSource = GetComponent<AudioSource>();
 
         currentHealth = startingHealth;
         knockoutTime = startingKnockoutTime;
@@ -105,16 +102,15 @@ public class PlayerKO : MonoBehaviour
 
         knockedOut = true;
 
-        myAudioSource.clip = knockOut_CLIP;
-        myAudioSource.pitch = Random.Range(0.8f, 1.2f);
-        myAudioSource.Play();
+        audioSource_KO.pitch = Random.Range(0.8f, 1.2f);
+        audioSource_KO.Play();
 
         Vector3 headButterPosition = headButtingPlayer.transform.position;
         Vector3 selfPosition = transform.position;
         Vector3 direction = new Vector3(selfPosition.x - headButterPosition.x, 0f, selfPosition.z - headButterPosition.z);
         direction.Normalize();
 
-        Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 2.5f, transform.position.z);
+        Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         rb.AddForceAtPosition(direction * knockbackForce * 0.3f, forcePosition, ForceMode.Impulse);
 
         direction.y = knockbackHeightVelocity;

@@ -11,10 +11,10 @@ public class PlayerActions : MonoBehaviour
     private ConfigurableJoint cj;
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private ConfigurableJoint cjLeftThigh;
-    private PlayerKO KOscript;
-    private AudioSource myAudioSource;
 
-    [SerializeField] private AudioClip attack_CLIP;
+    private PlayerKO KOscript;
+
+    [SerializeField] private AudioSource audioSource_Attack;
 
     [SerializeField] private int speed;
     [SerializeField] private int jumpForce;
@@ -54,7 +54,6 @@ public class PlayerActions : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         cj = GetComponent<ConfigurableJoint>();
         KOscript = GetComponent<PlayerKO>();
-        myAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -128,9 +127,8 @@ public class PlayerActions : MonoBehaviour
         {
             if(canPlayHitSound)
             {
-                myAudioSource.clip = attack_CLIP;
-                myAudioSource.pitch = Random.Range(0.8f, 1.2f);
-                myAudioSource.Play();
+                audioSource_Attack.pitch = Random.Range(0.8f, 1.2f);
+                audioSource_Attack.Play();
                 canPlayHitSound = false;
             }
 
@@ -147,9 +145,8 @@ public class PlayerActions : MonoBehaviour
         {
             isKicking = false;
 
-            myAudioSource.clip = attack_CLIP;
-            myAudioSource.pitch = Random.Range(0.8f, 1.2f);
-            myAudioSource.Play();
+            audioSource_Attack.pitch = Random.Range(0.8f, 1.2f);
+            audioSource_Attack.Play();
 
             PlayerKO victim = bodyDetector_FOOT.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
             victim.Kicked(gameObject);

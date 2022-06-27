@@ -200,14 +200,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.057073046, y: 0.14705524, z: -0.008499613, w: 0.9874438}
-  m_LocalPosition: {x: -3.6, y: 0.69, z: -2.59}
+  m_LocalRotation: {x: 0.24556115, y: 0, z: 0, w: 0.96938115}
+  m_LocalPosition: {x: 0, y: 2.08, z: -4.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 6.616, y: 16.941, z: 0}
+  m_LocalEulerAnglesHint: {x: 28.43, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ GameObject:
   - component: {fileID: 1599982456}
   - component: {fileID: 1599982455}
   - component: {fileID: 1599982454}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
   m_Icon: {fileID: 0}
