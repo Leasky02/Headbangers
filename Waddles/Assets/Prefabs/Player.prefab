@@ -86,8 +86,8 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 0
-  m_AngularZMotion: 0
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -593,8 +593,8 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 0
-  m_AngularZMotion: 0
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -1680,8 +1680,8 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 0
-  m_AngularZMotion: 0
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -1867,7 +1867,7 @@ MonoBehaviour:
   minimumAngle: 0
   maximumAngle: 75
   kickingDamage: 0
-  startingKnockoutTime: 3
+  startingKnockoutTime: 500
   knockoutTime: 0
   graceTime: 2
   healthRegenerateTimeDelay: 1
@@ -2293,8 +2293,8 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 0
-  m_AngularZMotion: 0
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -2843,8 +2843,8 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 0
-  m_AngularZMotion: 0
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0
@@ -3006,8 +3006,8 @@ ConfigurableJoint:
   m_YMotion: 0
   m_ZMotion: 0
   m_AngularXMotion: 2
-  m_AngularYMotion: 0
-  m_AngularZMotion: 0
+  m_AngularYMotion: 2
+  m_AngularZMotion: 2
   m_LinearLimitSpring:
     spring: 0
     damper: 0
