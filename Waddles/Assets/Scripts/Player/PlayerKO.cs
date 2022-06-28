@@ -108,7 +108,7 @@ public class PlayerKO : MonoBehaviour
         Vector3 headButterPosition = headButtingPlayer.transform.position;
         Vector3 selfPosition = transform.position;
         Vector3 direction = new Vector3(selfPosition.x - headButterPosition.x, 0f, selfPosition.z - headButterPosition.z);
-        direction.Normalize();
+        direction = direction.normalized;
 
         Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
         rb.AddForceAtPosition(direction * knockbackForce * 0.3f, forcePosition, ForceMode.Impulse);
@@ -160,7 +160,7 @@ public class PlayerKO : MonoBehaviour
         Vector3 headButterPosition = headButtingPlayer.transform.position;
         Vector3 selfPosition = transform.position;
         Vector3 direction = new Vector3(selfPosition.x - headButterPosition.x, 0f, selfPosition.z - headButterPosition.z);
-        direction.Normalize();
+        direction = direction.normalized;
 
         rb.AddForce(direction * knockbackForce, ForceMode.Impulse);
 

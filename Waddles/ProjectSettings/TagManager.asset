@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Body
   - Leg
+  - Interactable
+  - DeadZone
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

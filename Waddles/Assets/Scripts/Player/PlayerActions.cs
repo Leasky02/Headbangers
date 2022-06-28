@@ -65,7 +65,7 @@ public class PlayerActions : MonoBehaviour
 
         //calculate movement direction of the player
         Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
-        direction.Normalize();
+        direction = direction.normalized;
 
         //Walk
         isWalking = (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !KOscript.IsKnockedOut();
