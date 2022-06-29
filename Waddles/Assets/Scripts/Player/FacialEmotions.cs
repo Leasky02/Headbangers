@@ -116,71 +116,74 @@ public class FacialEmotions : MonoBehaviour
 
     public IEnumerator ChangeEmotion(string eyebrowState, string eyeState, string mouthState, float emotionLength)
     {
-        changeEmotionQueue++;
-
-        //set eyebrows
-        switch (eyebrowState)
+        if(!knockedOut)
         {
-            case "happy":
-                eyebrows.sprite = eyebrow_sprite[0];
-                break;
+            changeEmotionQueue++;
 
-            case "neutra":
-                eyebrows.sprite = eyebrow_sprite[1];
-                break;
+            //set eyebrows
+            switch (eyebrowState)
+            {
+                case "happy":
+                    eyebrows.sprite = eyebrow_sprite[0];
+                    break;
 
-            case "sad":
-                eyebrows.sprite = eyebrow_sprite[2];
-                break;
+                case "neutra":
+                    eyebrows.sprite = eyebrow_sprite[1];
+                    break;
 
-            case "angry":
-                eyebrows.sprite = eyebrow_sprite[3];
-                break;
-        }
+                case "sad":
+                    eyebrows.sprite = eyebrow_sprite[2];
+                    break;
 
-        //set eyes
-        switch (eyeState)
-        {
-            case "open":
-                eyes.sprite = eye_sprite[0];
-                break;
+                case "angry":
+                    eyebrows.sprite = eyebrow_sprite[3];
+                    break;
+            }
 
-            case "closed":
-                eyes.sprite = eye_sprite[1];
-                break;
+            //set eyes
+            switch (eyeState)
+            {
+                case "open":
+                    eyes.sprite = eye_sprite[0];
+                    break;
 
-            case "dead":
-                eyes.sprite = eye_sprite[2];
-                break;
-        }
+                case "closed":
+                    eyes.sprite = eye_sprite[1];
+                    break;
 
-        //set mouth
-        switch (mouthState)
-        {
-            case "happy":
-                mouth.sprite = mouth_sprite[0];
-                break;
+                case "dead":
+                    eyes.sprite = eye_sprite[2];
+                    break;
+            }
 
-            case "happy open":
-                mouth.sprite = mouth_sprite[1];
-                break;
+            //set mouth
+            switch (mouthState)
+            {
+                case "happy":
+                    mouth.sprite = mouth_sprite[0];
+                    break;
 
-            case "sad":
-                mouth.sprite = mouth_sprite[2];
-                break;
+                case "happy open":
+                    mouth.sprite = mouth_sprite[1];
+                    break;
 
-            case "sad open":
-                mouth.sprite = mouth_sprite[3];
-                break;
-        }
+                case "sad":
+                    mouth.sprite = mouth_sprite[2];
+                    break;
 
-        yield return new WaitForSeconds(emotionLength);
+                case "sad open":
+                    mouth.sprite = mouth_sprite[3];
+                    break;
+            }
 
-        changeEmotionQueue--;
+            yield return new WaitForSeconds(emotionLength);
 
-        if (changeEmotionQueue == 0 && !knockedOut)
-        {
-            ResetFace();
+            changeEmotionQueue--;
+
+            if (changeEmotionQueue == 0 && !knockedOut)
+            {
+                ResetFace();
+            }
         }
     }
 
