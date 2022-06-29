@@ -27,6 +27,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private BodyDetector bodyDetector_HEAD;
     [SerializeField] private BodyDetector bodyDetector_FOOT;
 
+    [SerializeField] private FacialEmotions face;
+
     private bool canHeadButt = true;
     private bool canKick = true;
 
@@ -127,7 +129,7 @@ public class PlayerActions : MonoBehaviour
         {
             if(canPlayHitSound)
             {
-                audioSource_Attack.pitch = Random.Range(0.8f, 1.2f);
+                audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
                 audioSource_Attack.Play();
                 canPlayHitSound = false;
             }
@@ -136,6 +138,8 @@ public class PlayerActions : MonoBehaviour
             if (!victim.IsHeadButtInProgress())
             {
                 victim.StartCoroutine(victim.HeadButted(gameObject , cjBody.gameObject.transform.localRotation.eulerAngles.x));
+
+                StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
             }
         }
 
@@ -145,11 +149,13 @@ public class PlayerActions : MonoBehaviour
         {
             isKicking = false;
 
-            audioSource_Attack.pitch = Random.Range(0.8f, 1.2f);
+            audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
             audioSource_Attack.Play();
 
             PlayerKO victim = bodyDetector_FOOT.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
             victim.Kicked(gameObject);
+
+            StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
         }
     }
     private bool ShouldKick()
@@ -175,6 +181,8 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator HeadButt()
     {
+        StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
+
         JointDrive springDriveX = cjBody.angularXDrive;
         JointDrive springDriveYZ = cjBody.angularYZDrive;
 
@@ -215,6 +223,8 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator Kick()
     {
+        StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
+
         canKick = false;
 
         isKicking = true;

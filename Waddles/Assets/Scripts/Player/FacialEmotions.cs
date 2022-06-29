@@ -22,14 +22,14 @@ public class FacialEmotions : MonoBehaviour
     //2 = sad mouth
     //3 = sad open mouth
 
+    private int changeEmotionQueue = 0;
+    private bool knockedOut = false;
     private bool blink = true;
     [SerializeField] private float blinkLength;
 
     private void Start()
     {
         StartCoroutine(Blink());
-
-        InvokeRepeating("RandomEmotion", 1f, 1f);
     }
 
     private IEnumerator Blink()
@@ -62,9 +62,9 @@ public class FacialEmotions : MonoBehaviour
         string eyebrowState = "", eyeState = "", mouthState = "";
         int eyebrowIndex, eyeIndex, mouthIndex;
 
-        eyebrowIndex = Random.Range(0, 3);
-        eyeIndex = Random.Range(0, 2);
-        mouthIndex = Random.Range(0, 4);
+        eyebrowIndex = Random.Range(0, eyebrow_sprite.Length);
+        eyeIndex = Random.Range(0, eye_sprite.Length);
+        mouthIndex = Random.Range(0, mouth_sprite.Length);
 
         switch(eyebrowIndex)
         {
@@ -111,15 +111,17 @@ public class FacialEmotions : MonoBehaviour
                 break;
         }
 
-        ChangeEmotion(eyebrowState, eyeState, mouthState);
+        ChangeEmotion(eyebrowState, eyeState, mouthState, 1);
     }
 
-    public void ChangeEmotion(string eyebrowState, string eyeState, string mouthState)
+    public IEnumerator ChangeEmotion(string eyebrowState, string eyeState, string mouthState, float emotionLength)
     {
+        changeEmotionQueue++;
+
         //set eyebrows
-        switch(eyebrowState)
+        switch (eyebrowState)
         {
-            case"happy":
+            case "happy":
                 eyebrows.sprite = eyebrow_sprite[0];
                 break;
 
@@ -129,6 +131,10 @@ public class FacialEmotions : MonoBehaviour
 
             case "sad":
                 eyebrows.sprite = eyebrow_sprite[2];
+                break;
+
+            case "angry":
+                eyebrows.sprite = eyebrow_sprite[3];
                 break;
         }
 
@@ -167,5 +173,39 @@ public class FacialEmotions : MonoBehaviour
                 mouth.sprite = mouth_sprite[3];
                 break;
         }
+
+        yield return new WaitForSeconds(emotionLength);
+
+        changeEmotionQueue--;
+
+        if (changeEmotionQueue == 0 && !knockedOut)
+        {
+            ResetFace();
+        }
+    }
+
+    private void ResetFace()
+    {
+        eyebrows.sprite = eyebrow_sprite[0];
+        eyes.sprite = eye_sprite[0];
+        mouth.sprite = mouth_sprite[0];
+    }
+    public void KnockedOut()
+    {
+        knockedOut = true;
+        SetBlink(false);
+
+        eyebrows.sprite = null;
+        eyes.sprite = eye_sprite[2];
+        mouth.sprite = mouth_sprite[2];
+    }
+    public void Revived()
+    {
+        knockedOut = false;
+
+        SetBlink(true);
+
+        eyebrows.sprite = eyebrow_sprite[1];
+        StartCoroutine(ChangeEmotion("neutral", "open", "sad", 3f));
     }
 }

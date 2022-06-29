@@ -37,6 +37,8 @@ public class PlayerKO : MonoBehaviour
     [SerializeField] private float healthRegenerateTimeDelay;
     [SerializeField] private float knockoutReduceTimeDelay;
 
+    [SerializeField] private FacialEmotions face;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +76,7 @@ public class PlayerKO : MonoBehaviour
         else
         {
             Knockback(headButtingPlayer);
+            ChangeFace();
 
             yield return new WaitForSeconds(graceTime/2f);
             headButtInProgress = false;
@@ -91,7 +94,16 @@ public class PlayerKO : MonoBehaviour
         else
         {
             Knockback(headButtingPlayer);
+            ChangeFace();
         }
+    }
+
+    private void ChangeFace()
+    {
+        if(currentHealth > 50)
+            StartCoroutine(face.ChangeEmotion("sad", "open", "sad", 2f));
+        else if(currentHealth > 0)
+            StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 3f));
     }
 
     private IEnumerator KO(GameObject headButtingPlayer)
@@ -99,8 +111,8 @@ public class PlayerKO : MonoBehaviour
         currentHealth = recoveryHealth;
         recoveryHealth = Mathf.Clamp(recoveryHealth - recoveryHealthReduction, minRecoveryHealth, maxRecoveryHealth);
         
-
         knockedOut = true;
+        face.KnockedOut();
 
         audioSource_KO.pitch = Random.Range(0.8f, 1.2f);
         audioSource_KO.Play();
@@ -134,6 +146,7 @@ public class PlayerKO : MonoBehaviour
 
         knockoutTime += 0.5f;
         knockedOut = false;
+        face.Revived();
 
         foreach (ConfigurableJoint bodyPart in bodyParts)
         {
