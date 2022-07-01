@@ -70,7 +70,7 @@ public class PlayerActions : MonoBehaviour
         direction = direction.normalized;
 
         //Walk
-        isWalking = (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !KOscript.IsKnockedOut();
+        isWalking = IsWalking(direction);
         if (isWalking)
         {
             Walk(direction);
@@ -160,19 +160,19 @@ public class PlayerActions : MonoBehaviour
     }
     private bool ShouldKick()
     {
-        return canKick && !isSitting && !KOscript.IsKnockedOut();
+        return canKick && !isSitting && !playerData.GetKnockedOut();
     }
     private bool ShouldHeadButt()
     {
-        return !isSitting && canHeadButt && !KOscript.IsKnockedOut();
+        return !isSitting && canHeadButt && !playerData.GetKnockedOut();
     }
     private bool ShouldJump()
     {
-        return !isKicking && !isSitting && !KOscript.IsKnockedOut();
+        return !isKicking && !isSitting && !playerData.GetKnockedOut();
     }
     private bool ShouldSit()
     {
-        return !isKicking && !KOscript.IsKnockedOut();
+        return !isKicking && !playerData.GetKnockedOut();
     }
     private bool ShouldIdle()
     {
@@ -286,6 +286,10 @@ public class PlayerActions : MonoBehaviour
     private void PlayWalkAnimation()
     {
         decoyAnimator.Play("Walk");
+    }
+    public bool IsWalking(Vector3 direction)
+    {
+        return (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !playerData.GetKnockedOut();
     }
 
     public bool IsSitting()

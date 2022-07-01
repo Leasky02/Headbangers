@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class DeathDetector : MonoBehaviour
 {
-    private Transform spawnPoint;
-
     [SerializeField] private Transform hipParent;
+    [SerializeField] private PlayerDeath playerDeath;
 
-    private void Start()
-    {
-        spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
-    }
+    [SerializeField] private PlayerData playerData;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
         {
-            Respawn();
-        }
-    }
+            if (playerData.GetDead())
+            {
+                playerData.SetDead(false);
+                playerDeath.Revive();
+            }
+            else
+            {
+                playerData.SetDead(true);
+                playerDeath.Die();
+            }
 
-    private void Respawn()
-    {
-        Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1f, 1f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1f, 1f)));
-        hipParent.position = newPosition;
+        }
     }
 }

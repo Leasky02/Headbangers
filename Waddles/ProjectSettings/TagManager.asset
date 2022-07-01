@@ -17,11 +17,11 @@ TagManager:
   - 
   - Water
   - UI
-  - PlayerParts
   - 
-  - 
-  - 
-  - 
+  - Player_Ghost
+  - PlayerLegs_Ghost
+  - Player
+  - PlayerLegs
   - 
   - 
   - 

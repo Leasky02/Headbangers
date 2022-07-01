@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FacialEmotions : MonoBehaviour
 {
+    [SerializeField] private PlayerData playerData;
+
     [SerializeField] private SpriteRenderer eyebrows;
     [SerializeField] private SpriteRenderer eyes;
     [SerializeField] private SpriteRenderer mouth;
@@ -23,7 +25,6 @@ public class FacialEmotions : MonoBehaviour
     //3 = sad open mouth
 
     private int changeEmotionQueue = 0;
-    private bool knockedOut = false;
     private bool blink = true;
     [SerializeField] private float blinkLength;
 
@@ -116,7 +117,7 @@ public class FacialEmotions : MonoBehaviour
 
     public IEnumerator ChangeEmotion(string eyebrowState, string eyeState, string mouthState, float emotionLength)
     {
-        if(!knockedOut)
+        if(!playerData.GetKnockedOut())
         {
             changeEmotionQueue++;
 
@@ -180,7 +181,7 @@ public class FacialEmotions : MonoBehaviour
 
             changeEmotionQueue--;
 
-            if (changeEmotionQueue == 0 && !knockedOut)
+            if (changeEmotionQueue == 0 && !playerData.GetKnockedOut())
             {
                 ResetFace();
             }
@@ -195,7 +196,7 @@ public class FacialEmotions : MonoBehaviour
     }
     public void KnockedOut()
     {
-        knockedOut = true;
+        playerData.SetKnockedOut(true);
         SetBlink(false);
 
         eyebrows.sprite = null;
@@ -204,7 +205,7 @@ public class FacialEmotions : MonoBehaviour
     }
     public void Revived()
     {
-        knockedOut = false;
+        playerData.SetKnockedOut(false);
 
         SetBlink(true);
 

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerKO : MonoBehaviour
 {
+    [SerializeField] private PlayerData playerData;
     private PlayerActions actionScript;
     private ConfigurableJoint cj;
     private Rigidbody rb;
     [SerializeField] private AudioSource audioSource_KO;
 
     private bool headButtInProgress = false;
-    private bool knockedOut = false;
 
     [SerializeField] private float deadSpringValue;
 
@@ -68,7 +68,7 @@ public class PlayerKO : MonoBehaviour
             currentHealth = Mathf.Round(currentHealth - (CalculateDamage(angle) * 0.5f));
         }
 
-        bool shouldKO = currentHealth <= 0 && !knockedOut;
+        bool shouldKO = currentHealth <= 0 && !playerData.GetKnockedOut();
         if (shouldKO)
         {
             StartCoroutine(KO(headButtingPlayer));
@@ -87,7 +87,7 @@ public class PlayerKO : MonoBehaviour
     {
         currentHealth -= kickingDamage;
 
-        if(currentHealth <= 0 && !knockedOut)
+        if(currentHealth <= 0 && !playerData.GetKnockedOut())
         {
             StartCoroutine(KO(headButtingPlayer));
         }
@@ -110,8 +110,8 @@ public class PlayerKO : MonoBehaviour
     {
         currentHealth = recoveryHealth;
         recoveryHealth = Mathf.Clamp(recoveryHealth - recoveryHealthReduction, minRecoveryHealth, maxRecoveryHealth);
-        
-        knockedOut = true;
+
+        playerData.SetKnockedOut(true);
         face.KnockedOut();
 
         audioSource_KO.pitch = Random.Range(0.8f, 1.2f);
@@ -123,7 +123,7 @@ public class PlayerKO : MonoBehaviour
         direction = direction.normalized;
 
         Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-        rb.AddForceAtPosition(direction * knockbackForce * 0.3f, forcePosition, ForceMode.Impulse);
+        rb.AddForceAtPosition(direction * knockbackForce * 0.7f, forcePosition, ForceMode.Impulse);
 
         direction.y = knockbackHeightVelocity;
         rb.velocity = new Vector3(direction.x, direction.y, direction.z);
@@ -145,7 +145,7 @@ public class PlayerKO : MonoBehaviour
         yield return new WaitForSeconds(knockoutTime);
 
         knockoutTime += 0.5f;
-        knockedOut = false;
+        playerData.SetKnockedOut(false);
         face.Revived();
 
         foreach (ConfigurableJoint bodyPart in bodyParts)
@@ -195,7 +195,7 @@ public class PlayerKO : MonoBehaviour
 
     private IEnumerator RegenerateHealth()
     {
-        if (!knockedOut)
+        if (!playerData.GetKnockedOut())
         {
             if (currentHealth < startingHealth)
                 currentHealth ++;
@@ -207,7 +207,7 @@ public class PlayerKO : MonoBehaviour
 
     private IEnumerator ImproveEndurance()
     {
-        if (!knockedOut)
+        if (!playerData.GetKnockedOut())
         {
             ReduceKnockoutTime();
             IncreaseRecoveryHealth();
@@ -231,10 +231,5 @@ public class PlayerKO : MonoBehaviour
     public bool IsHeadButtInProgress()
     {
         return headButtInProgress;
-    }
-
-    public bool IsKnockedOut()
-    {
-        return knockedOut;
     }
 }
