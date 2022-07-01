@@ -16,17 +16,19 @@ public class PlayerDeath : MonoBehaviour
 
     private void Start()
     {
+        //set spawn point
         spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
     }
 
+    //player dies
     public void Die()
     {
         Respawn();
 
-        //disable the kick / head butt hit boxes
+        //disable the bodyDetector
         foreach (BoxCollider boxes in bodyDetectors)
         {
-            boxes.enabled = false;
+            boxes.gameObject.GetComponent<BodyDetector>().enabled = false;
         }
 
         //change layers of body parts
@@ -40,6 +42,9 @@ public class PlayerDeath : MonoBehaviour
             legPart.layer = LayerMask.NameToLayer("PlayerLegs_Ghost");
         }
 
+        //remove body tag
+        bodyParts[0].tag = "Untagged";
+
         //hide feet
         shoes[0].enabled = false;
         shoes[1].enabled = false;
@@ -47,20 +52,23 @@ public class PlayerDeath : MonoBehaviour
         //change material of body and face
         playerColor.UpdateMaterial();
     }
+
+    //player respawns
     private void Respawn()
     {
         Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1f, 1f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1f, 1f)));
         transform.position = newPosition;
     }
 
+    //when player is brought back to life
     public void Revive()
     {
         Respawn();
 
-        //enable the kick / head butt hit boxes
+        //enable the bodyDetector
         foreach (BoxCollider boxes in bodyDetectors)
         {
-            boxes.enabled = true;
+            boxes.gameObject.GetComponent<BodyDetector>().enabled = true;
         }
 
         //change layers of body parts
@@ -73,6 +81,9 @@ public class PlayerDeath : MonoBehaviour
         {
             legPart.layer = LayerMask.NameToLayer("PlayerLegs");
         }
+
+        //remove body tag
+        bodyParts[0].tag = "Body";
 
         //show feet
         shoes[0].enabled = true;

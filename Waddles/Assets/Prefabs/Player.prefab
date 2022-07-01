@@ -139,12 +139,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 300
+    positionSpring: 400
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 300
+    positionSpring: 400
     positionDamper: 5
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -549,12 +549,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 300
+    positionSpring: 400
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 300
+    positionSpring: 400
     positionDamper: 5
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -1731,7 +1731,7 @@ MonoBehaviour:
   cjBody: {fileID: 287567893246454670}
   cjLeftThigh: {fileID: 287567893227178274}
   audioSource_Attack: {fileID: 1827410766340730214}
-  speed: 2400
+  speed: 2500
   jumpForce: 30
   decoyAnimator: {fileID: 287567892653818831}
   groundDetector: {fileID: 287567894028973367}
@@ -3701,7 +3701,6 @@ GameObject:
   - component: {fileID: 6884108239244774980}
   - component: {fileID: 8213037277454931382}
   - component: {fileID: 6296502896523965792}
-  - component: {fileID: 1823051229315080515}
   m_Layer: 0
   m_Name: Body Detector
   m_TagString: Untagged
@@ -3735,8 +3734,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.43077305, y: 0.14459264, z: 0.070519924}
-  m_Center: {x: 0.0049681216, y: -0.18341547, z: 0.13188326}
+  m_Size: {x: 0.5599382, y: 0.14459264, z: 0.070519924}
+  m_Center: {x: 0.032293312, y: -0.18341547, z: 0.13188326}
 --- !u!114 &6884108239244774980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3749,6 +3748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65abcedca38b34d4987a418354a628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 6734269064375405810}
   self: {fileID: 287567893732489334}
 --- !u!114 &8213037277454931382
 MonoBehaviour:
@@ -3766,7 +3766,7 @@ MonoBehaviour:
   isBody: 1
   actionScript: {fileID: 287567893963814829}
   attackAudioSource: {fileID: 1827410766340730214}
-  objectForce: 7
+  objectForce: 3
 --- !u!54 &6296502896523965792
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3783,23 +3783,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1823051229315080515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6505077446327547783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ad0471b40eaad646ac7dfbfa3f686b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFoot: 0
-  isBody: 0
-  actionScript: {fileID: 0}
-  attackAudioSource: {fileID: 0}
-  objectForce: 10
 --- !u!1 &6680999336114948448
 GameObject:
   m_ObjectHideFlags: 0
@@ -3846,7 +3829,6 @@ GameObject:
   - component: {fileID: 71671381993922268}
   - component: {fileID: 3255089126257715566}
   - component: {fileID: 8982372935273019008}
-  - component: {fileID: 205944409957871947}
   m_Layer: 0
   m_Name: Body Detector
   m_TagString: Untagged
@@ -3880,8 +3862,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.30522054, y: 0.1355574, z: 0.3087875}
-  m_Center: {x: 0.06808975, y: -0.17889786, z: 0.06941961}
+  m_Size: {x: 0.30522054, y: 0.22711301, z: 0.3824564}
+  m_Center: {x: 0.06808975, y: -0.2246759, z: 0.106254056}
 --- !u!114 &71671381993922268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3894,6 +3876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65abcedca38b34d4987a418354a628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 6734269064375405810}
   self: {fileID: 287567893732489334}
 --- !u!114 &3255089126257715566
 MonoBehaviour:
@@ -3911,7 +3894,7 @@ MonoBehaviour:
   isBody: 0
   actionScript: {fileID: 287567893963814829}
   attackAudioSource: {fileID: 1827410766340730214}
-  objectForce: 8
+  objectForce: 4
 --- !u!54 &8982372935273019008
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3928,23 +3911,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &205944409957871947
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7181382599750028640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ad0471b40eaad646ac7dfbfa3f686b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isFoot: 0
-  isBody: 0
-  actionScript: {fileID: 0}
-  attackAudioSource: {fileID: 0}
-  objectForce: 10
 --- !u!1 &7828384472797565185
 GameObject:
   m_ObjectHideFlags: 0

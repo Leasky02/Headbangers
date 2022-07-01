@@ -9,10 +9,13 @@ public class DeathDetector : MonoBehaviour
 
     [SerializeField] private PlayerData playerData;
 
+    //when collides with dead zone beneath map
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
         {
+            //temporary reversing of death state
+            //will change to just kill
             if (playerData.GetDead())
             {
                 playerData.SetDead(false);
@@ -23,7 +26,6 @@ public class DeathDetector : MonoBehaviour
                 playerData.SetDead(true);
                 playerDeath.Die();
             }
-
         }
     }
 }

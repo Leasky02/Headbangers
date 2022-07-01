@@ -6,6 +6,7 @@ public class FacialEmotions : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData;
 
+    //mouth components
     [SerializeField] private SpriteRenderer eyebrows;
     [SerializeField] private SpriteRenderer eyes;
     [SerializeField] private SpriteRenderer mouth;
@@ -30,9 +31,11 @@ public class FacialEmotions : MonoBehaviour
 
     private void Start()
     {
+        //begin blinking 
         StartCoroutine(Blink());
     }
 
+    //character blink
     private IEnumerator Blink()
     {
         if(blink)
@@ -46,6 +49,7 @@ public class FacialEmotions : MonoBehaviour
             eyes.sprite = currentEyeState;
         }
 
+        //time to next blink
         float nextBlink = Random.Range(0.5f, 4f);
 
         yield return new WaitForSeconds(nextBlink);
@@ -53,11 +57,13 @@ public class FacialEmotions : MonoBehaviour
         StartCoroutine(Blink());
     }
 
+    //changes if blinking should happen
     public void SetBlink(bool blinkState)
     {
         blink = blinkState;
     }
 
+    //currently not used but useful for future
     public void RandomEmotion()
     {
         string eyebrowState = "", eyeState = "", mouthState = "";
@@ -188,12 +194,15 @@ public class FacialEmotions : MonoBehaviour
         }
     }
 
+    //reset face to default
     private void ResetFace()
     {
         eyebrows.sprite = eyebrow_sprite[0];
         eyes.sprite = eye_sprite[0];
         mouth.sprite = mouth_sprite[0];
     }
+
+    //when knocked out
     public void KnockedOut()
     {
         playerData.SetKnockedOut(true);
@@ -203,6 +212,8 @@ public class FacialEmotions : MonoBehaviour
         eyes.sprite = eye_sprite[2];
         mouth.sprite = mouth_sprite[2];
     }
+
+    //when revived
     public void Revived()
     {
         playerData.SetKnockedOut(false);

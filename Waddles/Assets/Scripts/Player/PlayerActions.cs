@@ -58,7 +58,7 @@ public class PlayerActions : MonoBehaviour
         KOscript = GetComponent<PlayerKO>();
     }
 
-    // Update is called once per frame
+    // Fixed Update is called 30x per frame
     void FixedUpdate()
     {
         //get input direction and move
@@ -127,6 +127,7 @@ public class PlayerActions : MonoBehaviour
         bool HeadButtingPlayer = attemptingHeadButt && bodyDetector_HEAD.IsTouchingBody() != null;
         if (HeadButtingPlayer)
         {
+            //if can play the attack sound
             if(canPlayHitSound)
             {
                 audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
@@ -134,6 +135,7 @@ public class PlayerActions : MonoBehaviour
                 canPlayHitSound = false;
             }
 
+            //access the player attacked for checks
             PlayerKO victim = bodyDetector_HEAD.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
             if (!victim.IsHeadButtInProgress())
             {
@@ -152,15 +154,18 @@ public class PlayerActions : MonoBehaviour
             audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
             audioSource_Attack.Play();
 
+            //access the player attacked for checks
             PlayerKO victim = bodyDetector_FOOT.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
             victim.Kicked(gameObject);
 
             StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
         }
     }
+
+    //action checks
     private bool ShouldKick()
     {
-        return canKick && !isSitting && !playerData.GetKnockedOut();
+        return canKick && !isSitting && !playerData.GetKnockedOut() && !playerData.GetDead();
     }
     private bool ShouldHeadButt()
     {
@@ -183,6 +188,7 @@ public class PlayerActions : MonoBehaviour
     {
         StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
 
+        //change spring joints to be higher for faster head butt
         JointDrive springDriveX = cjBody.angularXDrive;
         JointDrive springDriveYZ = cjBody.angularYZDrive;
 
@@ -199,6 +205,7 @@ public class PlayerActions : MonoBehaviour
 
         yield return new WaitForSeconds(HeadButtLength/2);
 
+        //reset spring joint back to normal
         springDriveX.positionSpring = normalSpringValue_BODY;
         springDriveYZ.positionSpring = normalSpringValue_BODY;
 
@@ -230,6 +237,7 @@ public class PlayerActions : MonoBehaviour
         isKicking = true;
         PlayKickAnimation();
 
+        //increase joint spring for fast attack
         JointDrive springDriveX = cjLeftThigh.angularXDrive;
         JointDrive springDriveYZ = cjLeftThigh.angularYZDrive;
 
@@ -243,6 +251,7 @@ public class PlayerActions : MonoBehaviour
 
         isKicking = false;
 
+        //return joint spring back to normal
         springDriveX.positionSpring = normalSpringValue_LeftThigh;
         springDriveYZ.positionSpring = normalSpringValue_LeftThigh;
 
@@ -256,7 +265,15 @@ public class PlayerActions : MonoBehaviour
     private void Walk(Vector3 direction)
     {
         //move the player
-        rb.AddForce(direction * speed * Time.deltaTime);
+        if(!playerData.GetDead())
+        {
+            rb.AddForce(direction * speed * Time.deltaTime);
+        }
+        else
+        {
+            rb.AddForce(direction * speed * 2 * Time.deltaTime);
+        }
+        
         //rotate the player
         Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
         cj.targetRotation = toRotation;
@@ -264,6 +281,7 @@ public class PlayerActions : MonoBehaviour
         PlayWalkAnimation();
     }
 
+    //animations
     private void PlayHeadButtAnimation()
     {
         decoyAnimator.Play("HeadButt");
@@ -285,8 +303,13 @@ public class PlayerActions : MonoBehaviour
     }
     private void PlayWalkAnimation()
     {
-        decoyAnimator.Play("Walk");
+        if(!playerData.GetDead())
+        {
+            decoyAnimator.Play("Walk");
+        }
     }
+
+    //return checks for action states
     public bool IsWalking(Vector3 direction)
     {
         return (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !playerData.GetKnockedOut();

@@ -19,23 +19,22 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] private SpriteRenderer[] faceParts;
 
-    private Color playerColor;
     [SerializeField] private float deadTransparency;
 
     private void Start()
     {
-        playerColor = playerData.GetPlayerColor();
-        bodyMeshRenderer.material.color = playerColor;
+        bodyMeshRenderer.material.color = playerData.GetPlayerColor();
     }
 
+    //change player color
     private void UpdateColor(Color newColor)
     {
         playerData.SetPlayerColor(newColor);
-        playerColor = newColor;
 
         UpdateMaterial();
     }
 
+    //update material with colour and transparency based on dead state
     public void UpdateMaterial()
     {
         if(playerData.GetDead())
@@ -45,7 +44,7 @@ public class PlayerColor : MonoBehaviour
             shoeMeshRenderer_L.material = transparentMaterial_Shoe;
             shoeMeshRenderer_R.material = transparentMaterial_Shoe;
 
-            Color transparentColor = new Color(playerColor.r, playerColor.g, playerColor.b, deadTransparency);
+            Color transparentColor = new Color(playerData.GetPlayerColor().r, playerData.GetPlayerColor().g, playerData.GetPlayerColor().b, deadTransparency);
             bodyMeshRenderer.material.color = transparentColor;
         }
         else
@@ -55,15 +54,16 @@ public class PlayerColor : MonoBehaviour
             shoeMeshRenderer_L.material = standardMaterial_Shoe;
             shoeMeshRenderer_R.material = standardMaterial_Shoe;
 
-            bodyMeshRenderer.material.color = playerColor;
+            bodyMeshRenderer.material.color = playerData.GetPlayerColor();
         }
 
         UpdateFace();
     }
 
+    //update transparency of face based on dead state
     public void UpdateFace()
     {
-        //change transparency of face
+        //change transparency of each face component
         foreach (SpriteRenderer facePart in faceParts)
         {
             if(playerData.GetDead())

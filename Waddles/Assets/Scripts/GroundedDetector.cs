@@ -11,6 +11,7 @@ public class GroundedDetector : MonoBehaviour
 
     [SerializeField] private ConfigurableJoint[] bodyparts;
 
+    //when collides with ground
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Ground"))
@@ -25,6 +26,8 @@ public class GroundedDetector : MonoBehaviour
             }
         }
     }
+
+    //when leaves the ground
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ground"))
@@ -40,6 +43,7 @@ public class GroundedDetector : MonoBehaviour
         }
     }
 
+    //adjusts body springs depending on isGrounded
     private void AdjustSpring(float multiplier)
     {
         foreach(ConfigurableJoint bodyPart in bodyparts)

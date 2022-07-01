@@ -54,10 +54,12 @@ public class PlayerKO : MonoBehaviour
         StartCoroutine(ImproveEndurance());
     }
 
+    //called when headbutted
     public IEnumerator HeadButted(GameObject headButtingPlayer, float angle)
     {
         headButtInProgress = true;
 
+        //calculate damage
         bool fightingBack = actionScript.IsAttemptingHeadButt();
         if (!fightingBack)
         {
@@ -68,6 +70,7 @@ public class PlayerKO : MonoBehaviour
             currentHealth = Mathf.Round(currentHealth - (CalculateDamage(angle) * 0.5f));
         }
 
+        //determine if KO'd
         bool shouldKO = currentHealth <= 0 && !playerData.GetKnockedOut();
         if (shouldKO)
         {
@@ -98,6 +101,7 @@ public class PlayerKO : MonoBehaviour
         }
     }
 
+    //change face based on current health
     private void ChangeFace()
     {
         if(currentHealth > 50)
@@ -106,6 +110,7 @@ public class PlayerKO : MonoBehaviour
             StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 3f));
     }
 
+    //knocked out
     private IEnumerator KO(GameObject headButtingPlayer)
     {
         currentHealth = recoveryHealth;
@@ -168,6 +173,7 @@ public class PlayerKO : MonoBehaviour
         headButtInProgress = false;
     }
 
+    //knocked back
     private void Knockback(GameObject headButtingPlayer)
     {
         Vector3 headButterPosition = headButtingPlayer.transform.position;
@@ -181,6 +187,7 @@ public class PlayerKO : MonoBehaviour
         rb.velocity = new Vector3(direction.x, direction.y, direction.z);
     }
 
+    //calculates damage when headbutted
     private float CalculateDamage(float angle)
     {
         angle = Mathf.Clamp(angle, 0f, 75f);
@@ -193,6 +200,7 @@ public class PlayerKO : MonoBehaviour
         return damage;
     }
 
+    //regenerates health regularly
     private IEnumerator RegenerateHealth()
     {
         if (!playerData.GetKnockedOut())
@@ -205,6 +213,7 @@ public class PlayerKO : MonoBehaviour
         }
     }
 
+    //improves knockout time and increases starting amount of health after waking up
     private IEnumerator ImproveEndurance()
     {
         if (!playerData.GetKnockedOut())
@@ -228,6 +237,7 @@ public class PlayerKO : MonoBehaviour
         recoveryHealth = Mathf.Clamp(recoveryHealth + 2, minRecoveryHealth, maxRecoveryHealth);
     }
 
+    //returns if player is being currently headbutted
     public bool IsHeadButtInProgress()
     {
         return headButtInProgress;
