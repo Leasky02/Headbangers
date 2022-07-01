@@ -56,7 +56,7 @@ public class PlayerDeath : MonoBehaviour
     //player respawns
     private void Respawn()
     {
-        Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1f, 1f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1f, 1f)));
+        Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1.5f, 1.5f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1.5f, 1.5f)));
         transform.position = newPosition;
     }
 

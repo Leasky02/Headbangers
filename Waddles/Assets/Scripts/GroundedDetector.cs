@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GroundedDetector : MonoBehaviour
 {
+    [SerializeField] private PlayerData playerData;
     private bool isGrounded = true;
 
-    [SerializeField] private bool springReachedMax = true;
-    [SerializeField] private bool springReachedMin = true;
+    private bool springReachedMax = true;
+    private bool springReachedMin = true;
 
     [SerializeField] private ConfigurableJoint[] bodyparts;
 

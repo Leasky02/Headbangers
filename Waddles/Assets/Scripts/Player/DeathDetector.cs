@@ -14,18 +14,8 @@ public class DeathDetector : MonoBehaviour
     {
         if (other.CompareTag("DeadZone"))
         {
-            //temporary reversing of death state
-            //will change to just kill
-            if (playerData.GetDead())
-            {
-                playerData.SetDead(false);
-                playerDeath.Revive();
-            }
-            else
-            {
-                playerData.SetDead(true);
-                playerDeath.Die();
-            }
+            playerData.SetDead(true);
+            playerDeath.Die();
         }
     }
 }

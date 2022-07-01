@@ -2010,7 +2010,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567894028973323}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.065}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2044,6 +2044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a02e9f8560d07a4991a1cfa4087d109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 6734269064375405810}
   springReachedMax: 1
   springReachedMin: 0
   bodyparts:
@@ -2060,8 +2061,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.43077305, y: 0.20474935, z: 0.11422027}
-  m_Center: {x: 0.0049681216, y: -0.21401697, z: 0.045815732}
+  m_Size: {x: 0.43077305, y: 0.008851498, z: 0.091411114}
+  m_Center: {x: 0.0049681216, y: -0.18117277, z: 0.034411155}
 --- !u!54 &6791426577235769947
 Rigidbody:
   m_ObjectHideFlags: 0
