@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathDetector : MonoBehaviour
+public class DeadZoneDetector : MonoBehaviour
 {
     [SerializeField] private Transform hipParent;
     [SerializeField] private PlayerDeath playerDeath;
@@ -15,7 +15,7 @@ public class DeathDetector : MonoBehaviour
         if (other.CompareTag("DeadZone"))
         {
             playerData.SetDead(true);
-            playerDeath.Die();
+            StartCoroutine(playerDeath.Die());
         }
     }
 }

@@ -22,9 +22,12 @@ public class PlayerDeath : MonoBehaviour
     }
 
     //player dies
-    public void Die()
+    public IEnumerator Die()
     {
-        Respawn();
+        playerData.SetIsCameraTarget(false);
+        StartCoroutine(Respawn());
+
+        yield return new WaitForSeconds(1f);
 
         //disable the bodyDetector
         foreach (BoxCollider boxes in bodyDetectors)
@@ -64,16 +67,21 @@ public class PlayerDeath : MonoBehaviour
     }
 
     //player respawns
-    private void Respawn()
+    private IEnumerator Respawn()
     {
+        yield return new WaitForSeconds(1f);
+
         Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1.5f, 1.5f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1.5f, 1.5f)));
         transform.position = newPosition;
+        yield return new WaitForSeconds(0.5f);
+
+        playerData.SetIsCameraTarget(true);
     }
 
     //when player is brought back to life
     public void Revive()
     {
-        Respawn();
+        StartCoroutine(Respawn());
 
         //enable the bodyDetector
         foreach (BoxCollider boxes in bodyDetectors)

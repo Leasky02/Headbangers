@@ -281,7 +281,7 @@ public class PlayerActions : MonoBehaviour
         }
         else
         {
-            rb.AddForce(direction * speed * 8 * Time.deltaTime);
+            rb.AddForce(direction * speed * 2.5f * Time.deltaTime);
         }
         
         //rotate the player

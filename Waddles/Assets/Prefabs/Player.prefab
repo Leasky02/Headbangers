@@ -1747,7 +1747,7 @@ MonoBehaviour:
   cjBody: {fileID: 287567893246454670}
   cjLeftThigh: {fileID: 287567893227178274}
   audioSource_Attack: {fileID: 1827410766340730214}
-  speed: 1400
+  speed: 2000
   jumpForce: 40
   decoyAnimator: {fileID: 287567892653818831}
   groundDetector: {fileID: 287567894028973367}
@@ -2017,7 +2017,7 @@ GameObject:
   - component: {fileID: 287567894028973366}
   - component: {fileID: 6791426577235769947}
   m_Layer: 0
-  m_Name: Ground Detector
+  m_Name: Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

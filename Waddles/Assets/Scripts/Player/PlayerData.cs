@@ -12,6 +12,8 @@ public class PlayerData : MonoBehaviour
     private bool knockedOut = false;
     //if player is dead
     private bool dead = false;
+    //if player is a camera target
+    private bool isCameraTarget = true;
 
     private void Start()
     {
@@ -39,6 +41,10 @@ public class PlayerData : MonoBehaviour
     {
         return playerColor;
     }
+    public bool GetIsCameraTarget()
+    {
+        return isCameraTarget;
+    }
 
     public void SetKnockedOut(bool state)
     {
@@ -51,5 +57,9 @@ public class PlayerData : MonoBehaviour
     public void SetPlayerColor(Color newColor)
     {
         playerColor = newColor;
+    }
+    public void SetIsCameraTarget(bool state)
+    {
+        isCameraTarget = state;
     }
 }
