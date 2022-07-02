@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567892636320905}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 0.106, z: 0.03}
+  m_LocalPosition: {x: -0.1, y: 0.106, z: 0.045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -437,7 +437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567893227178279}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.15, y: 0.10600005, z: 0.03}
+  m_LocalPosition: {x: 0.1, y: 0.10600005, z: 0.045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1522,6 +1522,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 287567893911048444}
+  - component: {fileID: 2429393066241624668}
   - component: {fileID: 287567893911048442}
   - component: {fileID: 287567893911048445}
   - component: {fileID: 287567893911048443}
@@ -1549,6 +1550,21 @@ Transform:
   m_Father: {fileID: 287567894396864735}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2429393066241624668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287567893911048447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48dedd5344d588540b63aef99aed7d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limbToReplilcate: {fileID: 287567893806625925}
+  activePlayer: {fileID: 287567893963814817}
+  isLeg: 1
 --- !u!54 &287567893911048442
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1629,7 +1645,7 @@ ConfigurableJoint:
     maximumForce: 3.4028233e+38
   m_ZDrive:
     serializedVersion: 3
-    positionSpring: 0
+    positionSpring: 200
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1637,12 +1653,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 400
+    positionSpring: 200
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 400
+    positionSpring: 700
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -1731,8 +1747,8 @@ MonoBehaviour:
   cjBody: {fileID: 287567893246454670}
   cjLeftThigh: {fileID: 287567893227178274}
   audioSource_Attack: {fileID: 1827410766340730214}
-  speed: 2500
-  jumpForce: 30
+  speed: 1400
+  jumpForce: 40
   decoyAnimator: {fileID: 287567892653818831}
   groundDetector: {fileID: 287567894028973367}
   bodyDetector_HEAD: {fileID: 6884108239244774980}
@@ -1775,6 +1791,11 @@ MonoBehaviour:
   - {fileID: 287567894291085660}
   - {fileID: 287567894594668937}
   - {fileID: 287567894278376873}
+  legLimbs:
+  - {fileID: 287567893227178279}
+  - {fileID: 287567894396864734}
+  - {fileID: 287567892636320905}
+  - {fileID: 287567894438307734}
 --- !u!114 &5732016547039446277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2045,8 +2066,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 6734269064375405810}
-  springReachedMax: 1
-  springReachedMin: 0
   bodyparts:
   - {fileID: 287567893963814828}
   - {fileID: 287567893246454670}
@@ -2061,8 +2080,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.43077305, y: 0.008851498, z: 0.091411114}
-  m_Center: {x: 0.0049681216, y: -0.18117277, z: 0.034411155}
+  m_Size: {x: 0.43077305, y: 0.02308315, z: 0.108297765}
+  m_Center: {x: 0.0049681216, y: -0.1882886, z: 0.10370517}
 --- !u!54 &6791426577235769947
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2121,6 +2140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 287567894065349239}
+  - component: {fileID: 8405746122304595206}
   - component: {fileID: 287567894065349237}
   - component: {fileID: 287567894065349236}
   - component: {fileID: 287567894065349234}
@@ -2147,6 +2167,21 @@ Transform:
   m_Father: {fileID: 287567894438307735}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8405746122304595206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287567894065349238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48dedd5344d588540b63aef99aed7d1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limbToReplilcate: {fileID: 287567894585983370}
+  activePlayer: {fileID: 287567893963814817}
+  isLeg: 1
 --- !u!54 &287567894065349237
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2227,7 +2262,7 @@ ConfigurableJoint:
     maximumForce: 3.4028233e+38
   m_ZDrive:
     serializedVersion: 3
-    positionSpring: 0
+    positionSpring: 200
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_TargetRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2235,12 +2270,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 400
+    positionSpring: 200
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 400
+    positionSpring: 700
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -2785,7 +2820,7 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 700
+    positionSpring: 300
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
@@ -2948,7 +2983,7 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 700
+    positionSpring: 300
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
@@ -3536,6 +3571,7 @@ Transform:
   m_Children:
   - {fileID: 3623788947320414167}
   - {fileID: 1812457453055995300}
+  - {fileID: 6106580185612255890}
   m_Father: {fileID: 5810059493802467070}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3689,6 +3725,134 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &5309301372199035940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6106580185612255890}
+  - component: {fileID: 1847766996422167199}
+  m_Layer: 0
+  m_Name: Interaction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6106580185612255890
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5309301372199035940}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7766189117354928435}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1847766996422167199
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5309301372199035940}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4f46dec1c5289894ab87125e8a12f6d7, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.17
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6505077446327547783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,7 +3930,7 @@ MonoBehaviour:
   isFoot: 0
   isBody: 1
   actionScript: {fileID: 287567893963814829}
-  attackAudioSource: {fileID: 1827410766340730214}
+  interactionAudioSource: {fileID: 1847766996422167199}
   objectForce: 3
 --- !u!54 &6296502896523965792
 Rigidbody:
@@ -3845,7 +4009,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7181382599750028640}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15000002, y: 0.084, z: -0.029999994}
+  m_LocalPosition: {x: -0.15000002, y: 0.08400001, z: -0.029999994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3863,8 +4027,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.30522054, y: 0.22711301, z: 0.3824564}
-  m_Center: {x: 0.06808975, y: -0.2246759, z: 0.106254056}
+  m_Size: {x: 0.39130902, y: 0.21218643, z: 0.10551506}
+  m_Center: {x: 0.06434226, y: -0.14805068, z: 0.100436926}
 --- !u!114 &71671381993922268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3894,7 +4058,7 @@ MonoBehaviour:
   isFoot: 1
   isBody: 0
   actionScript: {fileID: 287567893963814829}
-  attackAudioSource: {fileID: 1827410766340730214}
+  interactionAudioSource: {fileID: 1847766996422167199}
   objectForce: 4
 --- !u!54 &8982372935273019008
 Rigidbody:

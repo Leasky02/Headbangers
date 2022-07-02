@@ -15,7 +15,7 @@ public class GroundedDetector : MonoBehaviour
     //when collides with ground
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Ground"))
+        if (other.CompareTag("Ground") || other.CompareTag("Interactable"))
         {
             isGrounded = true;
 
@@ -31,7 +31,7 @@ public class GroundedDetector : MonoBehaviour
     //when leaves the ground
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Ground"))
+        if (other.CompareTag("Ground") || other.CompareTag("Interactable"))
         {
             isGrounded = false;
 

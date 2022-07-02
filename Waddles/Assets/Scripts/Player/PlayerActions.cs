@@ -19,7 +19,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private int speed;
     [SerializeField] private int jumpForce;
     private int jumpCount = 0;
-    [SerializeField] private const int jumpLimit = 2;
+    [SerializeField] private const int jumpLimit = 1;
 
     [SerializeField] private Animator decoyAnimator;
 
@@ -186,7 +186,10 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator HeadButt()
     {
-        StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
+        if(!playerData.GetKnockedOut())
+        {
+            StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
+        }
 
         //change spring joints to be higher for faster head butt
         JointDrive springDriveX = cjBody.angularXDrive;
@@ -230,7 +233,10 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator Kick()
     {
-        StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
+        if(!playerData.GetKnockedOut())
+        {
+            StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
+        }
 
         canKick = false;
 
@@ -265,13 +271,17 @@ public class PlayerActions : MonoBehaviour
     private void Walk(Vector3 direction)
     {
         //move the player
-        if(!playerData.GetDead())
+        if(!playerData.GetDead() || (playerData.GetDead() && !groundDetector.IsGrounded()))
         {
             rb.AddForce(direction * speed * Time.deltaTime);
         }
+        else if(!playerData.GetDead() && !groundDetector.IsGrounded())
+        {
+            rb.AddForce(direction * speed * 3 * Time.deltaTime);
+        }
         else
         {
-            rb.AddForce(direction * speed * 2 * Time.deltaTime);
+            rb.AddForce(direction * speed * 8 * Time.deltaTime);
         }
         
         //rotate the player
@@ -284,16 +294,19 @@ public class PlayerActions : MonoBehaviour
     //animations
     private void PlayHeadButtAnimation()
     {
+        decoyAnimator.speed = 1f;
         decoyAnimator.Play("HeadButt");
     }
 
     private void PlayKickAnimation()
     {
+        decoyAnimator.speed = 1f;
         decoyAnimator.Play("Kick");
     }
 
     private void PlaySitAnimation()
     {
+        decoyAnimator.speed = 1f;
         decoyAnimator.Play("Sit");
     }
 
@@ -307,6 +320,11 @@ public class PlayerActions : MonoBehaviour
         {
             decoyAnimator.Play("Walk");
         }
+        
+        if(groundDetector.IsGrounded())
+            decoyAnimator.speed = 1f;
+        else
+            decoyAnimator.speed = 0.5f;
     }
 
     //return checks for action states

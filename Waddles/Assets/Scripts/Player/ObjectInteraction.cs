@@ -8,7 +8,7 @@ public class ObjectInteraction : MonoBehaviour
     [SerializeField] private bool isBody;
 
     [SerializeField] private PlayerActions actionScript;
-    [SerializeField] private AudioSource attackAudioSource;
+    [SerializeField] private AudioSource interactionAudioSource;
 
     [SerializeField] private int objectForce;
 
@@ -20,8 +20,8 @@ public class ObjectInteraction : MonoBehaviour
             {
                 ApplyForce(other.gameObject);
 
-                attackAudioSource.pitch = Random.Range(0.8f, 1.4f);
-                attackAudioSource.Play();
+                interactionAudioSource.pitch = Random.Range(0.8f, 1.4f);
+                interactionAudioSource.Play();
             }
         }
     }
