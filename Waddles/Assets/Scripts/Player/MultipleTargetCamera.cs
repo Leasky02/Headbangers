@@ -30,11 +30,6 @@ public class MultipleTargetCamera : MonoBehaviour
     //called after every update
     private void FixedUpdate()
     {
-        //if no target, return
-        if (targets.Length == 0)
-        {
-            return;
-        }
 
         //adjust camera position and zoom
         Move();
@@ -57,26 +52,29 @@ public class MultipleTargetCamera : MonoBehaviour
         Bounds bounds = new Bounds(mapCenter, Vector3.zero);
         bool boundsSet = false;
 
-        foreach (Transform player in targets)
+        if(TargetFound())
         {
-            //if camera is within playzone
-            bool isCameraTarget = player.transform.parent.GetComponent<PlayerData>().GetIsCameraTarget();
-            if (isCameraTarget)
+            foreach (Transform player in targets)
             {
-                if (!boundsSet)
+                //if camera is within playzone
+                bool isCameraTarget = player.transform.parent.GetComponent<PlayerData>().GetIsCameraTarget();
+                if (isCameraTarget)
                 {
-                    bounds = new Bounds(player.position, Vector3.zero);
-                    boundsSet = true;
+                    if (!boundsSet)
+                    {
+                        bounds = new Bounds(player.position, Vector3.zero);
+                        boundsSet = true;
+                    }
+                    bounds.Encapsulate(player.position);
                 }
-                bounds.Encapsulate(player.position);
+            }
+
+            if (!boundsSet)
+            {
+                bounds = new Bounds(targets[0].position, Vector3.zero);
             }
         }
-
-        if (!boundsSet)
-        {
-            bounds = new Bounds(targets[0].position, Vector3.zero);
-        }
-
+       
         return bounds.size.magnitude;
     }
 
@@ -96,21 +94,40 @@ public class MultipleTargetCamera : MonoBehaviour
         Bounds bounds = new Bounds(mapCenter, Vector3.zero);
         bool boundsSet = false;
 
-        foreach (Transform player in targets)
+        if(TargetFound())
         {
-            //if camera is within playzone
-            bool isCameraTarget = player.transform.parent.GetComponent<PlayerData>().GetIsCameraTarget();
-            if (isCameraTarget)
+            foreach (Transform player in targets)
             {
-                if (!boundsSet)
+                //if camera is within playzone
+                bool isCameraTarget = player.transform.parent.GetComponent<PlayerData>().GetIsCameraTarget();
+                if (isCameraTarget)
                 {
-                    bounds = new Bounds(player.position, Vector3.zero);
-                    boundsSet = true;
+                    if (!boundsSet)
+                    {
+                        bounds = new Bounds(player.position, Vector3.zero);
+                        boundsSet = true;
+                    }
+                    bounds.Encapsulate(player.position);
                 }
-                bounds.Encapsulate(player.position);
             }
         }
+     
         //return center point of bounds
         return bounds.center;
+    }
+
+    private bool TargetFound()
+    {
+        bool targetFound = false;
+        foreach (Transform player in targets)
+        {
+            if (player != null)
+            {
+                targetFound = true;
+                break;
+            }
+        }
+
+        return targetFound;
     }
 }

@@ -46,6 +46,11 @@ public class PlayerData : MonoBehaviour
         return isCameraTarget;
     }
 
+    public void SetPlayerID(int id)
+    {
+        playerID = id;
+    }
+
     public void SetKnockedOut(bool state)
     {
         knockedOut = state;
