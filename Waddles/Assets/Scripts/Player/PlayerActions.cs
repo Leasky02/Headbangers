@@ -1,17 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData;
-
     private Rigidbody rb;
-
     private ConfigurableJoint cj;
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private ConfigurableJoint cjLeftThigh;
-
     private PlayerKO KOscript;
 
     [SerializeField] private AudioSource audioSource_Attack;
@@ -34,7 +32,7 @@ public class PlayerActions : MonoBehaviour
 
     private bool canPlayHitSound = true;
 
-    [HideInInspector] public bool attemptingHeadButt = false;
+    private bool attemptingHeadButt = false;
     private bool isWalking = false;
     private bool isSitting = false;
     private bool isKicking = false;
@@ -50,6 +48,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float attackSpringValue_BODY;
     [SerializeField] private float attackSpringValue_LeftThigh;
 
+    private Vector2 inputDirection;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,44 +58,20 @@ public class PlayerActions : MonoBehaviour
         KOscript = GetComponent<PlayerKO>();
     }
 
-    // Fixed Update is called 30x per frame
-    void FixedUpdate()
+    //functions called from input
+    public void OnMove(InputAction.CallbackContext context)
     {
-        //get input direction and move
-        float horizontalInput = Input.GetAxis("Horizontal" + playerData.GetPlayerID());
-        float verticalInput = Input.GetAxis("Vertical" + playerData.GetPlayerID());
-
-        //calculate movement direction of the player
-        Vector3 direction = new Vector3(horizontalInput, 0, verticalInput);
-        direction = direction.normalized;
-
-        //Walk
-        isWalking = IsWalking(direction);
-        if (isWalking)
-        {
-            Walk(direction);
-        }
+        inputDirection = context.ReadValue<Vector2>();
     }
-
-    private void Update()
+    public void OnJump(InputAction.CallbackContext context)
     {
-        //Kick
-        bool shouldKick = Input.GetButtonDown("Kick" + playerData.GetPlayerID()) && ShouldKick();
-        if (shouldKick)
+        //only jump on performed
+        if (!context.performed)
         {
-            StartCoroutine(Kick());
+            return;
         }
 
-        //HeadButt
-        bool shouldHeadButt = Input.GetButtonDown("HeadButt" + playerData.GetPlayerID()) && ShouldHeadButt();
-        if (shouldHeadButt)
-        {
-            StartCoroutine(HeadButt());
-        }
-
-        //Jump
-        bool shouldJump = Input.GetButtonDown("Jump" + playerData.GetPlayerID()) && ShouldJump();
-        if (shouldJump)
+        if (ShouldJump())
         {
             //if on ground
             if (groundDetector.IsGrounded())
@@ -108,17 +84,69 @@ public class PlayerActions : MonoBehaviour
                 Jump();
             }
         }
-
-        //Sit
-        isSitting = Input.GetButton("Sit" + playerData.GetPlayerID()) && ShouldSit();
-        if (isSitting)
+    }
+    public void OnSit(InputAction.CallbackContext context)
+    {
+        //only jump on performed
+        if (context.performed)
         {
-            PlaySitAnimation();
+            isSitting = ShouldSit();
+            if (isSitting)
+            {
+                PlaySitAnimation();
+            }
+        }
+        else if (context.canceled)
+        {
+            isSitting = false;
         }
 
+    }
+    public void OnKick(InputAction.CallbackContext context)
+    {
+        //only jump on performed
+        if (!context.performed)
+        {
+            return;
+        }
+
+        if (ShouldKick())
+        {
+            StartCoroutine(Kick());
+        }
+    }
+    public void OnHeadButt(InputAction.CallbackContext context)
+    {
+        //only jump on performed
+        if (!context.performed)
+        {
+            return;
+        }
+
+        if (ShouldHeadButt())
+        {
+            StartCoroutine(HeadButt());
+        }
+    }
+
+    // Fixed Update is called 30x per frame
+    void FixedUpdate()
+    {
+        inputDirection = inputDirection.normalized;
+
+        Vector3 moveDirection = new Vector3(inputDirection.x, 0f, inputDirection.y);
+        //Walk
+        isWalking = IsWalking(moveDirection);
+        if (isWalking)
+        {
+            Walk(moveDirection);
+        }
+    }
+
+    private void Update()
+    {
         //Idle
-        bool shouldIdle = ShouldIdle();
-        if (shouldIdle)
+        if (ShouldIdle())
         {
             PlayIdleAnimation();
         }
