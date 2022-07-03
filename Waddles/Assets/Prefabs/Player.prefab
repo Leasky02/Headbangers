@@ -4206,8 +4206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee97490e05fa0334da7bd7b70262b666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
-  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  playerColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &1373281312171942305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4314,9 +4313,49 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e4aa1e27-c5d1-40e1-8809-3e5f92f99463
     m_ActionName: Gameplay/Sit[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe94fe9a-49b0-4d9a-a571-234f907d63f8
+    m_ActionName: UI/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 712e2d55-f747-4b0f-a147-f47ff9fdc0e0
+    m_ActionName: UI/Submit[/Keyboard/enter,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d2bc8a74-7a7d-406e-8283-10914f2f5df2
+    m_ActionName: UI/Cancel[/Keyboard/escape,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dceaeec5-c0da-41a5-af64-01d9d3842dbb
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c7c1f33e-fd44-4077-acb1-a857a5771707
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d18129d3-a643-4c21-970e-2899988ed952
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a44b6f08-7f06-4fa1-8dff-dba4fefd5769
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: be6729e2-6d25-4b28-8c84-0ea1e4778ac9
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5f40cc69-d754-4585-a9f5-ed514c18c616
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fc35b79e-302c-4b71-b753-7594d7fcb39a
+    m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
+  m_DefaultActionMap: 4bf43087-deb0-4dac-b65e-6e41a74b2ec4
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &9109140273182710656

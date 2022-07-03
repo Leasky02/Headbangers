@@ -18,7 +18,7 @@ public class PlayerDeath : MonoBehaviour
     private void Start()
     {
         //set spawn point
-        spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
+        //spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
     }
 
     //player dies

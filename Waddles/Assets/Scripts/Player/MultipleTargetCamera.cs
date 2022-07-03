@@ -6,7 +6,7 @@ using UnityEngine;
 public class MultipleTargetCamera : MonoBehaviour
 {
     //targets for camera
-    [SerializeField] private Transform[] targets;
+    [SerializeField] private List<Transform> targets = new List<Transform>();
 
     //velocity of camera movement
     private Vector3 velocity;
@@ -30,7 +30,6 @@ public class MultipleTargetCamera : MonoBehaviour
     //called after every update
     private void FixedUpdate()
     {
-
         //adjust camera position and zoom
         Move();
         Zoom();
@@ -129,5 +128,10 @@ public class MultipleTargetCamera : MonoBehaviour
         }
 
         return targetFound;
+    }
+
+    public void AddTargets(Transform player)
+    {
+        targets.Add(player.GetChild(0));
     }
 }

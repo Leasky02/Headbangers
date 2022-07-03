@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerData : MonoBehaviour
 {
-    //player ID
-    [SerializeField] private int playerID;
+    private PlayerInput playerInput;
     //color of player body
     [SerializeField] private Color playerColor;
     //if player is knocked out
@@ -17,15 +17,11 @@ public class PlayerData : MonoBehaviour
 
     private void Start()
     {
+        playerInput = GetComponent<PlayerInput>();
         //rename player at runtime appropriately
-        gameObject.name = "Player " + playerID;
+        gameObject.name = "Player " + (playerInput.user.index + 1);
     }
 
-    //return player ID
-    public int GetPlayerID()
-    {
-        return playerID;
-    }
     //return knockedOut state
     public bool GetKnockedOut()
     {
@@ -44,11 +40,6 @@ public class PlayerData : MonoBehaviour
     public bool GetIsCameraTarget()
     {
         return isCameraTarget;
-    }
-
-    public void SetPlayerID(int id)
-    {
-        playerID = id;
     }
 
     public void SetKnockedOut(bool state)
