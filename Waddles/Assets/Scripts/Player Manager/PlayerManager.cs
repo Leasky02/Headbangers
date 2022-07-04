@@ -9,10 +9,8 @@ public class PlayerManager : MonoBehaviour
 {
     //stores all players in game
     [SerializeField]private List<PlayerConfiguration> playerConfigs = new List<PlayerConfiguration>();
-    //spawnpoints for all players
-    [SerializeField] private Transform[] spawnPositions;
-    //camera in scene
-    [SerializeField] private MultipleTargetCamera cameraTarget;
+    //default colours for the player
+    [SerializeField] private Color[] playerColours; 
     public static PlayerManager Instance { get; private set; }
 
     private void Awake()
@@ -38,7 +36,7 @@ public class PlayerManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void AddPlayer(PlayerInput playerInput)
+    public void OnPlayerJoined(PlayerInput playerInput)
     {
         if (!playerConfigs.Any(p => p.PlayerIndex == playerInput.playerIndex))
         {
@@ -48,10 +46,13 @@ public class PlayerManager : MonoBehaviour
 
             GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
             spawnPlayerObject.GetComponent<ISpawnPlayer>().SpawnPlayer(playerConfiguration);
+
+            //set colour
+            playerInput.GetComponent<PlayerData>().SetPlayerColor(playerColours[playerConfiguration.PlayerIndex]);
         }
     }
 
-    public void RemovePlayer(PlayerInput playerInput)
+    public void OnPlayerLeft(PlayerInput playerInput)
     {
         playerConfigs.Add(new PlayerConfiguration(playerInput));
     }
