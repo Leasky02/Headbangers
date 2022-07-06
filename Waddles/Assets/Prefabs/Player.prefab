@@ -1774,6 +1774,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 6734269064375405810}
+  playerInput: {fileID: 1373281312171942305}
   playerColor: {fileID: 5732016547039446277}
   bodyDetectors:
   - {fileID: 4859246438408412083}
@@ -1807,6 +1808,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69786bba2f9fa3b4699b837758c47d81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerColours:
+  - {r: 0.4262638, g: 0.5609221, b: 0.8773585, a: 0}
+  - {r: 0.8018868, g: 0.39716092, b: 0.39716092, a: 0}
+  - {r: 0.5899161, g: 0.8584906, b: 0.5709772, a: 0}
+  - {r: 0.88818455, g: 0.8962264, b: 0.4523407, a: 0}
+  - {r: 0.8962264, g: 0.5051165, b: 0.41006586, a: 0}
+  - {r: 0.499299, g: 0.2794144, b: 0.6509434, a: 0}
+  - {r: 0.5283019, g: 0.36269495, b: 0.26664296, a: 0}
+  - {r: 0.8490566, g: 0.53266287, b: 0.7297059, a: 0}
+  currentColorID: 0
   playerData: {fileID: 6734269064375405810}
   bodyMeshRenderer: {fileID: 287567893732489333}
   standardMaterial: {fileID: 2100000, guid: 2a1bcf07298c8574fb023d691ce02213, type: 2}
@@ -4168,6 +4179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4353178036784682740}
+  - component: {fileID: 3195321353021028107}
   - component: {fileID: 6734269064375405810}
   - component: {fileID: 1373281312171942305}
   m_Layer: 0
@@ -4194,6 +4206,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3195321353021028107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faa9bab24476db540a29313fc120adc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6734269064375405810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4353,9 +4377,45 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: fc35b79e-302c-4b71-b753-7594d7fcb39a
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5732016547039446277}
+        m_TargetAssemblyTypeName: PlayerColor, Assembly-CSharp
+        m_MethodName: OnColorUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 81b603bb-353d-4058-b704-02bdc86dcd8d
+    m_ActionName: Lobby/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5732016547039446277}
+        m_TargetAssemblyTypeName: PlayerColor, Assembly-CSharp
+        m_MethodName: OnColorDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 329755d6-5548-4d4b-8d50-683a4bc83ce2
+    m_ActionName: Lobby/ColorDown[/XInputControllerWindows/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a54c607b-0920-46c7-9fce-d7995d516822
+    m_ActionName: Respawn/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 4bf43087-deb0-4dac-b65e-6e41a74b2ec4
+  m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!1 &9109140273182710656

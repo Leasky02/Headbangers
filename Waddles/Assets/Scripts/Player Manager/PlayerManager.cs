@@ -9,8 +9,6 @@ public class PlayerManager : MonoBehaviour
 {
     //stores all players in game
     [SerializeField]private List<PlayerConfiguration> playerConfigs = new List<PlayerConfiguration>();
-    //default colours for the player
-    [SerializeField] private Color[] playerColours; 
     public static PlayerManager Instance { get; private set; }
 
     private void Awake()
@@ -46,9 +44,6 @@ public class PlayerManager : MonoBehaviour
 
             GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
             spawnPlayerObject.GetComponent<ISpawnPlayer>().SpawnPlayer(playerConfiguration);
-
-            //set colour
-            playerInput.GetComponent<PlayerData>().SetPlayerColor(playerColours[playerConfiguration.PlayerIndex]);
         }
     }
 
@@ -67,7 +62,7 @@ public class PlayerManager : MonoBehaviour
         GameObject spawnPlayerObjects = GameObject.FindGameObjectWithTag("SpawnPlayer");
         playerConfigs.ForEach(playerConfigs =>
         {
-            spawnPlayerObjects.GetComponent<ISpawnPlayer>().SpawnPlayer(playerConfigs);
+            spawnPlayerObjects.GetComponent<ISpawnPlayer>().SetupPlayer(playerConfigs);
         });
     }
 }

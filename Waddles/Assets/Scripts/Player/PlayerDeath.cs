@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData;
+    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerColor playerColor;
     private Transform spawnPoint;
 
@@ -15,15 +17,10 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private GameObject[] legParts;
     [SerializeField] private GameObject[] legLimbs;
 
-    private void Start()
-    {
-        //set spawn point
-        spawnPoint = GameObject.FindGameObjectWithTag("RespawnPoint").transform;
-    }
-
     //player dies
     public IEnumerator Die()
     {
+        playerInput.SwitchCurrentActionMap("Respawn");
         playerData.SetIsCameraTarget(false);
         StartCoroutine(Respawn());
 
@@ -76,17 +73,13 @@ public class PlayerDeath : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         playerData.SetIsCameraTarget(true);
+        playerInput.SwitchCurrentActionMap("Gameplay");
     }
 
     //when player is brought back to life
     public void Revive()
     {
         StartCoroutine(Respawn());
-
-        //enable the bodyDetector
-        foreach (BoxCollider boxes in bodyDetectors)
-        {
-        }
 
         //change layers of body parts
         foreach (GameObject bodyPart in bodyParts)
@@ -118,5 +111,11 @@ public class PlayerDeath : MonoBehaviour
 
         //change material of body and face
         playerColor.UpdateMaterial();
+    }
+
+    public void FindRespawnPoint()
+    {
+        //set respawn point
+        spawnPoint = GameObject.FindGameObjectWithTag("RespawnPoint").transform;
     }
 }

@@ -8,18 +8,6 @@ public class SpawnPlayer_FreeForAll : ISpawnPlayer
     [SerializeField] private MultipleTargetCamera playerCamera;
     //spawnpositions
     [SerializeField] private Transform[] spawnPositions;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    
 
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
@@ -27,6 +15,14 @@ public class SpawnPlayer_FreeForAll : ISpawnPlayer
         SetAsCamerTarget(playerConfig.Input.transform);
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
+    }
+
+    public override void SetupPlayer(PlayerConfiguration playerConfig)
+    {
+        SetAsCamerTarget(playerConfig.Input.transform);
+        SetPosition(playerConfig);
+        SetInputMap(playerConfig);
+        FindRespawnPoint(playerConfig);
     }
 
     private void SetAsCamerTarget(Transform playerTransform)
@@ -42,6 +38,10 @@ public class SpawnPlayer_FreeForAll : ISpawnPlayer
     private void SetInputMap(PlayerConfiguration playerConfig)
     {
         playerConfig.Input.SwitchCurrentActionMap("Gameplay");
+    }
+    private void FindRespawnPoint(PlayerConfiguration playerConfig)
+    {
+        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerDeath>().FindRespawnPoint();
     }
 
 }

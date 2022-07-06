@@ -7,21 +7,16 @@ public class SpawnPlayer_Lobby : ISpawnPlayer
     //spawnpositions
     [SerializeField] private Transform[] spawnPositions;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
         Debug.Log(playerConfig.PlayerIndex);
+        SetPosition(playerConfig);
+        SetInputMap(playerConfig);
+        SetColor(playerConfig);
+    }
+
+    public override void SetupPlayer(PlayerConfiguration playerConfig)
+    {
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
     }
@@ -34,6 +29,11 @@ public class SpawnPlayer_Lobby : ISpawnPlayer
 
     private void SetInputMap(PlayerConfiguration playerConfig)
     {
-        playerConfig.Input.SwitchCurrentActionMap("UI");
+        playerConfig.Input.SwitchCurrentActionMap("Lobby");
+    }
+
+    private void SetColor(PlayerConfiguration playerConfig)
+    {
+        playerConfig.Input.gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().DefaultColor(playerConfig);
     }
 }

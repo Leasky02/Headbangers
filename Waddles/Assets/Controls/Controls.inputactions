@@ -472,7 +472,7 @@
                 {
                     "name": "",
                     "id": "2e6c459f-23c8-4609-ba7c-32201677c4ef",
-                    "path": "*/{Submit}",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -620,6 +620,82 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Lobby",
+            "id": "2effc473-48ec-4e44-a974-397ce0e41b58",
+            "actions": [
+                {
+                    "name": "ColorUp",
+                    "type": "Button",
+                    "id": "81b603bb-353d-4058-b704-02bdc86dcd8d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ColorDown",
+                    "type": "Button",
+                    "id": "329755d6-5548-4d4b-8d50-683a4bc83ce2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6dd4fc7b-da8f-4d82-a941-cb08a5af3ba2",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ColorUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10120dfb-15d3-4a03-ab0a-4438979faa3f",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ColorDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Respawn",
+            "id": "a3a899de-8efe-411c-b5e5-74147eadabaf",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "a54c607b-0920-46c7-9fce-d7995d516822",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "540ece71-ea52-46e3-b85a-db5d584ded99",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

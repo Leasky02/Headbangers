@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerColor : MonoBehaviour
 {
+    //default colours for the player
+    [SerializeField] private Color[] playerColours;
+    [SerializeField] private static bool[] colorTaken = new bool[8];
+    [SerializeField] private int currentColorID;
+
     [SerializeField] private PlayerData playerData;
 
     [SerializeField] private MeshRenderer bodyMeshRenderer;
@@ -20,11 +26,6 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private SpriteRenderer[] faceParts;
 
     [SerializeField] private float deadTransparency;
-
-    private void Start()
-    {
-        bodyMeshRenderer.material.color = playerData.GetPlayerColor();
-    }
 
     //change player color
     private void UpdateColor(Color newColor)
@@ -76,6 +77,135 @@ public class PlayerColor : MonoBehaviour
                 Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, 1f);
                 facePart.color = newColor;
             }
+        }
+    }
+
+    public void OnColorUp(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+        Debug.Log("colorUp");
+        ColorUp();
+    }
+    public void OnColorDown(InputAction.CallbackContext context)
+    {
+        if(!context.performed)
+        {
+            return;
+        }
+        Debug.Log("colorDown");
+        ColorDown();
+    }
+
+    public void DefaultColor(PlayerConfiguration playerConfig)
+    {
+        bool colorAssigned = false;
+        currentColorID = playerConfig.PlayerIndex;
+        Color newColor;
+        do
+        {
+            if(!colorTaken[currentColorID])
+            {
+                newColor = playerColours[currentColorID];
+                UpdateColor(newColor);
+                colorTaken[currentColorID] = true;
+                colorAssigned = true;
+            }
+            else
+            {
+                colorAssigned = false;
+                currentColorID++;
+                if(currentColorID >= colorTaken.Length)
+                    currentColorID = 0;
+            }
+        } while (colorAssigned == false);
+    }
+
+    public void ColorUp()
+    {
+        //determine if another colour is available
+        bool availableColor = false;
+        foreach(bool colorUsed in colorTaken)
+        {
+            if(colorUsed == false)
+            {
+                availableColor = true;
+                break;
+            }
+            else
+            {
+                availableColor = false;
+            }
+        }
+
+        if(availableColor)
+        {
+            bool colorAssigned = false;
+            Color newColor;
+
+            colorTaken[currentColorID] = false;
+
+            do
+            {
+                currentColorID++;
+                if (currentColorID >= colorTaken.Length)
+                    currentColorID = 0;
+
+                if (!colorTaken[currentColorID])
+                {
+                    newColor = playerColours[currentColorID];
+                    UpdateColor(newColor);
+                    colorTaken[currentColorID] = true;
+                    colorAssigned = true;
+
+                }
+
+            } while (colorAssigned == false);
+        }
+    }
+
+    public void ColorDown()
+    {
+        //determine if another colour is available
+        bool availableColor = false;
+        foreach (bool colorUsed in colorTaken)
+        {
+            if (colorUsed == false)
+            {
+                availableColor = true;
+                break;
+            }
+            else
+            {
+                availableColor = false;
+            }
+        }
+
+        if (availableColor)
+        {
+            bool colorAssigned = false;
+            Color newColor;
+
+            colorTaken[currentColorID] = false;
+
+            do
+            {
+                currentColorID--;
+                if (currentColorID < 0)
+                    currentColorID = colorTaken.Length - 1;
+
+                if (!colorTaken[currentColorID])
+                {
+                    newColor = playerColours[currentColorID];
+                    UpdateColor(newColor);
+                    colorTaken[currentColorID] = true;
+                    colorAssigned = true;
+
+                }
+
+            } while (colorAssigned == false);
         }
     }
 }
