@@ -646,6 +646,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ReadyUp",
+                    "type": "Button",
+                    "id": "edbbb03e-464f-4946-a71a-39af57c08101",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Leave",
+                    "type": "Button",
+                    "id": "03e0d493-904e-4ff1-9ab8-2b4ce33475e7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -670,11 +688,33 @@
                     "action": "ColorDown",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c191b122-83fc-4195-b786-f896ab9a27d6",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReadyUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9e07d658-cfa6-4550-bdde-61a7957b204a",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "Hold(duration=0.7)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Leave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Respawn",
+            "name": "Deactive",
             "id": "a3a899de-8efe-411c-b5e5-74147eadabaf",
             "actions": [
                 {

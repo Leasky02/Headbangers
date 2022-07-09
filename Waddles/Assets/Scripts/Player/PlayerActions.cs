@@ -164,7 +164,7 @@ public class PlayerActions : MonoBehaviour
             }
 
             //access the player attacked for checks
-            PlayerKO victim = bodyDetector_HEAD.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
+            PlayerKO victim = bodyDetector_HEAD.IsTouchingBody().transform.parent.transform.parent.gameObject.GetComponent<PlayerKO>();
             if (!victim.IsHeadButtInProgress())
             {
                 victim.StartCoroutine(victim.HeadButted(gameObject , cjBody.gameObject.transform.localRotation.eulerAngles.x));
@@ -183,7 +183,7 @@ public class PlayerActions : MonoBehaviour
             audioSource_Attack.Play();
 
             //access the player attacked for checks
-            PlayerKO victim = bodyDetector_FOOT.IsTouchingBody().transform.parent.gameObject.GetComponent<PlayerKO>();
+            PlayerKO victim = bodyDetector_FOOT.IsTouchingBody().transform.parent.transform.parent.gameObject.GetComponent<PlayerKO>();
             victim.Kicked(gameObject);
 
             StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));

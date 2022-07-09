@@ -17,12 +17,16 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private GameObject[] legParts;
     [SerializeField] private GameObject[] legLimbs;
 
+    [SerializeField] private AudioSource deadAudioSource;
+
     //player dies
     public IEnumerator Die()
     {
-        playerInput.SwitchCurrentActionMap("Respawn");
+        playerInput.SwitchCurrentActionMap("Deactive");
         playerData.SetIsCameraTarget(false);
         StartCoroutine(Respawn());
+
+        deadAudioSource.Play();
 
         yield return new WaitForSeconds(1f);
 

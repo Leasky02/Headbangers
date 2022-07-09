@@ -823,15 +823,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4faa286b86f56684b859f22b0e6a4c24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColours:
-  - {r: 0.23891956, g: 0.3123427, b: 0.8584906, a: 0}
-  - {r: 0.8396226, g: 0.2653524, b: 0.2653524, a: 0}
-  - {r: 0.3586622, g: 0.8679245, b: 0.35617658, a: 0}
-  - {r: 0.8207547, g: 0.79116935, b: 0.21293166, a: 0}
-  - {r: 0.8962264, g: 0.42913765, b: 0.2494215, a: 0}
-  - {r: 0.8018868, g: 0.4501157, b: 0.6446791, a: 0}
-  - {r: 0.38781595, g: 0.7792652, b: 0.7830189, a: 0}
-  - {r: 0.46226418, g: 0.3559914, b: 0.32053223, a: 0}
+  roundManager: {fileID: 0}
+  requiredPlayers: 1
 --- !u!4 &1179587565
 Transform:
   m_ObjectHideFlags: 0
@@ -902,7 +895,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266268688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.11, z: 0}
+  m_LocalPosition: {x: 0, y: -2.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

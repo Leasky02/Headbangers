@@ -18,6 +18,10 @@ public class PlayerData : MonoBehaviour
     private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+    }
+
+    private void Update()
+    {
         //rename player at runtime appropriately
         gameObject.name = "Player " + (playerInput.user.index + 1);
     }

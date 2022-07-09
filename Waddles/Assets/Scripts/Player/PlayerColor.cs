@@ -7,7 +7,7 @@ public class PlayerColor : MonoBehaviour
 {
     //default colours for the player
     [SerializeField] private Color[] playerColours;
-    [SerializeField] private static bool[] colorTaken = new bool[8];
+    [SerializeField] public static bool[] colorTaken = new bool[8];
     [SerializeField] private int currentColorID;
 
     [SerializeField] private PlayerData playerData;
@@ -26,6 +26,8 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private SpriteRenderer[] faceParts;
 
     [SerializeField] private float deadTransparency;
+
+    private PlayerConfiguration myPlayerConfig;
 
     //change player color
     private void UpdateColor(Color newColor)
@@ -82,6 +84,9 @@ public class PlayerColor : MonoBehaviour
 
     public void OnColorUp(InputAction.CallbackContext context)
     {
+        if (myPlayerConfig.IsReady)
+            return;
+
         if (!context.performed)
         {
             return;
@@ -91,7 +96,10 @@ public class PlayerColor : MonoBehaviour
     }
     public void OnColorDown(InputAction.CallbackContext context)
     {
-        if(!context.performed)
+        if (myPlayerConfig.IsReady)
+            return;
+
+        if (!context.performed)
         {
             return;
         }
@@ -101,6 +109,7 @@ public class PlayerColor : MonoBehaviour
 
     public void DefaultColor(PlayerConfiguration playerConfig)
     {
+        myPlayerConfig = playerConfig;
         bool colorAssigned = false;
         currentColorID = playerConfig.PlayerIndex;
         Color newColor;
@@ -207,5 +216,10 @@ public class PlayerColor : MonoBehaviour
 
             } while (colorAssigned == false);
         }
+    }
+
+    public int GetColourID()
+    {
+        return currentColorID;
     }
 }

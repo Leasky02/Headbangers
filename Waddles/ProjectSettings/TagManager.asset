@@ -13,6 +13,7 @@ TagManager:
   - DontDestroy
   - SpawnPlayer
   - RespawnPoint
+  - PlayerManager
   layers:
   - Default
   - TransparentFX
