@@ -53,7 +53,7 @@ public class RoundManager : MonoBehaviour
     private void StartGame()
     {
         inLobby = false;
-        foreach (PlayerConfiguration config in PlayerManager.Instance.playerConfigs)
+        foreach (PlayerConfiguration config in PlayerConfigurationManager.Instance.playerConfigs)
         {
             config.IsReady = false;
         }
@@ -64,7 +64,7 @@ public class RoundManager : MonoBehaviour
 
     public IEnumerator GameCountdown()
     {
-        foreach(PlayerConfiguration config in PlayerManager.Instance.playerConfigs)
+        foreach(PlayerConfiguration config in PlayerConfigurationManager.Instance.playerConfigs)
         {
             config.Input.SwitchCurrentActionMap("Deactive");
         }
@@ -78,7 +78,7 @@ public class RoundManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countdownText.text = "Fight!";
 
-        foreach (PlayerConfiguration config in PlayerManager.Instance.playerConfigs)
+        foreach (PlayerConfiguration config in PlayerConfigurationManager.Instance.playerConfigs)
         {
             config.Input.SwitchCurrentActionMap("Gameplay");
         }

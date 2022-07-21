@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpawnPlayer_Lobby : ISpawnPlayer
+public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 {
     //spawnpositions
     [SerializeField] private Transform[] spawnPositions;
