@@ -1,16 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class RoundManager : MonoBehaviour
+public class RoundManager : Singleton<RoundManager>
 {
     [SerializeField] private string sceneToLoad;
     [SerializeField] private TMP_Text countdownText;
     bool countdownInProgress = false;
-    bool inLobby = true;
 
     Coroutine latestCoroutine = null;
 
@@ -41,21 +38,17 @@ public class RoundManager : MonoBehaviour
         latestCoroutine = StartCoroutine(StartCountdown());
     }
 
-    public bool GetCountdownInProgress()
+    public bool IsCountdownInProgress()
     {
         return countdownInProgress;
-    }
-    public bool GetInLobby()
-    {
-        return inLobby;
     }
 
     private void StartGame()
     {
-        inLobby = false;
         // TODO: Why is this set to false? Could it be set to false at the start of a new lobby or the end of the game?
         PlayerConfigurationManager.Instance.SetAllPlayerReady(false);
 
+        PlayerConfigurationManager.Instance.DisableJoining();
         SceneManager.LoadScene(sceneToLoad);
         StartCoroutine(GameCountdown());
     }

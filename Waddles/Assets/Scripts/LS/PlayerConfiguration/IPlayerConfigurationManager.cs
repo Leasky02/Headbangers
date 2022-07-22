@@ -122,6 +122,11 @@ namespace LS
             return playerConfigs.Count < MaxPlayerCount();
         }
 
+        public int GetPlayerCount()
+        {
+            return playerConfigs.Count;
+        }
+
         public void SwitchCurrentActionMap(string mapNameOrId)
         {
             playerConfigs.ForEach(config => config.Input.SwitchCurrentActionMap(mapNameOrId));
