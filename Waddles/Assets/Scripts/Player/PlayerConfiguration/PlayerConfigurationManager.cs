@@ -9,26 +9,16 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
         return new PlayerConfiguration(pi);
     }
 
-    public void PlayerLeave(PlayerConfiguration playerConfiguration)
+    protected override void AfterPlayerRemoved()
     {
-        playerConfigs.Remove(playerConfiguration);
-
-        // TODO: should we remove the player from the PlayerInputManager? and make a method on the base class to handle this.
-
         Invoke("UpdatePlayerOrder", 0.05f);
     }
 
     private void UpdatePlayerOrder()
     {
-        //resort players in order
-        foreach (PlayerConfiguration config in playerConfigs)
-        {
-            int oldIndex = config.PlayerIndex;
-            config.PlayerIndex = config.Input.user.index;
-
-            //reshuffle position
+        playerConfigs.ForEach(playerConfig => {
             GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
-            spawnPlayerObject.GetComponent<LS.ISpawnPlayer<PlayerConfiguration>>().ShufflePlayer(config, oldIndex);
-        }
+            spawnPlayerObject.GetComponent<LS.ISpawnPlayer<PlayerConfiguration>>().ShufflePlayer(playerConfig);
+        });
     }
 }

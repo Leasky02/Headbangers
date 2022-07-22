@@ -47,9 +47,9 @@ namespace LS
             return GetComponent<PlayerInputManager>().maxPlayerCount;
         }
 
-        void OnPlayerJoined(PlayerInput pi)
+        public void OnPlayerJoined(PlayerInput pi)
         {
-            Debug.Log("Player Joined " + pi.playerIndex);
+            Debug.Log("Player Joined, playerIndex: " + pi.playerIndex + ", user.index: " + pi.user.index);
             if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
             {
                 // Set as child of this
@@ -60,9 +60,26 @@ namespace LS
             }
         }
 
-        void OnPlayerLeft(PlayerInput pi)
+        public void OnPlayerLeft(PlayerInput pi)
         {
-            Debug.Log("Player Left " + pi.playerIndex);
+            Debug.Log("Player Left, playerIndex: " + pi.playerIndex + ", user.index: " + pi.user.index);
+            // TODO: handle player connection lost
+        }
+
+        public void RemovePlayer(int playerIndex)
+        {
+            TPlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
+            if (playerConfig != null)
+            {
+                playerConfigs.Remove(playerConfig);
+                // TODO: also remove player from PlayerInputManager
+                AfterPlayerRemoved();
+            }
+        }
+
+        protected virtual void AfterPlayerRemoved()
+        {
+
         }
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -75,9 +92,9 @@ namespace LS
             return new IPlayerConfiguration(pi) as TPlayerConfiguration;
         }
 
-        protected TPlayerConfiguration GetPlayerConfiguration(int index)
+        protected TPlayerConfiguration GetPlayerConfiguration(int playerIndex)
         {
-            return playerConfigs.Find(p => p.PlayerIndex == index);
+            return playerConfigs.Find(p => p.PlayerIndex == playerIndex);
         }
 
         private void SpawnPlayer(TPlayerConfiguration playerConfig)

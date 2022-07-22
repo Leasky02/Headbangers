@@ -11,7 +11,6 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
 
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
-        //Debug.Log(playerConfig.Input.user.index);
         SetAsCameraTarget(playerConfig.Input.transform);
         SetPosition(playerConfig);
         FindRespawnPoint(playerConfig);
@@ -25,7 +24,7 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
     private void SetPosition(PlayerConfiguration playerConfig)
     {
         Transform playerTransform = playerConfig.Input.transform.GetChild(0);
-        playerTransform.position = spawnPositions[playerConfig.Input.user.index].position;
+        playerTransform.position = spawnPositions[playerConfig.GetUserIndex()].position;
     }
 
     private void FindRespawnPoint(PlayerConfiguration playerConfig)

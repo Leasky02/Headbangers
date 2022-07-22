@@ -16,12 +16,13 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         SetColor(playerConfig);
         SetReadyUp(playerConfig);
     }
-    public override void ShufflePlayer(PlayerConfiguration playerConfig, int oldIndex)
+    public override void ShufflePlayer(PlayerConfiguration playerConfig)
     {
-        TextMesh oldText = spawnPositions[oldIndex].GetChild(0).GetComponent<TextMesh>();
+        int userIndex = playerConfig.GetUserIndex();
+        TextMesh oldText = spawnPositions[userIndex].GetChild(0).GetComponent<TextMesh>();
         oldText.text = "";
 
-        TextMesh readyText = spawnPositions[playerConfig.Input.user.index].GetChild(0).GetComponent<TextMesh>();
+        TextMesh readyText = spawnPositions[userIndex].GetChild(0).GetComponent<TextMesh>();
         playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(readyText, playerConfig);
         playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().TransferReadyUp();
 
@@ -32,14 +33,14 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 
     private void SetReadyUp(PlayerConfiguration playerConfig)
     {
-        TextMesh readyText = spawnPositions[playerConfig.Input.user.index].GetChild(0).GetComponent<TextMesh>();
+        TextMesh readyText = spawnPositions[playerConfig.GetUserIndex()].GetChild(0).GetComponent<TextMesh>();
         playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(readyText, playerConfig);
     }
 
     public void SetPosition(PlayerConfiguration playerConfig)
     {
         Transform playerTransform = playerConfig.Input.transform.GetChild(0);
-        playerTransform.position = spawnPositions[playerConfig.Input.user.index].position;
+        playerTransform.position = spawnPositions[playerConfig.GetUserIndex()].position;
     }
 
     private void SetInputMap(PlayerConfiguration playerConfig)

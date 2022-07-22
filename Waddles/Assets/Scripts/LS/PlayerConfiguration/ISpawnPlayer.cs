@@ -8,7 +8,7 @@ namespace LS
         public abstract void SpawnPlayer(TPlayerConfiguration playerConfig);
         
         // TODO: remove from this class, ISpawnPlayer should only be responsible for spawning the player / setting it up in each scene that loads or when the player joins in that scene.
-        public virtual void ShufflePlayer(TPlayerConfiguration playerConfig, int oldIndex)
+        public virtual void ShufflePlayer(TPlayerConfiguration playerConfig)
         {
             Debug.Log("base setup");
         }

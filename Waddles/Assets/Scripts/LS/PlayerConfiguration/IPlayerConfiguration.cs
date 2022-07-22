@@ -14,9 +14,14 @@ namespace LS
             PlayerIndex = pi.playerIndex;
         }
 
-        public PlayerInput Input { get; set; }
-        public int PlayerIndex { get; set; }
+        public PlayerInput Input { get; }
+        public int PlayerIndex { get; }
         public bool IsReady { get; set; }
+
+        public int GetUserIndex()
+        {
+            return Input.user.index;
+        }
     }
 
 }
