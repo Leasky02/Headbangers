@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPlayer_FreeForAll : ISpawnPlayer
+public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
 {
     //camera
     [SerializeField] private MultipleTargetCamera playerCamera;

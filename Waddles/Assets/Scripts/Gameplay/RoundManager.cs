@@ -53,10 +53,8 @@ public class RoundManager : MonoBehaviour
     private void StartGame()
     {
         inLobby = false;
-        foreach (PlayerConfiguration config in PlayerManager.Instance.playerConfigs)
-        {
-            config.IsReady = false;
-        }
+        // TODO: Why is this set to false? Could it be set to false at the start of a new lobby or the end of the game?
+        PlayerConfigurationManager.Instance.SetAllPlayerReady(false);
 
         SceneManager.LoadScene(sceneToLoad);
         StartCoroutine(GameCountdown());
@@ -64,10 +62,7 @@ public class RoundManager : MonoBehaviour
 
     public IEnumerator GameCountdown()
     {
-        foreach(PlayerConfiguration config in PlayerManager.Instance.playerConfigs)
-        {
-            config.Input.SwitchCurrentActionMap("Deactive");
-        }
+        PlayerConfigurationManager.Instance.SwitchCurrentActionMap("Deactive");
 
         yield return new WaitForSeconds(1f);
         countdownText.text = "3";
@@ -78,10 +73,7 @@ public class RoundManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countdownText.text = "Fight!";
 
-        foreach (PlayerConfiguration config in PlayerManager.Instance.playerConfigs)
-        {
-            config.Input.SwitchCurrentActionMap("Gameplay");
-        }
+        PlayerConfigurationManager.Instance.SwitchCurrentActionMap("Gameplay");
 
         yield return new WaitForSeconds(1.5f);
         countdownText.text = "";

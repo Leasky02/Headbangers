@@ -54,7 +54,7 @@ public class PlayerReadyUp : MonoBehaviour
     {
         if(context.performed)
         {
-            PlayerManager.Instance.PlayerLeave(myPlayerConfig);
+            PlayerConfigurationManager.Instance.PlayerLeave(myPlayerConfig);
             readyUpText.text = ("");
             PlayerColor.colorTaken[GetComponent<PlayerColor>().GetColourID()] = false;
             Destroy(transform.parent.gameObject);

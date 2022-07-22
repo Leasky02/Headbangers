@@ -2564,7 +2564,7 @@ GameObject:
   - component: {fileID: 1179587564}
   - component: {fileID: 1179587563}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: PlayerConfigurationManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2590,7 +2590,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1179587564}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerConfigurationManager, Assembly-CSharp
         m_MethodName: AddPlayer
         m_Mode: 2
         m_Arguments:
@@ -2606,7 +2606,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1179587564}
-        m_TargetAssemblyTypeName: PlayerManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: PlayerConfigurationManager, Assembly-CSharp
         m_MethodName: RemovePlayer
         m_Mode: 2
         m_Arguments:
