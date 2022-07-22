@@ -11,19 +11,19 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
 
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
-        Debug.Log(playerConfig.Input.user.index);
-        SetAsCamerTarget(playerConfig.Input.transform);
+        //Debug.Log(playerConfig.Input.user.index);
+        SetAsCameraTarget(playerConfig.Input.transform);
         SetPosition(playerConfig);
     }
 
     public override void SetupPlayer(PlayerConfiguration playerConfig)
     {
-        SetAsCamerTarget(playerConfig.Input.transform);
+        SetAsCameraTarget(playerConfig.Input.transform);
         SetPosition(playerConfig);
         FindRespawnPoint(playerConfig);
     }
 
-    private void SetAsCamerTarget(Transform playerTransform)
+    private void SetAsCameraTarget(Transform playerTransform)
     {
         playerCamera.AddTargets(playerTransform.transform);
     }
