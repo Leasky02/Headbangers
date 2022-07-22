@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567892636320905}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0.081, z: 0.045}
+  m_LocalPosition: {x: -0.1, y: 0.102999896, z: 0.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -139,13 +139,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 400
+    positionSpring: 1000
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 400
-    positionDamper: 5
+    positionSpring: 1000
+    positionDamper: 3
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
     serializedVersion: 3
@@ -437,7 +437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567893227178279}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0.081000075, z: 0.045}
+  m_LocalPosition: {x: 0.1, y: 0.103, z: 0.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -549,13 +549,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 400
+    positionSpring: 1000
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 400
-    positionDamper: 5
+    positionSpring: 1000
+    positionDamper: 3
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
     serializedVersion: 3
@@ -600,7 +600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567893246454656}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.17899996, z: 0}
+  m_LocalPosition: {x: 0, y: 0.241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -633,7 +633,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567893246454656}
   serializedVersion: 2
-  m_Mass: 1.5
+  m_Mass: 0.7
   m_Drag: 4
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1088,7 +1088,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567893629943588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.067999996, z: 0}
+  m_LocalPosition: {x: 0, y: -0.088, z: 0}
   m_LocalScale: {x: 0.06696202, y: 0.046682578, z: 0.060798764}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1444,8 +1444,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567893911048447}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.09599999, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 0, y: -0.124, z: 0}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3452906766643138530}
@@ -1556,12 +1556,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 200
+    positionSpring: 800
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 700
+    positionSpring: 800
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -1626,7 +1626,7 @@ Transform:
   m_GameObject: {fileID: 287567893963814817}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 287567893246454657}
@@ -1672,13 +1672,13 @@ MonoBehaviour:
   bodyDetector_HEAD: {fileID: 6884108239244774980}
   bodyDetector_FOOT: {fileID: 71671381993922268}
   face: {fileID: 671975495570311663}
-  kickTimeLength: 0.5
-  HeadButtLength: 0.25
+  kickTimeLength: 0.3
+  HeadButtLength: 0.15
   cooldownLength: 0.3
   normalSpringValue_BODY: 20
-  normalSpringValue_LeftThigh: 300
+  normalSpringValue_LeftThigh: 1000
   attackSpringValue_BODY: 120
-  attackSpringValue_LeftThigh: 1000
+  attackSpringValue_LeftThigh: 3000
 --- !u!114 &8813903090943198542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2088,8 +2088,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567894065349238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.096, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalPosition: {x: 0, y: -0.12399995, z: 0}
+  m_LocalScale: {x: 0.22, y: 0.22, z: 0.22}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5196545618358145496}
@@ -2199,12 +2199,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 200
+    positionSpring: 800
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 700
+    positionSpring: 800
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -2361,7 +2361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567894278376873}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.022230197, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0422302, z: 0}
   m_LocalScale: {x: 0.06696202, y: 0.046682578, z: 0.060798764}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2458,7 +2458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567894291085660}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.022230197, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0422302, z: 0}
   m_LocalScale: {x: 0.06696202, y: 0.046682578, z: 0.060798764}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2555,7 +2555,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567894396864734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.095999986, z: 0}
+  m_LocalPosition: {x: 0, y: -0.096, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2667,12 +2667,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 300
+    positionSpring: 1000
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 700
+    positionSpring: 1000
     positionDamper: 5
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -2718,7 +2718,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567894438307734}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.095999986, z: 0}
+  m_LocalPosition: {x: 0, y: -0.09599999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2830,12 +2830,12 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 3
-    positionSpring: 300
+    positionSpring: 1000
     positionDamper: 0
     maximumForce: 3.4028233e+38
   m_AngularYZDrive:
     serializedVersion: 3
-    positionSpring: 700
+    positionSpring: 1000
     positionDamper: 5
     maximumForce: 3.4028233e+38
   m_SlerpDrive:
@@ -2979,7 +2979,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567894594668937}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.068, z: 0}
+  m_LocalPosition: {x: 0, y: -0.088, z: 0}
   m_LocalScale: {x: 0.06696202, y: 0.046682578, z: 0.060798764}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3493,8 +3493,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2447163652507507946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.175, z: 0.137}
-  m_LocalScale: {x: 0.055, y: 0.055, z: 0.055}
+  m_LocalPosition: {x: 0, y: 0.078, z: 0.1235}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4245402272887148763}
@@ -3774,7 +3774,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6505077446327547783}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.968, z: 0}
+  m_LocalPosition: {x: 0, y: 0.768, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4533,17 +4533,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 89fcf05548bcbcf49993d3f92f352a69,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.28
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89fcf05548bcbcf49993d3f92f352a69,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.28
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89fcf05548bcbcf49993d3f92f352a69,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.28
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89fcf05548bcbcf49993d3f92f352a69,
         type: 3}
@@ -4553,7 +4553,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 89fcf05548bcbcf49993d3f92f352a69,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.417
+      value: 0.247
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 89fcf05548bcbcf49993d3f92f352a69,
         type: 3}
@@ -4661,8 +4661,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8316872, y: 3.4904118, z: 1.981944}
-  m_Center: {x: 0.002127673, y: 0.0016286969, z: -0.019220741}
+  m_Size: {x: 0.83168745, y: 3.5007463, z: 1.981944}
+  m_Center: {x: 0.002127662, y: -0.0035388393, z: -0.019220782}
 --- !u!1001 &5735175557006816819
 PrefabInstance:
   m_ObjectHideFlags: 0
