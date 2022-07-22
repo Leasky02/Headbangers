@@ -89,13 +89,27 @@ namespace LS
             }
         }
 
-        public void ReadyPlayer(int index)
+        public void SetPlayerReady(int index, bool ready = true)
         {
             TPlayerConfiguration playerConfig = GetPlayerConfiguration(index);
             if (playerConfig != null)
             {
-                playerConfig.IsReady = true;
+                playerConfig.IsReady = ready;
             }
+        }
+
+        public void TogglePlayerReady(int index)
+        {
+            TPlayerConfiguration playerConfig = GetPlayerConfiguration(index);
+            if (playerConfig != null)
+            {
+                playerConfig.IsReady = !playerConfig.IsReady;
+            }
+        }
+
+        public void SetAllPlayerReady(bool ready = true)
+        {
+            playerConfigs.ForEach(config => config.IsReady = ready);
         }
 
         public bool AllPlayersReady()
@@ -106,6 +120,11 @@ namespace LS
         public bool CanAddPlayers()
         {
             return playerConfigs.Count < MaxPlayerCount();
+        }
+
+        public void SwitchCurrentActionMap(string mapNameOrId)
+        {
+            playerConfigs.ForEach(config => config.Input.SwitchCurrentActionMap(mapNameOrId));
         }
     }
 
