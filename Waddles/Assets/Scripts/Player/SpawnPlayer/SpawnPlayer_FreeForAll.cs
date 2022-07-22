@@ -14,12 +14,6 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
         //Debug.Log(playerConfig.Input.user.index);
         SetAsCameraTarget(playerConfig.Input.transform);
         SetPosition(playerConfig);
-    }
-
-    public override void SetupPlayer(PlayerConfiguration playerConfig)
-    {
-        SetAsCameraTarget(playerConfig.Input.transform);
-        SetPosition(playerConfig);
         FindRespawnPoint(playerConfig);
     }
 

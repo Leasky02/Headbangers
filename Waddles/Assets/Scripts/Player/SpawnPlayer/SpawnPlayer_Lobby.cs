@@ -30,12 +30,6 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         SetReadyUp(playerConfig);
     }
 
-    public override void SetupPlayer(PlayerConfiguration playerConfig)
-    {
-        SetPosition(playerConfig);
-        SetInputMap(playerConfig);
-    }
-
     private void SetReadyUp(PlayerConfiguration playerConfig)
     {
         TextMesh readyText = spawnPositions[playerConfig.Input.user.index].GetChild(0).GetComponent<TextMesh>();
