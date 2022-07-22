@@ -10,6 +10,26 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
     [SerializeField] private RoundManager roundManager;
     [SerializeField] private int requiredPlayers = 1;
 
+    public void Start()
+    {
+      EnableJoining();
+      // TODO: ideally move this into a script which is called Lobby.cs or something and is not a singleton.
+      // i.e. for tractor game it's like this
+      /*
+      public void OpenGameSetup()
+      {
+          SwitchView(mainMenuScreen, playerSetupScreen);
+          PlayerConfigurationManager.Instance.EnableJoining();
+      }
+
+      public void CloseGameSetup()
+      {
+          PlayerConfigurationManager.Instance.DisableJoining();
+          SwitchView(playerSetupScreen, mainMenuScreen);
+      }
+      */
+    }
+
     // TODO: can this be removed?
     protected override PlayerConfiguration ConstructPlayerConfig(PlayerInput pi)
     {
