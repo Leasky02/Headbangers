@@ -11,6 +11,7 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private int currentColorID;
 
     [SerializeField] private PlayerData playerData;
+    [SerializeField] private Outline playerOutline;
 
     [SerializeField] private MeshRenderer bodyMeshRenderer;
 
@@ -33,6 +34,7 @@ public class PlayerColor : MonoBehaviour
     private void UpdateColor(Color newColor)
     {
         playerData.SetPlayerColor(newColor);
+        playerOutline.OutlineColor = new Color (newColor.r, newColor.g, newColor.b, 1);
 
         UpdateMaterial();
     }

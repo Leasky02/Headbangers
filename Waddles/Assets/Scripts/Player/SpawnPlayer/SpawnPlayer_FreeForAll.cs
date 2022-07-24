@@ -14,7 +14,7 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
         SetAsCameraTarget(playerConfig.Input.transform);
         //Hi Calum, the positions dont change from lobby to start of game, this function
         //should only be used in team games where teams spawn at opposite sides
-        //SetPosition(playerConfig);
+        SetPosition(playerConfig);
         FindRespawnPoint(playerConfig);
     }
 

@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567892636320905}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0.102999896, z: 0.073}
+  m_LocalPosition: {x: -0.1, y: 0.079999894, z: 0.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -437,7 +437,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 287567893227178279}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0.103, z: 0.073}
+  m_LocalPosition: {x: 0.1, y: 0.08, z: 0.073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1648,7 +1648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97635647981971b4c84aadd43acace38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  green: {r: 0.50677085, g: 0.8584906, b: 0.4818886, a: 1}
 --- !u!114 &287567893963814829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1738,6 +1737,7 @@ MonoBehaviour:
   - {r: 0.49798858, g: 0.65494096, b: 0.9528302, a: 0}
   currentColorID: 0
   playerData: {fileID: 6734269064375405810}
+  playerOutline: {fileID: 4495160996073886903}
   bodyMeshRenderer: {fileID: 3377492177042574161}
   standardMaterial: {fileID: 2100000, guid: 2a1bcf07298c8574fb023d691ce02213, type: 2}
   transparentMaterial: {fileID: 2100000, guid: f4c19a91c973a8d419decf2aa96158f4, type: 2}
@@ -1767,19 +1767,19 @@ MonoBehaviour:
   playerData: {fileID: 6734269064375405810}
   audioSource_KO: {fileID: 6358340269515398159}
   deadSpringValue: 0
-  knockbackForce: 25
+  knockbackForce: 20
   knockbackHeightVelocity: 10
   startingHealth: 100
   currentHealth: 0
   minRecoveryHealth: 55
   maxRecoveryHealth: 100
-  recoveryHealthReduction: 10
+  recoveryHealthReduction: 15
   minimumDamage: 10
-  maximumDamage: 50
+  maximumDamage: 40
   minimumAngle: 0
   maximumAngle: 75
   kickingDamage: 0
-  startingKnockoutTime: 2.5
+  startingKnockoutTime: 3
   knockoutTime: 0
   graceTime: 2
   healthRegenerateTimeDelay: 1
@@ -3824,7 +3824,7 @@ MonoBehaviour:
   isBody: 1
   actionScript: {fileID: 287567893963814829}
   interactionAudioSource: {fileID: 1847766996422167199}
-  objectForce: 3
+  objectForce: 2
 --- !u!54 &6296502896523965792
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3920,8 +3920,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3125109, y: 0.20128341, z: 0.03743757}
-  m_Center: {x: 0.10795204, y: -0.14259918, z: 0.06639812}
+  m_Size: {x: 0.3125109, y: 0.24843846, z: 0.1078743}
+  m_Center: {x: 0.10795204, y: -0.16617665, z: 0.101616435}
 --- !u!114 &71671381993922268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3952,7 +3952,7 @@ MonoBehaviour:
   isBody: 0
   actionScript: {fileID: 287567893963814829}
   interactionAudioSource: {fileID: 1847766996422167199}
-  objectForce: 4
+  objectForce: 2
 --- !u!54 &8982372935273019008
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4663,6 +4663,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.83168745, y: 3.5007463, z: 1.981944}
   m_Center: {x: 0.002127662, y: -0.0035388393, z: -0.019220782}
+--- !u!114 &4495160996073886903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5304107033729402292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 2
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 1.7
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1001 &5735175557006816819
 PrefabInstance:
   m_ObjectHideFlags: 0

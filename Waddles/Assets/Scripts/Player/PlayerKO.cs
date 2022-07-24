@@ -128,7 +128,7 @@ public class PlayerKO : MonoBehaviour
         direction = direction.normalized;
 
         Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-        rb.AddForceAtPosition(direction * knockbackForce * 0.7f, forcePosition, ForceMode.Impulse);
+        rb.AddForceAtPosition(direction * knockbackForce * 0.4f, forcePosition, ForceMode.Impulse);
 
         direction.y = knockbackHeightVelocity;
         rb.velocity = new Vector3(direction.x, direction.y, direction.z);

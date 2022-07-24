@@ -9,8 +9,6 @@ public class PlayerReadyUp : MonoBehaviour
 
     private TextMesh readyUpText;
 
-    [SerializeField] private Color green;
-
     private bool ready;
 
     public void SetupReadyUp(TextMesh text, PlayerConfiguration playerconfig)
@@ -29,7 +27,6 @@ public class PlayerReadyUp : MonoBehaviour
         if(myPlayerConfig.IsReady)
         {
             readyUpText.text = ("Ready");
-            readyUpText.color = green;
         }
         else
         {
@@ -42,7 +39,6 @@ public class PlayerReadyUp : MonoBehaviour
         if (myPlayerConfig.IsReady)
         {
             readyUpText.text = ("Ready");
-            readyUpText.color = green;
         }
         else
         {
