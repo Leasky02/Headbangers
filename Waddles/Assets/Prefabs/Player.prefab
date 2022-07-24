@@ -1767,7 +1767,7 @@ MonoBehaviour:
   playerData: {fileID: 6734269064375405810}
   audioSource_KO: {fileID: 6358340269515398159}
   deadSpringValue: 0
-  knockbackForce: 35
+  knockbackForce: 25
   knockbackHeightVelocity: 10
   startingHealth: 100
   currentHealth: 0
@@ -3920,8 +3920,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.39130902, y: 0.20128343, z: 0.15368348}
-  m_Center: {x: 0.06434226, y: -0.14259918, z: 0.12452114}
+  m_Size: {x: 0.3125109, y: 0.20128341, z: 0.03743757}
+  m_Center: {x: 0.10795204, y: -0.14259918, z: 0.06639812}
 --- !u!114 &71671381993922268
 MonoBehaviour:
   m_ObjectHideFlags: 0
