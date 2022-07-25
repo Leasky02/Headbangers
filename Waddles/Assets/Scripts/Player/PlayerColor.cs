@@ -44,7 +44,8 @@ public class PlayerColor : MonoBehaviour
     public void UpdateMaterial()
     {
         Color playerColor = PlayerConfigurationManager.Instance.GetPlayerColor(_playerIndex);
-        if(playerData.GetDead())
+        bool isDead = PlayerConfigurationManager.Instance.GetPlayerState(_playerIndex).IsDead();
+        if(isDead)
         {
 
             Color transparentColor_Headphone = new Color(transparentMaterial_Headphone.color.r, transparentMaterial_Headphone.color.g, transparentMaterial_Headphone.color.b, deadTransparency);
@@ -64,16 +65,16 @@ public class PlayerColor : MonoBehaviour
             bodyMeshRenderer.material.color = playerColor;
         }
 
-        UpdateFace();
+        UpdateFace(isDead);
     }
 
     //update transparency of face based on dead state
-    public void UpdateFace()
+    private void UpdateFace(bool isDead)
     {
         //change transparency of each face component
         foreach (SpriteRenderer facePart in faceParts)
         {
-            if(playerData.GetDead())
+            if(isDead)
             {
                 Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, deadTransparency);
                 facePart.color = newColor;

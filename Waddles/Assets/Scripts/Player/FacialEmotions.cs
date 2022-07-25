@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class FacialEmotions : MonoBehaviour
 {
-    [SerializeField] private PlayerData playerData;
-
     //mouth components
     [SerializeField] private SpriteRenderer eyebrows;
     [SerializeField] private SpriteRenderer eyes;
@@ -38,7 +36,7 @@ public class FacialEmotions : MonoBehaviour
     //character blink
     private IEnumerator Blink()
     {
-        if(blink)
+        if (blink)
         {
             Sprite currentEyeState = eyes.sprite;
 
@@ -73,7 +71,7 @@ public class FacialEmotions : MonoBehaviour
         eyeIndex = Random.Range(0, eye_sprite.Length);
         mouthIndex = Random.Range(0, mouth_sprite.Length);
 
-        switch(eyebrowIndex)
+        switch (eyebrowIndex)
         {
             case 0:
                 eyebrowState = "happy";
@@ -123,7 +121,8 @@ public class FacialEmotions : MonoBehaviour
 
     public IEnumerator ChangeEmotion(string eyebrowState, string eyeState, string mouthState, float emotionLength)
     {
-        if(!playerData.GetKnockedOut())
+        bool isKnockedOut = Player.GetPlayerComponent(gameObject).IsKnockedOut();
+        if (!isKnockedOut)
         {
             changeEmotionQueue++;
 
@@ -187,7 +186,7 @@ public class FacialEmotions : MonoBehaviour
 
             changeEmotionQueue--;
 
-            if (changeEmotionQueue == 0 && !playerData.GetKnockedOut())
+            if (changeEmotionQueue == 0 && !isKnockedOut)
             {
                 ResetFace();
             }
@@ -205,7 +204,7 @@ public class FacialEmotions : MonoBehaviour
     //when knocked out
     public void KnockedOut()
     {
-        playerData.SetKnockedOut(true);
+        SetKnockedOut(true); // TODO: this shouldn't be responsible for setting KnockedOut
         SetBlink(false);
 
         eyebrows.sprite = null;
@@ -216,11 +215,15 @@ public class FacialEmotions : MonoBehaviour
     //when revived
     public void Revived()
     {
-        playerData.SetKnockedOut(false);
-
+        SetKnockedOut(false); // TODO: this shouldn't be responsible for setting KnockedOut
         SetBlink(true);
 
         eyebrows.sprite = eyebrow_sprite[1];
         StartCoroutine(ChangeEmotion("neutral", "open", "sad", 3f));
+    }
+
+    private void SetKnockedOut(bool knockedOut)
+    {
+        Player.GetPlayerComponent(gameObject).SetKnockedOut(knockedOut);
     }
 }

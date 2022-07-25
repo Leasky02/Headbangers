@@ -35,4 +35,9 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
             playerConfig.PlayerColor = color;
         }
     }
+
+    public PlayerState GetPlayerState(int playerIndex)
+    {
+        return GetPlayerConfiguration(playerIndex).PlayerState;
+    }
 }

@@ -7,14 +7,14 @@ public class DeadZoneDetector : MonoBehaviour
     [SerializeField] private Transform hipParent;
     [SerializeField] private PlayerDeath playerDeath;
 
-    [SerializeField] private PlayerData playerData;
+    private int _playerIndex;
 
     //when collides with dead zone beneath map
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("DeadZone"))
         {
-            playerData.SetDead(true);
+            PlayerConfigurationManager.Instance.GetPlayerState(_playerIndex).SetDead(true);
             StartCoroutine(playerDeath.Die());
         }
     }

@@ -10,10 +10,11 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
     {
         int playerIndex = playerConfig.PlayerIndex;
         PlayerInput playerInput = playerConfig.Input;
-        Debug.Log(playerConfig.PlayerIndex);
+
+        playerInput.transform.GetComponent<Player>().Init(playerIndex);
+
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
-        SetColor(playerIndex, playerInput);
         SetReadyUp(playerConfig);
         FreezePosition(playerConfig);
     }
@@ -51,10 +52,5 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
     private void SetInputMap(PlayerConfiguration playerConfig)
     {
         playerConfig.Input.SwitchCurrentActionMap("Lobby");
-    }
-
-    private void SetColor(int playerIndex, PlayerInput playerInput)
-    {
-        playerInput.gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().DefaultColor(playerIndex);
     }
 }

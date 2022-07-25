@@ -1662,7 +1662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5efa16e9685998447885c639be1b8301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 6734269064375405810}
   cjBody: {fileID: 287567893246454670}
   cjLeftThigh: {fileID: 287567893227178274}
   audioSource_Attack: {fileID: 1827410766340730214}
@@ -1770,7 +1769,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2718338f288d74aa4a6444e3ce25df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 6734269064375405810}
   audioSource_KO: {fileID: 6358340269515398159}
   deadSpringValue: 0
   knockbackForce: 20
@@ -2000,7 +1998,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hipParent: {fileID: 287567893963814830}
   playerDeath: {fileID: 8813903090943198542}
-  playerData: {fileID: 6734269064375405810}
 --- !u!114 &287567894028973367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3534,7 +3531,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2b5c1dd36f742489e38de81a7c7bee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 6734269064375405810}
   eyebrows: {fileID: 642369810092175285}
   eyes: {fileID: 4910389947898663600}
   mouth: {fileID: 3143139070216285244}
@@ -3825,7 +3821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65abcedca38b34d4987a418354a628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 6734269064375405810}
   self: {fileID: 5304107033729402292}
 --- !u!114 &8213037277454931382
 MonoBehaviour:
@@ -3953,7 +3948,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65abcedca38b34d4987a418354a628f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 6734269064375405810}
   self: {fileID: 5304107033729402292}
 --- !u!114 &3255089126257715566
 MonoBehaviour:
@@ -4084,9 +4078,10 @@ GameObject:
   - component: {fileID: 3195321353021028107}
   - component: {fileID: 6734269064375405810}
   - component: {fileID: 1373281312171942305}
+  - component: {fileID: 2588644690707937556}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4132,7 +4127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee97490e05fa0334da7bd7b70262b666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &1373281312171942305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4384,6 +4378,18 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2588644690707937556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed3852d7dd63c04ebbfd30a80fc2cc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0
