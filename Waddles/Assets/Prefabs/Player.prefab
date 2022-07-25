@@ -607,6 +607,7 @@ Transform:
   - {fileID: 4566054578612905943}
   - {fileID: 2653072545767521019}
   - {fileID: 2599903951188476487}
+  - {fileID: 6581442072995651781}
   m_Father: {fileID: 287567893963814830}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1700,6 +1701,7 @@ MonoBehaviour:
   - {fileID: 5304107033729402292}
   - {fileID: 287567893911048447}
   - {fileID: 287567894065349238}
+  - {fileID: 3284217037909672614}
   shoes:
   - {fileID: 1692998137304773544}
   - {fileID: 6458012310095379806}
@@ -1739,11 +1741,12 @@ MonoBehaviour:
   playerData: {fileID: 6734269064375405810}
   playerOutline: {fileID: 4495160996073886903}
   bodyMeshRenderer: {fileID: 3377492177042574161}
+  headphoneMeshRenderer: {fileID: 5392880225241222211}
   standardMaterial: {fileID: 2100000, guid: 2a1bcf07298c8574fb023d691ce02213, type: 2}
   transparentMaterial: {fileID: 2100000, guid: f4c19a91c973a8d419decf2aa96158f4, type: 2}
-  standardMaterial_Shoe: {fileID: 2100000, guid: ba46a8587e6c8f543bd59ead4d8b7a16,
+  standardMaterial_Headphone: {fileID: 2100000, guid: 0b99fccc3f8e5e04f945d32b578e7089,
     type: 2}
-  transparentMaterial_Shoe: {fileID: 2100000, guid: abdc87284f5dbec40b78e7bf67438e32,
+  transparentMaterial_Headphone: {fileID: 2100000, guid: f71ef4bf06339184798a3e133efec21a,
     type: 2}
   shoeMeshRenderer_L: {fileID: 1692998137304773544}
   shoeMeshRenderer_R: {fileID: 6458012310095379806}
@@ -1778,7 +1781,7 @@ MonoBehaviour:
   maximumDamage: 40
   minimumAngle: 0
   maximumAngle: 75
-  kickingDamage: 0
+  kickingDamage: 10
   startingKnockoutTime: 3
   knockoutTime: 0
   graceTime: 2
@@ -4328,6 +4331,70 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 03e0d493-904e-4ff1-9ab8-2b4ce33475e7
     m_ActionName: Lobby/Leave[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 287567893963814829}
+        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
+        m_MethodName: OnKick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: df68c836-c25f-4b2d-b5b0-27d6046645fe
+    m_ActionName: Lobby/Kick[/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 287567893963814829}
+        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
+        m_MethodName: OnHeadButt
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f0b9ae7c-ddfc-4572-a64f-539d37ca1e86
+    m_ActionName: Lobby/HeadButt[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9223008178974407914}
+        m_TargetAssemblyTypeName: PlayerReadyUp, Assembly-CSharp
+        m_MethodName: ReadyUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6fbfae57-9b48-4fde-bf5f-d211cb2f5a58
+    m_ActionName: LobbyReady/ReadyUp[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9223008178974407914}
+        m_TargetAssemblyTypeName: PlayerReadyUp, Assembly-CSharp
+        m_MethodName: PlayerLeave
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f70d326f-9453-4aca-86c8-0897413d43b0
+    m_ActionName: LobbyReady/Leave[/XInputControllerWindows/select,/XInputControllerWindows1/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -4670,7 +4737,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5304107033729402292}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
@@ -4781,4 +4848,155 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 9306ad6f7d5f3b64fa061961c9ef11e4,
     type: 3}
   m_PrefabInstance: {fileID: 5735175557006816819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6692142129647060782
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 287567893246454657}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.23700273
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.16722912
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.23700273
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.32049996
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.01625
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0b99fccc3f8e5e04f945d32b578e7089, type: 2}
+    - target: {fileID: 919132149155446097, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_Name
+      value: headphones
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 74e9f720c4ee59048b739249d44dd099,
+        type: 3}
+      propertyPath: m_TagString
+      value: Body
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 74e9f720c4ee59048b739249d44dd099, type: 3}
+--- !u!1 &3284217037909672614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 74e9f720c4ee59048b739249d44dd099,
+    type: 3}
+  m_PrefabInstance: {fileID: 6692142129647060782}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &7396823069020967083
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3284217037909672614}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2432090755550338912, guid: 74e9f720c4ee59048b739249d44dd099, type: 3}
+--- !u!23 &5392880225241222211 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7635826562936255635, guid: 74e9f720c4ee59048b739249d44dd099,
+    type: 3}
+  m_PrefabInstance: {fileID: 6692142129647060782}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6581442072995651781 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 74e9f720c4ee59048b739249d44dd099,
+    type: 3}
+  m_PrefabInstance: {fileID: 6692142129647060782}
   m_PrefabAsset: {fileID: 0}

@@ -58,6 +58,7 @@ public class PlayerDeath : MonoBehaviour
 
         //remove body tag
         bodyParts[0].tag = "Untagged";
+        bodyParts[3].tag = "Untagged";
 
         //hide feet
         shoes[0].enabled = false;

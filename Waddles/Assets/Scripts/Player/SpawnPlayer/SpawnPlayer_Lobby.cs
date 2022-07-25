@@ -15,6 +15,7 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         SetInputMap(playerConfig);
         SetColor(playerConfig);
         SetReadyUp(playerConfig);
+        FreezePosition(playerConfig);
     }
     public override void ShufflePlayer(PlayerConfiguration playerConfig)
     {
@@ -41,6 +42,11 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
     {
         Transform playerTransform = playerConfig.Input.transform.GetChild(0);
         playerTransform.position = spawnPositions[playerConfig.GetUserIndex()].position;
+    }
+    public void FreezePosition(PlayerConfiguration playerConfig)
+    {
+        Rigidbody playerHip = playerConfig.Input.gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
+        playerHip.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     private void SetInputMap(PlayerConfiguration playerConfig)

@@ -16,6 +16,7 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
         //should only be used in team games where teams spawn at opposite sides
         SetPosition(playerConfig);
         FindRespawnPoint(playerConfig);
+        UnFreezePosition(playerConfig);
     }
 
     private void SetAsCameraTarget(Transform playerTransform)
@@ -27,6 +28,11 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
     {
         Transform playerTransform = playerConfig.Input.transform.GetChild(0);
         playerTransform.position = spawnPositions[playerConfig.GetUserIndex()].position;
+    }
+    public void UnFreezePosition(PlayerConfiguration playerConfig)
+    {
+        Rigidbody playerHip = playerConfig.Input.gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
+        playerHip.constraints = RigidbodyConstraints.None;
     }
 
     private void FindRespawnPoint(PlayerConfiguration playerConfig)

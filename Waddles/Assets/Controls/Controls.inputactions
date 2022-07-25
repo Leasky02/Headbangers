@@ -639,6 +639,24 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Kick",
+                    "type": "Button",
+                    "id": "df68c836-c25f-4b2d-b5b0-27d6046645fe",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HeadButt",
+                    "type": "Button",
+                    "id": "f0b9ae7c-ddfc-4572-a64f-539d37ca1e86",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ColorDown",
                     "type": "Button",
                     "id": "329755d6-5548-4d4b-8d50-683a4bc83ce2",
@@ -703,11 +721,33 @@
                 {
                     "name": "",
                     "id": "9e07d658-cfa6-4550-bdde-61a7957b204a",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/select",
                     "interactions": "Hold(duration=0.7)",
                     "processors": "",
                     "groups": "",
                     "action": "Leave",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "89834386-ccf6-4588-9fac-25a2a6818733",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HeadButt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b89badda-c8ab-4c95-85ca-fdf540ce261f",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Kick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

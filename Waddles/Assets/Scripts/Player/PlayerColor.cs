@@ -14,12 +14,13 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private Outline playerOutline;
 
     [SerializeField] private MeshRenderer bodyMeshRenderer;
+    [SerializeField] private MeshRenderer headphoneMeshRenderer;
 
     [SerializeField] private Material standardMaterial;
     [SerializeField] private Material transparentMaterial;
 
-    [SerializeField] private Material standardMaterial_Shoe;
-    [SerializeField] private Material transparentMaterial_Shoe;
+    [SerializeField] private Material standardMaterial_Headphone;
+    [SerializeField] private Material transparentMaterial_Headphone;
 
     [SerializeField] private MeshRenderer shoeMeshRenderer_L;
     [SerializeField] private MeshRenderer shoeMeshRenderer_R;
@@ -44,20 +45,20 @@ public class PlayerColor : MonoBehaviour
     {
         if(playerData.GetDead())
         {
-            bodyMeshRenderer.material = transparentMaterial;
 
-            shoeMeshRenderer_L.material = transparentMaterial_Shoe;
-            shoeMeshRenderer_R.material = transparentMaterial_Shoe;
+            Color transparentColor_Headphone = new Color(transparentMaterial_Headphone.color.r, transparentMaterial_Headphone.color.g, transparentMaterial_Headphone.color.b, deadTransparency);
+            headphoneMeshRenderer.material = transparentMaterial_Headphone;
+            headphoneMeshRenderer.material.color = transparentColor_Headphone;
 
             Color transparentColor = new Color(playerData.GetPlayerColor().r, playerData.GetPlayerColor().g, playerData.GetPlayerColor().b, deadTransparency);
+            bodyMeshRenderer.material = transparentMaterial;
             bodyMeshRenderer.material.color = transparentColor;
         }
         else
         {
             bodyMeshRenderer.material = standardMaterial;
 
-            shoeMeshRenderer_L.material = standardMaterial_Shoe;
-            shoeMeshRenderer_R.material = standardMaterial_Shoe;
+            headphoneMeshRenderer.material = standardMaterial_Headphone;
 
             bodyMeshRenderer.material.color = playerData.GetPlayerColor();
         }
