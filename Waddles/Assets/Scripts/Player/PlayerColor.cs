@@ -29,12 +29,12 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] private float deadTransparency;
 
-    private PlayerConfiguration myPlayerConfig;
+    private int _playerIndex;
 
     //change player color
     private void UpdateColor(Color newColor)
     {
-        playerData.SetPlayerColor(newColor);
+        PlayerConfigurationManager.Instance.SetPlayerColor(_playerIndex, newColor);
         playerOutline.OutlineColor = new Color (newColor.r, newColor.g, newColor.b, 1);
 
         UpdateMaterial();
@@ -43,6 +43,7 @@ public class PlayerColor : MonoBehaviour
     //update material with colour and transparency based on dead state
     public void UpdateMaterial()
     {
+        Color playerColor = PlayerConfigurationManager.Instance.GetPlayerColor(_playerIndex);
         if(playerData.GetDead())
         {
 
@@ -50,7 +51,7 @@ public class PlayerColor : MonoBehaviour
             headphoneMeshRenderer.material = transparentMaterial_Headphone;
             headphoneMeshRenderer.material.color = transparentColor_Headphone;
 
-            Color transparentColor = new Color(playerData.GetPlayerColor().r, playerData.GetPlayerColor().g, playerData.GetPlayerColor().b, deadTransparency);
+            Color transparentColor = new Color(playerColor.r, playerColor.g, playerColor.b, deadTransparency);
             bodyMeshRenderer.material = transparentMaterial;
             bodyMeshRenderer.material.color = transparentColor;
         }
@@ -60,7 +61,7 @@ public class PlayerColor : MonoBehaviour
 
             headphoneMeshRenderer.material = standardMaterial_Headphone;
 
-            bodyMeshRenderer.material.color = playerData.GetPlayerColor();
+            bodyMeshRenderer.material.color = playerColor;
         }
 
         UpdateFace();
@@ -87,7 +88,7 @@ public class PlayerColor : MonoBehaviour
 
     public void OnColorUp(InputAction.CallbackContext context)
     {
-        if (myPlayerConfig.IsReady)
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(_playerIndex))
             return;
 
         if (!context.performed)
@@ -99,7 +100,7 @@ public class PlayerColor : MonoBehaviour
     }
     public void OnColorDown(InputAction.CallbackContext context)
     {
-        if (myPlayerConfig.IsReady)
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(_playerIndex))
             return;
 
         if (!context.performed)
@@ -110,11 +111,11 @@ public class PlayerColor : MonoBehaviour
         ColorDown();
     }
 
-    public void DefaultColor(PlayerConfiguration playerConfig)
+    public void DefaultColor(int playerIndex)
     {
-        myPlayerConfig = playerConfig;
+        _playerIndex = playerIndex;
         bool colorAssigned = false;
-        currentColorID = playerConfig.PlayerIndex;
+        currentColorID = _playerIndex;
         Color newColor;
         do
         {

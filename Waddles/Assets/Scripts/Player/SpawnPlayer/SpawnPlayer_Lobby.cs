@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 {
@@ -10,10 +8,12 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
+        int playerIndex = playerConfig.PlayerIndex;
+        PlayerInput playerInput = playerConfig.Input;
         Debug.Log(playerConfig.PlayerIndex);
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
-        SetColor(playerConfig);
+        SetColor(playerIndex, playerInput);
         SetReadyUp(playerConfig);
         FreezePosition(playerConfig);
     }
@@ -53,8 +53,8 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         playerConfig.Input.SwitchCurrentActionMap("Lobby");
     }
 
-    private void SetColor(PlayerConfiguration playerConfig)
+    private void SetColor(int playerIndex, PlayerInput playerInput)
     {
-        playerConfig.Input.gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().DefaultColor(playerConfig);
+        playerInput.gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().DefaultColor(playerIndex);
     }
 }

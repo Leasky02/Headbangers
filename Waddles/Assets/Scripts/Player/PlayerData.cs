@@ -6,8 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerData : MonoBehaviour
 {
     private PlayerInput playerInput;
-    //color of player body
-    [SerializeField] private Color playerColor;
+    
     //if player is knocked out
     private bool knockedOut = false;
     //if player is dead
@@ -36,11 +35,6 @@ public class PlayerData : MonoBehaviour
     {
         return dead;
     }
-    //return player color
-    public Color GetPlayerColor()
-    {
-        return playerColor;
-    }
     public bool GetIsCameraTarget()
     {
         return isCameraTarget;
@@ -54,10 +48,7 @@ public class PlayerData : MonoBehaviour
     {
         dead = state;
     }
-    public void SetPlayerColor(Color newColor)
-    {
-        playerColor = newColor;
-    }
+    
     public void SetIsCameraTarget(bool state)
     {
         isCameraTarget = state;

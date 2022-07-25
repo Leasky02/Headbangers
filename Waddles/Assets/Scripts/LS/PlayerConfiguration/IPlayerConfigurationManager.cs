@@ -106,6 +106,11 @@ namespace LS
             }
         }
 
+        public bool IsPlayerReady(int index)
+        {
+            return GetPlayerConfiguration(index).IsReady;
+        }
+
         public void SetPlayerReady(int index, bool ready = true)
         {
             TPlayerConfiguration playerConfig = GetPlayerConfiguration(index);
