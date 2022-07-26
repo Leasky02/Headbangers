@@ -1,16 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField] private PlayerData playerData;
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerColor playerColor;
     private Transform spawnPoint;
 
-    [SerializeField] private BoxCollider[] bodyDetectors; 
+    [SerializeField] private BoxCollider[] bodyDetectors;
 
     [SerializeField] private GameObject[] bodyParts;
     [SerializeField] private MeshRenderer[] shoes;
@@ -25,7 +23,7 @@ public class PlayerDeath : MonoBehaviour
     public IEnumerator Die()
     {
         playerInput.SwitchCurrentActionMap("Deactive");
-        playerData.SetIsCameraTarget(false);
+        Player.GetPlayerComponent(gameObject).SetIsCameraTarget(false);
         StartCoroutine(Respawn());
 
         deadAudioSource.Play();
@@ -87,7 +85,7 @@ public class PlayerDeath : MonoBehaviour
         transform.position = newPosition;
         yield return new WaitForSeconds(0.5f);
 
-        playerData.SetIsCameraTarget(true);
+        Player.GetPlayerComponent(gameObject).SetIsCameraTarget(true);
         playerInput.SwitchCurrentActionMap("Gameplay");
     }
 

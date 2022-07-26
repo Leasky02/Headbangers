@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +8,6 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] public static bool[] colorTaken = new bool[8];
     [SerializeField] private int currentColorID;
 
-    [SerializeField] private PlayerData playerData;
     [SerializeField] private Outline playerOutline;
 
     [SerializeField] private MeshRenderer bodyMeshRenderer;
@@ -35,7 +32,7 @@ public class PlayerColor : MonoBehaviour
     private void UpdateColor(Color newColor)
     {
         PlayerConfigurationManager.Instance.SetPlayerColor(_playerIndex, newColor);
-        playerOutline.OutlineColor = new Color (newColor.r, newColor.g, newColor.b, 1);
+        playerOutline.OutlineColor = new Color(newColor.r, newColor.g, newColor.b, 1);
 
         UpdateMaterial();
     }
@@ -45,7 +42,7 @@ public class PlayerColor : MonoBehaviour
     {
         Color playerColor = PlayerConfigurationManager.Instance.GetPlayerColor(_playerIndex);
         bool isDead = PlayerConfigurationManager.Instance.GetPlayerState(_playerIndex).IsDead();
-        if(isDead)
+        if (isDead)
         {
 
             Color transparentColor_Headphone = new Color(transparentMaterial_Headphone.color.r, transparentMaterial_Headphone.color.g, transparentMaterial_Headphone.color.b, deadTransparency);
@@ -74,7 +71,7 @@ public class PlayerColor : MonoBehaviour
         //change transparency of each face component
         foreach (SpriteRenderer facePart in faceParts)
         {
-            if(isDead)
+            if (isDead)
             {
                 Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, deadTransparency);
                 facePart.color = newColor;
@@ -120,7 +117,7 @@ public class PlayerColor : MonoBehaviour
         Color newColor;
         do
         {
-            if(!colorTaken[currentColorID])
+            if (!colorTaken[currentColorID])
             {
                 newColor = playerColours[currentColorID];
                 UpdateColor(newColor);
@@ -131,7 +128,7 @@ public class PlayerColor : MonoBehaviour
             {
                 colorAssigned = false;
                 currentColorID++;
-                if(currentColorID >= colorTaken.Length)
+                if (currentColorID >= colorTaken.Length)
                     currentColorID = 0;
             }
         } while (colorAssigned == false);
@@ -141,9 +138,9 @@ public class PlayerColor : MonoBehaviour
     {
         //determine if another colour is available
         bool availableColor = false;
-        foreach(bool colorUsed in colorTaken)
+        foreach (bool colorUsed in colorTaken)
         {
-            if(colorUsed == false)
+            if (colorUsed == false)
             {
                 availableColor = true;
                 break;
@@ -154,7 +151,7 @@ public class PlayerColor : MonoBehaviour
             }
         }
 
-        if(availableColor)
+        if (availableColor)
         {
             bool colorAssigned = false;
             Color newColor;

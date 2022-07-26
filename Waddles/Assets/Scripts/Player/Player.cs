@@ -4,9 +4,13 @@ public class Player : MonoBehaviour
 {
     private int _playerIndex = -1;
 
+    private bool _isCameraTarget = true;
+
+    private const string Tag = "Player";
+
     public static Player GetPlayerComponent(GameObject gameObject)
     {
-        return LS.Helpers.GetComponentInParentWithTag<Player>(gameObject, "Player");
+        return LS.Helpers.GetComponentInParentWithTag<Player>(gameObject, Tag);
     }
 
     public void Init(int playerIndex)
@@ -17,6 +21,7 @@ public class Player : MonoBehaviour
             return;
         }
 
+        gameObject.tag = Tag;
         _playerIndex = playerIndex;
         SetColor();
     }
@@ -32,6 +37,16 @@ public class Player : MonoBehaviour
     private void SetColor()
     {
         gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().DefaultColor(_playerIndex);
+    }
+
+    public bool IsCameraTarget()
+    {
+        return _isCameraTarget;
+    }
+
+    public void SetIsCameraTarget(bool isCameraTarget)
+    {
+        _isCameraTarget = isCameraTarget;
     }
 
     public bool IsKnockedOut()
