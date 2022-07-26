@@ -1611,6 +1611,7 @@ GameObject:
   - component: {fileID: 166200832957708597}
   - component: {fileID: 287567893963814831}
   - component: {fileID: 287567893963814828}
+  - component: {fileID: 220206565819900079}
   m_Layer: 0
   m_Name: Player1 (hip)
   m_TagString: Untagged
@@ -1674,7 +1675,7 @@ MonoBehaviour:
   face: {fileID: 671975495570311663}
   kickTimeLength: 0.3
   HeadButtLength: 0.15
-  cooldownLength: 0.3
+  cooldownLength: 0.25
   normalSpringValue_BODY: 20
   normalSpringValue_LeftThigh: 1000
   attackSpringValue_BODY: 120
@@ -1715,6 +1716,7 @@ MonoBehaviour:
   - {fileID: 287567894396864734}
   - {fileID: 287567892636320905}
   - {fileID: 287567894438307734}
+  hipCollider: {fileID: 220206565819900079}
   deadAudioSource: {fileID: 1185979569055248356}
 --- !u!114 &5732016547039446277
 MonoBehaviour:
@@ -1900,6 +1902,19 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!65 &220206565819900079
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287567893963814817}
+  m_Material: {fileID: 13400000, guid: 8bc9ab355b33149419f3f17f335e9316, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4387759, y: 0.21859613, z: 0.19707754}
+  m_Center: {x: 0.00022094697, y: -0.029718384, z: 0.009293333}
 --- !u!1 &287567893971596478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3665,7 +3680,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4f46dec1c5289894ab87125e8a12f6d7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.17
+  m_Volume: 0.351
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3827,7 +3842,7 @@ MonoBehaviour:
   isBody: 1
   actionScript: {fileID: 287567893963814829}
   interactionAudioSource: {fileID: 1847766996422167199}
-  objectForce: 2
+  objectForce: 4
 --- !u!54 &6296502896523965792
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3955,7 +3970,7 @@ MonoBehaviour:
   isBody: 0
   actionScript: {fileID: 287567893963814829}
   interactionAudioSource: {fileID: 1847766996422167199}
-  objectForce: 2
+  objectForce: 3
 --- !u!54 &8982372935273019008
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4363,38 +4378,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f0b9ae7c-ddfc-4572-a64f-539d37ca1e86
     m_ActionName: Lobby/HeadButt[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9223008178974407914}
-        m_TargetAssemblyTypeName: PlayerReadyUp, Assembly-CSharp
-        m_MethodName: ReadyUp
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6fbfae57-9b48-4fde-bf5f-d211cb2f5a58
-    m_ActionName: LobbyReady/ReadyUp[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9223008178974407914}
-        m_TargetAssemblyTypeName: PlayerReadyUp, Assembly-CSharp
-        m_MethodName: PlayerLeave
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: f70d326f-9453-4aca-86c8-0897413d43b0
-    m_ActionName: LobbyReady/Leave[/XInputControllerWindows/select,/XInputControllerWindows1/select]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

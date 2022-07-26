@@ -17,6 +17,8 @@ public class PlayerDeath : MonoBehaviour
     [SerializeField] private GameObject[] legParts;
     [SerializeField] private GameObject[] legLimbs;
 
+    [SerializeField] private BoxCollider hipCollider;
+
     [SerializeField] private AudioSource deadAudioSource;
 
     //player dies
@@ -54,15 +56,23 @@ public class PlayerDeath : MonoBehaviour
         foreach (GameObject legPart in legParts)
         {
             legPart.layer = LayerMask.NameToLayer("PlayerLegs_Ghost");
+            legPart.GetComponent<BoxCollider>().enabled = false;
         }
 
         //remove body tag
         bodyParts[0].tag = "Untagged";
         bodyParts[3].tag = "Untagged";
 
+        //disable feet colliders
+        bodyParts[1].GetComponent<MeshCollider>().enabled = false;
+        bodyParts[2].GetComponent<MeshCollider>().enabled = false;
+
         //hide feet
         shoes[0].enabled = false;
         shoes[1].enabled = false;
+
+        //enable hip collider
+        hipCollider.enabled = true;
 
         //change material of body and face
         playerColor.UpdateMaterial();
@@ -73,7 +83,7 @@ public class PlayerDeath : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-        Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1.5f, 1.5f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1.5f, 1.5f)));
+        Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1f, 1f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1f, 1f)));
         transform.position = newPosition;
         yield return new WaitForSeconds(0.5f);
 
@@ -105,6 +115,8 @@ public class PlayerDeath : MonoBehaviour
         foreach (GameObject legPart in legParts)
         {
             legPart.layer = LayerMask.NameToLayer("PlayerLegs");
+            legPart.GetComponent<BoxCollider>().enabled = true;
+
         }
 
         //remove body tag
@@ -113,6 +125,13 @@ public class PlayerDeath : MonoBehaviour
         //show feet
         shoes[0].enabled = true;
         shoes[1].enabled = true;
+
+        //disable feet colliders
+        bodyParts[1].GetComponent<MeshCollider>().enabled = false;
+        bodyParts[2].GetComponent<MeshCollider>().enabled = false;
+
+        //disable hip collider
+        hipCollider.enabled = false;
 
         //change material of body and face
         playerColor.UpdateMaterial();
