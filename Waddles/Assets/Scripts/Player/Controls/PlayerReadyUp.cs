@@ -7,14 +7,9 @@ public class PlayerReadyUp : MonoBehaviour
 {
     [SerializeField] private PlayerConfiguration myPlayerConfig;
 
-    private TextMesh readyUpText;
-
-    private bool ready;
-
-    public void SetupReadyUp(TextMesh text, PlayerConfiguration playerconfig)
+    public void SetupReadyUp(PlayerConfiguration playerconfig)
     {
         myPlayerConfig = playerconfig;
-        readyUpText = text;
     }
 
     public void ReadyUp(InputAction.CallbackContext context)
@@ -23,34 +18,12 @@ public class PlayerReadyUp : MonoBehaviour
         {
             myPlayerConfig.IsReady = !myPlayerConfig.IsReady;
         }
-
-        if(myPlayerConfig.IsReady)
-        {
-            readyUpText.text = ("Ready");
-        }
-        else
-        {
-            readyUpText.text = ("");
-        }
-    }
-    
-    public void TransferReadyUp()
-    {
-        if (myPlayerConfig.IsReady)
-        {
-            readyUpText.text = ("Ready");
-        }
-        else
-        {
-            readyUpText.text = ("");
-        }
     }
 
     public void PlayerLeave(InputAction.CallbackContext context)
     {
         if(context.performed)
         {
-            readyUpText.text = ("");
             PlayerConfigurationManager.Instance.RemovePlayer(myPlayerConfig.PlayerIndex);
             PlayerColor.colorTaken[GetComponent<PlayerColor>().GetColourID()] = false;
             Destroy(transform.parent.gameObject);

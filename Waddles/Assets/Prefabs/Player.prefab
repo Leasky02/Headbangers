@@ -1612,7 +1612,7 @@ GameObject:
   - component: {fileID: 287567893963814831}
   - component: {fileID: 287567893963814828}
   - component: {fileID: 220206565819900079}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player1 (hip)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1703,6 +1703,7 @@ MonoBehaviour:
   - {fileID: 287567893911048447}
   - {fileID: 287567894065349238}
   - {fileID: 3284217037909672614}
+  - {fileID: 287567893963814817}
   shoes:
   - {fileID: 1692998137304773544}
   - {fileID: 6458012310095379806}

@@ -24,8 +24,7 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         oldText.text = "";
 
         TextMesh readyText = spawnPositions[userIndex].GetChild(0).GetComponent<TextMesh>();
-        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(readyText, playerConfig);
-        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().TransferReadyUp();
+        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(playerConfig);
 
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
@@ -35,7 +34,7 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
     private void SetReadyUp(PlayerConfiguration playerConfig)
     {
         TextMesh readyText = spawnPositions[playerConfig.GetUserIndex()].GetChild(0).GetComponent<TextMesh>();
-        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(readyText, playerConfig);
+        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(playerConfig);
     }
 
     public void SetPosition(PlayerConfiguration playerConfig)

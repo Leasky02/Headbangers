@@ -12,7 +12,7 @@ namespace LS
     [RequireComponent(typeof(PlayerInputManager))]
     public abstract class IPlayerConfigurationManager<TPlayerConfigurationManager, TPlayerConfiguration> : Singleton<TPlayerConfigurationManager> where TPlayerConfigurationManager : IPlayerConfigurationManager<TPlayerConfigurationManager, TPlayerConfiguration> where TPlayerConfiguration : IPlayerConfiguration
     {
-        protected List<TPlayerConfiguration> playerConfigs;
+        public List<TPlayerConfiguration> playerConfigs;
 
         public override void Awake()
         {
