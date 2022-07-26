@@ -1691,7 +1691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b1f5e849312714786d183f401af51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 6734269064375405810}
   playerInput: {fileID: 1373281312171942305}
   playerColor: {fileID: 5732016547039446277}
   bodyDetectors:
@@ -1740,7 +1739,6 @@ MonoBehaviour:
   - {r: 0.8867924, g: 0.57771796, b: 0.36308295, a: 0}
   - {r: 0.49798858, g: 0.65494096, b: 0.9528302, a: 0}
   currentColorID: 0
-  playerData: {fileID: 6734269064375405810}
   playerOutline: {fileID: 4495160996073886903}
   bodyMeshRenderer: {fileID: 3377492177042574161}
   headphoneMeshRenderer: {fileID: 5392880225241222211}
@@ -2010,7 +2008,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a02e9f8560d07a4991a1cfa4087d109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 6734269064375405810}
   bodyparts:
   - {fileID: 287567893963814828}
   - {fileID: 287567893246454670}
@@ -4076,7 +4073,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4353178036784682740}
   - component: {fileID: 3195321353021028107}
-  - component: {fileID: 6734269064375405810}
   - component: {fileID: 1373281312171942305}
   - component: {fileID: 2588644690707937556}
   m_Layer: 0
@@ -4113,18 +4109,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: faa9bab24476db540a29313fc120adc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6734269064375405810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8091213087150184089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee97490e05fa0334da7bd7b70262b666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1373281312171942305

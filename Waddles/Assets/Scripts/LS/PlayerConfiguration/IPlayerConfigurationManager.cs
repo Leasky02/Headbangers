@@ -92,7 +92,7 @@ namespace LS
             return new IPlayerConfiguration(pi) as TPlayerConfiguration;
         }
 
-        protected TPlayerConfiguration GetPlayerConfiguration(int playerIndex)
+        public TPlayerConfiguration GetPlayerConfiguration(int playerIndex)
         {
             return playerConfigs.Find(p => p.PlayerIndex == playerIndex);
         }

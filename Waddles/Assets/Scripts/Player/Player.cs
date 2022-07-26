@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 
     private bool _isCameraTarget = true;
 
+    private PlayerState _playerState = new PlayerState();
+
     private const string Tag = "Player";
 
     public static Player GetPlayerComponent(GameObject gameObject)
@@ -23,20 +25,34 @@ public class Player : MonoBehaviour
 
         gameObject.tag = Tag;
         _playerIndex = playerIndex;
-        SetColor();
+        gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().Init();
     }
 
-    private PlayerState GetPlayerState()
+    private bool IsInitialized()
     {
-        if (_playerIndex == -1)
+        return _playerIndex > -1;
+    }
+
+    public void Update()
+    {
+        if (!IsInitialized())
+            return;
+
+        // Rename player at runtime appropriately
+        gameObject.name = "Player " + (GetPlayerConfiguration().GetUserIndex() + 1);
+    }
+
+    private PlayerConfiguration GetPlayerConfiguration()
+    {
+        if (!IsInitialized())
             return null;
 
-        return PlayerConfigurationManager.Instance.GetPlayerState(_playerIndex);
+        return PlayerConfigurationManager.Instance.GetPlayerConfiguration(_playerIndex);
     }
 
-    private void SetColor()
+    public int GetPlayerIndex()
     {
-        gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().DefaultColor(_playerIndex);
+        return GetPlayerConfiguration().PlayerIndex;
     }
 
     public bool IsCameraTarget()
@@ -51,21 +67,27 @@ public class Player : MonoBehaviour
 
     public bool IsKnockedOut()
     {
-        return GetPlayerState().IsKnockedOut();
+        return _playerState.IsKnockedOut;
     }
 
     public void SetKnockedOut(bool knockedOut)
     {
-        GetPlayerState().SetKnockedOut(knockedOut);
+        _playerState.IsKnockedOut = knockedOut;
     }
 
     public bool IsDead()
     {
-        return GetPlayerState().IsDead();
+        return _playerState.IsDead;
     }
 
     public void SetDead(bool dead)
     {
-        GetPlayerState().SetDead(dead);
+        _playerState.IsDead = dead;
     }
+}
+
+public class PlayerState
+{
+    public bool IsKnockedOut { get; set; }
+    public bool IsDead { get; set; }
 }

@@ -26,12 +26,10 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] private float deadTransparency;
 
-    private int _playerIndex;
-
     //change player color
     private void UpdateColor(Color newColor)
     {
-        PlayerConfigurationManager.Instance.SetPlayerColor(_playerIndex, newColor);
+        PlayerConfigurationManager.Instance.SetPlayerColor(Player.GetPlayerComponent(gameObject).GetPlayerIndex(), newColor);
         playerOutline.OutlineColor = new Color(newColor.r, newColor.g, newColor.b, 1);
 
         UpdateMaterial();
@@ -40,8 +38,8 @@ public class PlayerColor : MonoBehaviour
     //update material with colour and transparency based on dead state
     public void UpdateMaterial()
     {
-        Color playerColor = PlayerConfigurationManager.Instance.GetPlayerColor(_playerIndex);
-        bool isDead = PlayerConfigurationManager.Instance.GetPlayerState(_playerIndex).IsDead();
+        Color playerColor = PlayerConfigurationManager.Instance.GetPlayerColor(Player.GetPlayerComponent(gameObject).GetPlayerIndex());
+        bool isDead = Player.GetPlayerComponent(gameObject).IsDead();
         if (isDead)
         {
 
@@ -86,7 +84,7 @@ public class PlayerColor : MonoBehaviour
 
     public void OnColorUp(InputAction.CallbackContext context)
     {
-        if (PlayerConfigurationManager.Instance.IsPlayerReady(_playerIndex))
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(Player.GetPlayerComponent(gameObject).GetPlayerIndex()))
             return;
 
         if (!context.performed)
@@ -98,7 +96,7 @@ public class PlayerColor : MonoBehaviour
     }
     public void OnColorDown(InputAction.CallbackContext context)
     {
-        if (PlayerConfigurationManager.Instance.IsPlayerReady(_playerIndex))
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(Player.GetPlayerComponent(gameObject).GetPlayerIndex()))
             return;
 
         if (!context.performed)
@@ -109,11 +107,10 @@ public class PlayerColor : MonoBehaviour
         ColorDown();
     }
 
-    public void DefaultColor(int playerIndex)
+    public void Init()
     {
-        _playerIndex = playerIndex;
         bool colorAssigned = false;
-        currentColorID = _playerIndex;
+        currentColorID = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
         Color newColor;
         do
         {
