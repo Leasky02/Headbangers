@@ -55,7 +55,7 @@ public class MultipleTargetCamera : MonoBehaviour
             foreach (Transform player in targets)
             {
                 //if camera is within playzone
-                bool isCameraTarget = Player.GetPlayerComponent(gameObject).IsCameraTarget();
+                bool isCameraTarget = Player.GetPlayerComponent(player.gameObject).IsCameraTarget();
                 if (isCameraTarget)
                 {
                     if (!boundsSet)
@@ -97,7 +97,7 @@ public class MultipleTargetCamera : MonoBehaviour
             foreach (Transform player in targets)
             {
                 //if camera is within playzone
-                bool isCameraTarget = Player.GetPlayerComponent(gameObject).IsCameraTarget();
+                bool isCameraTarget = Player.GetPlayerComponent(player.gameObject).IsCameraTarget();
                 if (isCameraTarget)
                 {
                     if (!boundsSet)
