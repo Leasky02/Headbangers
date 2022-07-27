@@ -12,7 +12,7 @@ namespace LS
     [RequireComponent(typeof(PlayerInputManager))]
     public abstract class IPlayerConfigurationManager<TPlayerConfigurationManager, TPlayerConfiguration> : Singleton<TPlayerConfigurationManager> where TPlayerConfigurationManager : IPlayerConfigurationManager<TPlayerConfigurationManager, TPlayerConfiguration> where TPlayerConfiguration : IPlayerConfiguration
     {
-        public List<TPlayerConfiguration> playerConfigs;
+        protected List<TPlayerConfiguration> playerConfigs;
 
         public override void Awake()
         {
@@ -97,6 +97,11 @@ namespace LS
             return playerConfigs.Find(p => p.PlayerIndex == playerIndex);
         }
 
+        public TPlayerConfiguration GetPlayerConfigurationByUserIndex(int userIndex)
+        {
+            return playerConfigs.Find(p => p.GetUserIndex() == userIndex);
+        }
+
         private void SpawnPlayer(TPlayerConfiguration playerConfig)
         {
             GameObject spawnPlayerObj = GameObject.FindGameObjectWithTag("SpawnPlayer");
@@ -106,23 +111,23 @@ namespace LS
             }
         }
 
-        public bool IsPlayerReady(int index)
+        public bool IsPlayerReady(int playerIndex)
         {
-            return GetPlayerConfiguration(index).IsReady;
+            return GetPlayerConfiguration(playerIndex).IsReady;
         }
 
-        public void SetPlayerReady(int index, bool ready = true)
+        public void SetPlayerReady(int playerIndex, bool ready = true)
         {
-            TPlayerConfiguration playerConfig = GetPlayerConfiguration(index);
+            TPlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
             if (playerConfig != null)
             {
                 playerConfig.IsReady = ready;
             }
         }
 
-        public void TogglePlayerReady(int index)
+        public void TogglePlayerReady(int playerIndex)
         {
-            TPlayerConfiguration playerConfig = GetPlayerConfiguration(index);
+            TPlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
             if (playerConfig != null)
             {
                 playerConfig.IsReady = !playerConfig.IsReady;
