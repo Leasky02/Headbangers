@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerActions : MonoBehaviour
 {
-    [SerializeField] private PlayerData playerData;
     private Rigidbody rb;
     private ConfigurableJoint cj;
     [SerializeField] private ConfigurableJoint cjBody;
@@ -156,7 +154,7 @@ public class PlayerActions : MonoBehaviour
         if (HeadButtingPlayer)
         {
             //if can play the attack sound
-            if(canPlayHitSound)
+            if (canPlayHitSound)
             {
                 audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
                 audioSource_Attack.Play();
@@ -167,7 +165,7 @@ public class PlayerActions : MonoBehaviour
             PlayerKO victim = bodyDetector_HEAD.IsTouchingBody().transform.parent.transform.parent.gameObject.GetComponent<PlayerKO>();
             if (!victim.IsHeadButtInProgress())
             {
-                victim.StartCoroutine(victim.HeadButted(gameObject , cjBody.gameObject.transform.localRotation.eulerAngles.x));
+                victim.StartCoroutine(victim.HeadButted(gameObject, cjBody.gameObject.transform.localRotation.eulerAngles.x));
 
                 StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
             }
@@ -175,7 +173,7 @@ public class PlayerActions : MonoBehaviour
 
         //successful kick
         bool kickingPlayer = isKicking && bodyDetector_FOOT.IsTouchingBody() != null;
-        if(kickingPlayer)
+        if (kickingPlayer)
         {
             isKicking = false;
 
@@ -190,22 +188,32 @@ public class PlayerActions : MonoBehaviour
         }
     }
 
+    private bool IsKnockedOut()
+    {
+        return Player.GetPlayerComponent(gameObject).IsKnockedOut();
+    }
+
+    private bool IsDead()
+    {
+        return Player.GetPlayerComponent(gameObject).IsDead();
+    }
+
     //action checks
     private bool ShouldKick()
     {
-        return canKick && !isSitting && !playerData.GetKnockedOut() && !playerData.GetDead();
+        return canKick && !isSitting && !IsKnockedOut() && !IsDead();
     }
     private bool ShouldHeadButt()
     {
-        return !isSitting && canHeadButt && !playerData.GetKnockedOut();
+        return !isSitting && canHeadButt && !IsKnockedOut();
     }
     private bool ShouldJump()
     {
-        return !isKicking && !isSitting && !playerData.GetKnockedOut();
+        return !isKicking && !isSitting && !IsKnockedOut();
     }
     private bool ShouldSit()
     {
-        return !isKicking && !playerData.GetKnockedOut();
+        return !isKicking && !IsKnockedOut();
     }
     private bool ShouldIdle()
     {
@@ -214,7 +222,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator HeadButt()
     {
-        if(!playerData.GetKnockedOut())
+        if (!IsKnockedOut())
         {
             StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
         }
@@ -234,7 +242,7 @@ public class PlayerActions : MonoBehaviour
 
         PlayHeadButtAnimation();
 
-        yield return new WaitForSeconds(HeadButtLength/2);
+        yield return new WaitForSeconds(HeadButtLength / 2);
 
         //reset spring joint back to normal
         springDriveX.positionSpring = normalSpringValue_BODY;
@@ -261,7 +269,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator Kick()
     {
-        if(!playerData.GetKnockedOut())
+        if (!IsKnockedOut())
         {
             StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
         }
@@ -299,11 +307,11 @@ public class PlayerActions : MonoBehaviour
     private void Walk(Vector3 direction)
     {
         //move the player
-        if(!playerData.GetDead() || (playerData.GetDead() && !groundDetector.IsGrounded()))
+        if (!IsDead() || (IsDead() && !groundDetector.IsGrounded()))
         {
             rb.AddForce(direction * speed * Time.deltaTime);
         }
-        else if(!playerData.GetDead() && !groundDetector.IsGrounded())
+        else if (!IsDead() && !groundDetector.IsGrounded())
         {
             rb.AddForce(direction * speed * 3 * Time.deltaTime);
         }
@@ -311,7 +319,7 @@ public class PlayerActions : MonoBehaviour
         {
             rb.AddForce(direction * speed * 2f * Time.deltaTime);
         }
-        
+
         //rotate the player
         Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
         cj.targetRotation = toRotation;
@@ -344,12 +352,12 @@ public class PlayerActions : MonoBehaviour
     }
     private void PlayWalkAnimation()
     {
-        if(!playerData.GetDead())
+        if (!IsDead())
         {
             decoyAnimator.Play("Walk");
         }
-        
-        if(groundDetector.IsGrounded())
+
+        if (groundDetector.IsGrounded())
             decoyAnimator.speed = 1f;
         else
             decoyAnimator.speed = 0.5f;
@@ -358,7 +366,7 @@ public class PlayerActions : MonoBehaviour
     //return checks for action states
     public bool IsWalking(Vector3 direction)
     {
-        return (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !playerData.GetKnockedOut();
+        return (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !IsKnockedOut();
     }
 
     public bool IsSitting()

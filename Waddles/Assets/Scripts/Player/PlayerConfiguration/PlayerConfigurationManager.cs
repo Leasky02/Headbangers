@@ -16,9 +16,24 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
 
     private void UpdatePlayerOrder()
     {
-        playerConfigs.ForEach(playerConfig => {
+        playerConfigs.ForEach(playerConfig =>
+        {
             GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
             spawnPlayerObject.GetComponent<LS.ISpawnPlayer<PlayerConfiguration>>().ShufflePlayer(playerConfig);
         });
+    }
+
+    public Color GetPlayerColor(int playerIndex)
+    {
+        return GetPlayerConfiguration(playerIndex).PlayerColor;
+    }
+
+    public void SetPlayerColor(int playerIndex, Color color)
+    {
+        PlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
+        if (playerConfig != null)
+        {
+            playerConfig.PlayerColor = color;
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -51,12 +50,12 @@ public class MultipleTargetCamera : MonoBehaviour
         Bounds bounds = new Bounds(mapCenter, Vector3.zero);
         bool boundsSet = false;
 
-        if(TargetFound())
+        if (TargetFound())
         {
             foreach (Transform player in targets)
             {
                 //if camera is within playzone
-                bool isCameraTarget = player.transform.parent.GetComponent<PlayerData>().GetIsCameraTarget();
+                bool isCameraTarget = Player.GetPlayerComponent(player.gameObject).IsCameraTarget();
                 if (isCameraTarget)
                 {
                     if (!boundsSet)
@@ -73,7 +72,7 @@ public class MultipleTargetCamera : MonoBehaviour
                 bounds = new Bounds(targets[0].position, Vector3.zero);
             }
         }
-       
+
         return bounds.size.magnitude;
     }
 
@@ -93,12 +92,12 @@ public class MultipleTargetCamera : MonoBehaviour
         Bounds bounds = new Bounds(mapCenter, Vector3.zero);
         bool boundsSet = false;
 
-        if(TargetFound())
+        if (TargetFound())
         {
             foreach (Transform player in targets)
             {
                 //if camera is within playzone
-                bool isCameraTarget = player.transform.parent.GetComponent<PlayerData>().GetIsCameraTarget();
+                bool isCameraTarget = Player.GetPlayerComponent(player.gameObject).IsCameraTarget();
                 if (isCameraTarget)
                 {
                     if (!boundsSet)
@@ -110,7 +109,7 @@ public class MultipleTargetCamera : MonoBehaviour
                 }
             }
         }
-     
+
         //return center point of bounds
         return bounds.center;
     }

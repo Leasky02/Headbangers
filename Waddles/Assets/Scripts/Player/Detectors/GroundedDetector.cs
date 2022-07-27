@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GroundedDetector : MonoBehaviour
 {
-    [SerializeField] private PlayerData playerData;
     private bool isGrounded = true;
 
     private bool springReachedMax = true;
@@ -19,7 +16,7 @@ public class GroundedDetector : MonoBehaviour
         {
             isGrounded = true;
 
-            if(!springReachedMax)
+            if (!springReachedMax)
             {
                 AdjustSpring(2f);
                 springReachedMax = true;
@@ -35,7 +32,7 @@ public class GroundedDetector : MonoBehaviour
         {
             isGrounded = false;
 
-            if(!springReachedMin)
+            if (!springReachedMin)
             {
                 AdjustSpring(0.5f);
                 springReachedMax = false;
@@ -47,7 +44,7 @@ public class GroundedDetector : MonoBehaviour
     //adjusts body springs depending on isGrounded
     private void AdjustSpring(float multiplier)
     {
-        foreach(ConfigurableJoint bodyPart in bodyparts)
+        foreach (ConfigurableJoint bodyPart in bodyparts)
         {
             JointDrive springDriveX = bodyPart.angularXDrive;
             JointDrive springDriveYZ = bodyPart.angularYZDrive;

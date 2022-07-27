@@ -92,7 +92,7 @@ namespace LS
             return new IPlayerConfiguration(pi) as TPlayerConfiguration;
         }
 
-        protected TPlayerConfiguration GetPlayerConfiguration(int playerIndex)
+        public TPlayerConfiguration GetPlayerConfiguration(int playerIndex)
         {
             return playerConfigs.Find(p => p.PlayerIndex == playerIndex);
         }
@@ -104,6 +104,11 @@ namespace LS
             {
                 spawnPlayerObj.GetComponent<ISpawnPlayer<TPlayerConfiguration>>().SpawnPlayer(playerConfig);
             }
+        }
+
+        public bool IsPlayerReady(int index)
+        {
+            return GetPlayerConfiguration(index).IsReady;
         }
 
         public void SetPlayerReady(int index, bool ready = true)

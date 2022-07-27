@@ -1,17 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BodyDetector : MonoBehaviour
 {
-    [SerializeField] private PlayerData playerData;
     private GameObject objectTouching;
     [SerializeField] private GameObject self;
 
     private void OnTriggerEnter(Collider other)
     {
         //collision with player
-        bool touchingOtherPlayer = other.CompareTag("Body") && other.gameObject != self && !playerData.GetDead();
+        bool touchingOtherPlayer = other.CompareTag("Body") && other.gameObject != self && !IsDead();
         if (touchingOtherPlayer)
         {
             objectTouching = other.gameObject.transform.parent.gameObject;
@@ -20,7 +17,7 @@ public class BodyDetector : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         //exit collision with player
-        bool touchingOtherPlayer = other.CompareTag("Body") && other.gameObject != self && !playerData.GetDead();
+        bool touchingOtherPlayer = other.CompareTag("Body") && other.gameObject != self && !IsDead();
         if (touchingOtherPlayer)
         {
             objectTouching = null;
@@ -30,5 +27,10 @@ public class BodyDetector : MonoBehaviour
     public GameObject IsTouchingBody()
     {
         return objectTouching;
+    }
+
+    private bool IsDead()
+    {
+        return Player.GetPlayerComponent(gameObject).IsDead();
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,7 +8,6 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] public static bool[] colorTaken = new bool[8];
     [SerializeField] private int currentColorID;
 
-    [SerializeField] private PlayerData playerData;
     [SerializeField] private Outline playerOutline;
 
     [SerializeField] private MeshRenderer bodyMeshRenderer;
@@ -29,13 +26,11 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] private float deadTransparency;
 
-    private PlayerConfiguration myPlayerConfig;
-
     //change player color
     private void UpdateColor(Color newColor)
     {
-        playerData.SetPlayerColor(newColor);
-        playerOutline.OutlineColor = new Color (newColor.r, newColor.g, newColor.b, 1);
+        PlayerConfigurationManager.Instance.SetPlayerColor(Player.GetPlayerComponent(gameObject).GetPlayerIndex(), newColor);
+        playerOutline.OutlineColor = new Color(newColor.r, newColor.g, newColor.b, 1);
 
         UpdateMaterial();
     }
@@ -43,14 +38,16 @@ public class PlayerColor : MonoBehaviour
     //update material with colour and transparency based on dead state
     public void UpdateMaterial()
     {
-        if(playerData.GetDead())
+        Color playerColor = PlayerConfigurationManager.Instance.GetPlayerColor(Player.GetPlayerComponent(gameObject).GetPlayerIndex());
+        bool isDead = Player.GetPlayerComponent(gameObject).IsDead();
+        if (isDead)
         {
 
             Color transparentColor_Headphone = new Color(transparentMaterial_Headphone.color.r, transparentMaterial_Headphone.color.g, transparentMaterial_Headphone.color.b, deadTransparency);
             headphoneMeshRenderer.material = transparentMaterial_Headphone;
             headphoneMeshRenderer.material.color = transparentColor_Headphone;
 
-            Color transparentColor = new Color(playerData.GetPlayerColor().r, playerData.GetPlayerColor().g, playerData.GetPlayerColor().b, deadTransparency);
+            Color transparentColor = new Color(playerColor.r, playerColor.g, playerColor.b, deadTransparency);
             bodyMeshRenderer.material = transparentMaterial;
             bodyMeshRenderer.material.color = transparentColor;
         }
@@ -60,19 +57,19 @@ public class PlayerColor : MonoBehaviour
 
             headphoneMeshRenderer.material = standardMaterial_Headphone;
 
-            bodyMeshRenderer.material.color = playerData.GetPlayerColor();
+            bodyMeshRenderer.material.color = playerColor;
         }
 
-        UpdateFace();
+        UpdateFace(isDead);
     }
 
     //update transparency of face based on dead state
-    public void UpdateFace()
+    private void UpdateFace(bool isDead)
     {
         //change transparency of each face component
         foreach (SpriteRenderer facePart in faceParts)
         {
-            if(playerData.GetDead())
+            if (isDead)
             {
                 Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, deadTransparency);
                 facePart.color = newColor;
@@ -87,7 +84,7 @@ public class PlayerColor : MonoBehaviour
 
     public void OnColorUp(InputAction.CallbackContext context)
     {
-        if (myPlayerConfig.IsReady)
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(Player.GetPlayerComponent(gameObject).GetPlayerIndex()))
             return;
 
         if (!context.performed)
@@ -99,7 +96,7 @@ public class PlayerColor : MonoBehaviour
     }
     public void OnColorDown(InputAction.CallbackContext context)
     {
-        if (myPlayerConfig.IsReady)
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(Player.GetPlayerComponent(gameObject).GetPlayerIndex()))
             return;
 
         if (!context.performed)
@@ -110,15 +107,14 @@ public class PlayerColor : MonoBehaviour
         ColorDown();
     }
 
-    public void DefaultColor(PlayerConfiguration playerConfig)
+    public void Init()
     {
-        myPlayerConfig = playerConfig;
         bool colorAssigned = false;
-        currentColorID = playerConfig.PlayerIndex;
+        currentColorID = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
         Color newColor;
         do
         {
-            if(!colorTaken[currentColorID])
+            if (!colorTaken[currentColorID])
             {
                 newColor = playerColours[currentColorID];
                 UpdateColor(newColor);
@@ -129,7 +125,7 @@ public class PlayerColor : MonoBehaviour
             {
                 colorAssigned = false;
                 currentColorID++;
-                if(currentColorID >= colorTaken.Length)
+                if (currentColorID >= colorTaken.Length)
                     currentColorID = 0;
             }
         } while (colorAssigned == false);
@@ -139,9 +135,9 @@ public class PlayerColor : MonoBehaviour
     {
         //determine if another colour is available
         bool availableColor = false;
-        foreach(bool colorUsed in colorTaken)
+        foreach (bool colorUsed in colorTaken)
         {
-            if(colorUsed == false)
+            if (colorUsed == false)
             {
                 availableColor = true;
                 break;
@@ -152,7 +148,7 @@ public class PlayerColor : MonoBehaviour
             }
         }
 
-        if(availableColor)
+        if (availableColor)
         {
             bool colorAssigned = false;
             Color newColor;

@@ -1,3 +1,4 @@
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerConfiguration : LS.IPlayerConfiguration
@@ -6,4 +7,6 @@ public class PlayerConfiguration : LS.IPlayerConfiguration
     {
 
     }
+
+    public Color PlayerColor { get; set; }
 }
