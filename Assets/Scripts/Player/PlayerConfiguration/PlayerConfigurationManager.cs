@@ -36,4 +36,18 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
             playerConfig.PlayerColor = color;
         }
     }
+
+    public string GetPlayerDisplayName(int playerIndex)
+    {
+        return GetPlayerConfiguration(playerIndex).DisplayName;
+    }
+
+    public void SetPlayerDisplayName(int playerIndex, string name)
+    {
+        PlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
+        if (playerConfig != null)
+        {
+            playerConfig.DisplayName = name;
+        }
+    }
 }
