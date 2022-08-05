@@ -15,6 +15,7 @@ TagManager:
   - RespawnPoint
   - PlayerConfigurationManager
   - Singleton
+  - LobbySpawnPoint
   layers:
   - Default
   - TransparentFX
