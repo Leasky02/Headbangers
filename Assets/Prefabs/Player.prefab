@@ -4237,8 +4237,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2588644690707937556}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
         m_MethodName: HandleAction_Lobby_ColorUp
         m_Mode: 0
         m_Arguments:
@@ -4253,8 +4253,8 @@ MonoBehaviour:
     m_ActionName: Lobby/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2588644690707937556}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
         m_MethodName: HandleAction_Lobby_ColorDown
         m_Mode: 0
         m_Arguments:
@@ -4273,8 +4273,8 @@ MonoBehaviour:
     m_ActionName: Respawn/New action
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2588644690707937556}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
         m_MethodName: HandleAction_Lobby_ReadyUp
         m_Mode: 0
         m_Arguments:
@@ -4289,8 +4289,8 @@ MonoBehaviour:
     m_ActionName: Lobby/ReadyUp[/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2588644690707937556}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
         m_MethodName: HandleAction_Lobby_Leave
         m_Mode: 0
         m_Arguments:

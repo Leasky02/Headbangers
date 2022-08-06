@@ -19,6 +19,25 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         return m_activeLetterIndex;
     }
 
+    public void HandleAction_Lobby_ReadyUp(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        PlayerConfigurationManager.Instance.TogglePlayerReady(playerIndex);
+    }
+
+    public void HandleAction_Lobby_Leave(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        PlayerColorManager.Instance.SetColorAvailable(PlayerConfigurationManager.Instance.GetPlayerColorID(playerIndex));
+        PlayerConfigurationManager.Instance.RemovePlayer(playerIndex, gameObject);
+    }
+
     public void HandleAction_Lobby_NavigateLeft(InputAction.CallbackContext context)
     {
         if (!context.performed)
@@ -73,6 +92,38 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         }
         m_letters[m_activeLetterIndex] = newLetter;
         UpdateAssociatedLobbySpawnPoint();
+    }
+
+    public void HandleAction_Lobby_ColorUp(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
+            return;
+
+        if (PlayerColorManager.Instance.HasColorsAvailable())
+        {
+            int newColorID = PlayerColorManager.Instance.TakeNextAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(playerIndex));
+            Player.GetPlayerComponent(gameObject).AssignColor(newColorID);
+        }
+    }
+
+    public void HandleAction_Lobby_ColorDown(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
+            return;
+
+        if (PlayerColorManager.Instance.HasColorsAvailable())
+        {
+            int newColorID = PlayerColorManager.Instance.TakePreviousAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(playerIndex));
+            Player.GetPlayerComponent(gameObject).AssignColor(newColorID);
+        }
     }
 
     private void UpdateAssociatedLobbySpawnPoint()
