@@ -26,7 +26,7 @@ public class PlayerColor : MonoBehaviour
         UpdateMaterial();
     }
 
-    //update material with colour and transparency based on dead state
+    // Update material with colour and transparency based on dead state
     public void UpdateMaterial()
     {
         Color playerColor = PlayerColorManager.Instance.GetColor(PlayerConfigurationManager.Instance.GetPlayerColorID(Player.GetPlayerComponent(gameObject).GetPlayerIndex()));
@@ -54,22 +54,14 @@ public class PlayerColor : MonoBehaviour
         UpdateFace(isDead);
     }
 
-    //update transparency of face based on dead state
+    // Update transparency of face based on dead state
     private void UpdateFace(bool isDead)
     {
-        //change transparency of each face component
+        // Change transparency of each face component
         foreach (SpriteRenderer facePart in faceParts)
         {
-            if (isDead)
-            {
-                Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, deadTransparency);
-                facePart.color = newColor;
-            }
-            else
-            {
-                Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, 1f);
-                facePart.color = newColor;
-            }
+            Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, isDead ? deadTransparency : 1f);
+            facePart.color = newColor;
         }
     }
 }
