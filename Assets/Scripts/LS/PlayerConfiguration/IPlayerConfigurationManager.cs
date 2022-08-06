@@ -66,8 +66,12 @@ namespace LS
             // TODO: handle player connection lost
         }
 
-        public void RemovePlayer(int playerIndex)
+        public void RemovePlayer(int playerIndex, GameObject gameObjectToDestroy = null)
         {
+            if (gameObjectToDestroy != null)
+            {
+                Destroy(gameObjectToDestroy);
+            }
             TPlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
             if (playerConfig != null)
             {

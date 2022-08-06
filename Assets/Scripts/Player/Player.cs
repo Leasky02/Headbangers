@@ -111,8 +111,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             PlayerColorManager.Instance.SetColorAvailable(PlayerConfigurationManager.Instance.GetPlayerColorID(m_playerIndex));
-            PlayerConfigurationManager.Instance.RemovePlayer(m_playerIndex);
-            Destroy(gameObject);
+            PlayerConfigurationManager.Instance.RemovePlayer(m_playerIndex, gameObject);
         }
     }
 

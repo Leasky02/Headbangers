@@ -11,13 +11,14 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
 
     protected override void AfterPlayerRemoved()
     {
-        Invoke("UpdatePlayerOrder", 0.05f);
+        UpdatePlayerOrder();
     }
 
     private void UpdatePlayerOrder()
     {
         playerConfigs.ForEach(playerConfig =>
         {
+            // TODO: only do this when in the lobby
             GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
             spawnPlayerObject.GetComponent<LS.ISpawnPlayer<PlayerConfiguration>>().ShufflePlayer(playerConfig);
         });
