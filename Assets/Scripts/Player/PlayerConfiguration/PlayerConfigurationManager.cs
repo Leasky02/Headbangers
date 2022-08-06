@@ -23,17 +23,17 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
         });
     }
 
-    public Color GetPlayerColor(int playerIndex)
+    public int GetPlayerColorID(int playerIndex)
     {
-        return GetPlayerConfiguration(playerIndex).PlayerColor;
+        return GetPlayerConfiguration(playerIndex).PlayerColorID;
     }
 
-    public void SetPlayerColor(int playerIndex, Color color)
+    public void SetPlayerColorID(int playerIndex, int colorID)
     {
         PlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
         if (playerConfig != null)
         {
-            playerConfig.PlayerColor = color;
+            playerConfig.PlayerColorID = colorID;
         }
     }
 

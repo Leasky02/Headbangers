@@ -4,7 +4,7 @@ public class LobbySpawnPoint : MonoBehaviour
 {
     [SerializeField] private int playerNumber;
 
-    [SerializeField] private TextMesh readyUpText;
+    [SerializeField] private TextMesh readyText;
 
     [SerializeField] private TextMesh playerNumberText;
 
@@ -16,6 +16,17 @@ public class LobbySpawnPoint : MonoBehaviour
     void Update()
     {
         PlayerConfiguration correspondingPlayer = PlayerConfigurationManager.Instance.GetPlayerConfigurationByUserIndex(playerNumber - 1);
-        readyUpText.text = correspondingPlayer != null && correspondingPlayer.IsReady ? "Ready" : "";
+        readyText.text = correspondingPlayer != null && correspondingPlayer.IsReady ? "Ready" : "";
+    }
+
+    public void SetReadyText(bool ready)
+    {
+        Debug.Log(readyText);
+        readyText.text = ready ? "Ready" : "";
+    }
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
     }
 }

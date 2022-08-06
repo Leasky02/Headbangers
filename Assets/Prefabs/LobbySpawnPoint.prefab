@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: 0
-  readyUpText: {fileID: 6567863009158013116}
+  readyText: {fileID: 6567863009158013116}
   playerNumberText: {fileID: 6567863009673499804}
 --- !u!1 &6567863009049920662
 GameObject:
@@ -369,7 +369,7 @@ GameObject:
   - component: {fileID: 6567863009158013117}
   - component: {fileID: 6567863009158013116}
   m_Layer: 5
-  m_Name: ReadyUpText
+  m_Name: ReadyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

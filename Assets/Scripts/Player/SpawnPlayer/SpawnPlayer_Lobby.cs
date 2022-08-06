@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 {
     //spawnpositions
-    [SerializeField] private Transform[] spawnPositions;
+    [SerializeField] private LobbySpawnPoint[] spawnPositions;
 
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
@@ -15,34 +15,25 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
-        SetReadyUp(playerConfig);
         FreezePosition(playerConfig);
     }
+
     public override void ShufflePlayer(PlayerConfiguration playerConfig)
     {
         int userIndex = playerConfig.GetUserIndex();
-        TextMesh oldText = spawnPositions[userIndex].GetChild(0).GetComponent<TextMesh>();
-        oldText.text = "";
-
-        TextMesh readyText = spawnPositions[userIndex].GetChild(0).GetComponent<TextMesh>();
-        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(playerConfig);
+        Debug.Log(userIndex);
+        //spawnPositions[userIndex].SetReadyText(false);
 
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
-        SetReadyUp(playerConfig);
-    }
-
-    private void SetReadyUp(PlayerConfiguration playerConfig)
-    {
-        TextMesh readyText = spawnPositions[playerConfig.GetUserIndex()].GetChild(0).GetComponent<TextMesh>();
-        playerConfig.Input.transform.GetChild(0).GetComponent<PlayerReadyUp>().SetupReadyUp(playerConfig);
     }
 
     public void SetPosition(PlayerConfiguration playerConfig)
     {
         Transform playerTransform = playerConfig.Input.transform.GetChild(0);
-        playerTransform.position = spawnPositions[playerConfig.GetUserIndex()].position;
+        playerTransform.position = spawnPositions[playerConfig.GetUserIndex()].GetPosition();
     }
+
     public void FreezePosition(PlayerConfiguration playerConfig)
     {
         Rigidbody playerHip = playerConfig.Input.gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
