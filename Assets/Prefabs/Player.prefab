@@ -4052,6 +4052,7 @@ GameObject:
   - component: {fileID: 3195321353021028107}
   - component: {fileID: 1373281312171942305}
   - component: {fileID: 2588644690707937556}
+  - component: {fileID: 7684810738315467476}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4334,6 +4335,70 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f0b9ae7c-ddfc-4572-a64f-539d37ca1e86
     m_ActionName: Lobby/HeadButt[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Lobby_NavigateLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b3e1b6a0-aa79-44ff-b1c1-33fd8f3399bb
+    m_ActionName: Lobby/Navigate
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Lobby_NavigateRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5b8315a2-c050-4204-aec2-c7e5515563b5
+    m_ActionName: Lobby/NavigateRight[/XInputControllerWindows/leftStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Lobby_NavigateUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 874fab92-39e6-4a89-9ec1-f619e61ad563
+    m_ActionName: Lobby/NavigateUp[/XInputControllerWindows/leftStick/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7684810738315467476}
+        m_TargetAssemblyTypeName: PlayerLobbyInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Lobby_NavigateDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fff5caf5-d7cc-4059-9725-dd2aa73c0c3f
+    m_ActionName: Lobby/NavigateDown[/XInputControllerWindows/leftStick/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -4352,6 +4417,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbodyHip: {fileID: 287567893963814831}
+--- !u!114 &7684810738315467476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 602dc17f008d4524ebc5ea1c0e8ba2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0

@@ -64,6 +64,11 @@ public class Player : MonoBehaviour
         return GetPlayerConfiguration().PlayerIndex;
     }
 
+    public int GetUserIndex()
+    {
+        return GetPlayerConfiguration().GetUserIndex();
+    }
+
     public bool IsCameraTarget()
     {
         return m_isCameraTarget;

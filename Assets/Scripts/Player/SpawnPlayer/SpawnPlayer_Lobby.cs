@@ -1,11 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 {
-    //spawnpositions
-    [SerializeField] private LobbySpawnPoint[] spawnPositions;
-
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
         int playerIndex = playerConfig.PlayerIndex;
@@ -16,21 +14,31 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
         FreezePosition(playerConfig);
+
+        LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex()).AssignUserIndex(playerConfig.GetUserIndex());
     }
 
-    public override void ShufflePlayer(PlayerConfiguration playerConfig)
+    //
+    public override void ShufflePlayers(List<PlayerConfiguration> playerConfigs)
     {
-        int userIndex = playerConfig.GetUserIndex();
-        Debug.Log(userIndex);
-        //spawnPositions[userIndex].SetReadyText(false);
+        // TODO: improve!
+        playerConfigs.ForEach(playerConfig =>
+        {
+            int userIndex = playerConfig.GetUserIndex();
+            Debug.Log(userIndex);
+            //LobbyManager.Find().GetSpawnPointForUserIndex(userIndex).SetReadyText(false);
 
-        SetPosition(playerConfig);
-        SetInputMap(playerConfig);
+            SetPosition(playerConfig);
+            SetInputMap(playerConfig);
+
+            LobbySpawnPoint lobbySpawnPoint = LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex());
+            lobbySpawnPoint.UpdateDisplayNameText();
+        });
     }
 
     public void SetPosition(PlayerConfiguration playerConfig)
     {
-        Player.GetPlayerComponent(playerConfig.Input.gameObject).SetPosition(spawnPositions[playerConfig.GetUserIndex()].GetPosition());
+        Player.GetPlayerComponent(playerConfig.Input.gameObject).SetPosition(LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex()).GetPosition());
     }
 
     public void FreezePosition(PlayerConfiguration playerConfig)

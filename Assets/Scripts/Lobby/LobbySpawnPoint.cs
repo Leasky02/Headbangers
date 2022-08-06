@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class LobbySpawnPoint : MonoBehaviour
@@ -8,8 +9,13 @@ public class LobbySpawnPoint : MonoBehaviour
 
     [SerializeField] private TextMesh playerNumberText;
 
+    [SerializeField] private TextMeshPro[] letters;
+
+    private int m_userIndex;
+
     void Start()
     {
+        m_userIndex = -1;
         playerNumberText.text = "Player " + playerNumber;
     }
 
@@ -28,5 +34,22 @@ public class LobbySpawnPoint : MonoBehaviour
     public Vector3 GetPosition()
     {
         return transform.position;
+    }
+
+    public void AssignUserIndex(int userIndex)
+    {
+        m_userIndex = userIndex;
+        UpdateDisplayNameText();
+    }
+
+    public void UpdateDisplayNameText()
+    {
+        PlayerConfiguration playerConfig = PlayerConfigurationManager.Instance.GetPlayerConfigurationByUserIndex(m_userIndex);
+        PlayerLobbyInputHandler playerLobbyInputHandler = Player.GetPlayerComponent(playerConfig.Input.gameObject).GetComponent<PlayerLobbyInputHandler>();
+
+        for (int i = 0; i < letters.Length; ++i)
+        {
+            letters[i].text = playerLobbyInputHandler.GetLetter(i).ToString();
+        }
     }
 }
