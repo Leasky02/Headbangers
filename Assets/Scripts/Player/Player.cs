@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Rigidbody rigidbodyHip;
+
     private int m_playerIndex = -1;
 
     private bool m_isCameraTarget = true;
@@ -13,6 +15,10 @@ public class Player : MonoBehaviour
 
     public static Player GetPlayerComponent(GameObject gameObject)
     {
+        if (gameObject.tag == Tag)
+        {
+            return gameObject.GetComponent<Player>();
+        }
         return LS.Helpers.GetComponentInParentWithTag<Player>(gameObject, Tag);
     }
 
@@ -66,6 +72,16 @@ public class Player : MonoBehaviour
     public void SetIsCameraTarget(bool isCameraTarget)
     {
         m_isCameraTarget = isCameraTarget;
+    }
+
+    public Rigidbody GetRigidbodyHip()
+    {
+        return rigidbodyHip;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        rigidbodyHip.transform.position = position;
     }
 
     public bool IsKnockedOut()
