@@ -1,36 +1,45 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
-    private int _playerIndex = -1;
+    [SerializeField] private Rigidbody rigidbodyHip;
 
-    private bool _isCameraTarget = true;
+    private int m_playerIndex = -1;
 
-    private PlayerState _playerState = new PlayerState();
+    private bool m_isCameraTarget = true;
+
+    private PlayerState m_playerState = new PlayerState();
 
     private const string Tag = "Player";
 
     public static Player GetPlayerComponent(GameObject gameObject)
     {
+        if (gameObject.tag == Tag)
+        {
+            return gameObject.GetComponent<Player>();
+        }
         return LS.Helpers.GetComponentInParentWithTag<Player>(gameObject, Tag);
     }
 
     public void Init(int playerIndex)
     {
-        if (_playerIndex > -1)
+        if (m_playerIndex > -1)
         {
             Debug.LogError("Player already initialized");
             return;
         }
 
         gameObject.tag = Tag;
-        _playerIndex = playerIndex;
-        gameObject.transform.GetChild(0).gameObject.GetComponent<PlayerColor>().Init();
+        m_playerIndex = playerIndex;
+
+        int nextColorID = PlayerColorManager.Instance.TakeNextAvailableColorID();
+        UpdateColor(nextColorID);
     }
 
     private bool IsInitialized()
     {
-        return _playerIndex > -1;
+        return m_playerIndex > -1;
     }
 
     public void Update()
@@ -47,7 +56,7 @@ public class Player : MonoBehaviour
         if (!IsInitialized())
             return null;
 
-        return PlayerConfigurationManager.Instance.GetPlayerConfiguration(_playerIndex);
+        return PlayerConfigurationManager.Instance.GetPlayerConfiguration(m_playerIndex);
     }
 
     public int GetPlayerIndex()
@@ -57,32 +66,99 @@ public class Player : MonoBehaviour
 
     public bool IsCameraTarget()
     {
-        return _isCameraTarget;
+        return m_isCameraTarget;
     }
 
     public void SetIsCameraTarget(bool isCameraTarget)
     {
-        _isCameraTarget = isCameraTarget;
+        m_isCameraTarget = isCameraTarget;
+    }
+
+    public Rigidbody GetRigidbodyHip()
+    {
+        return rigidbodyHip;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        rigidbodyHip.transform.position = position;
     }
 
     public bool IsKnockedOut()
     {
-        return _playerState.IsKnockedOut;
+        return m_playerState.IsKnockedOut;
     }
 
     public void SetKnockedOut(bool knockedOut)
     {
-        _playerState.IsKnockedOut = knockedOut;
+        m_playerState.IsKnockedOut = knockedOut;
     }
 
     public bool IsDead()
     {
-        return _playerState.IsDead;
+        return m_playerState.IsDead;
     }
 
     public void SetDead(bool dead)
     {
-        _playerState.IsDead = dead;
+        m_playerState.IsDead = dead;
+    }
+
+    private void UpdateColor(int colorID)
+    {
+        PlayerConfigurationManager.Instance.SetPlayerColorID(m_playerIndex, colorID);
+        Color playerColor = PlayerColorManager.Instance.GetColor(colorID);
+
+        transform.GetChild(0).GetComponent<PlayerColor>().ApplyColor(playerColor);
+    }
+
+    // Input Action Handlers
+
+    public void HandleAction_Lobby_ReadyUp(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            PlayerConfigurationManager.Instance.TogglePlayerReady(m_playerIndex);
+        }
+    }
+
+    public void HandleAction_Lobby_Leave(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            PlayerColorManager.Instance.SetColorAvailable(PlayerConfigurationManager.Instance.GetPlayerColorID(m_playerIndex));
+            PlayerConfigurationManager.Instance.RemovePlayer(m_playerIndex, gameObject);
+        }
+    }
+
+    public void HandleAction_Lobby_ColorUp(InputAction.CallbackContext context)
+    {
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(m_playerIndex))
+            return;
+
+        if (!context.performed)
+            return;
+
+        if (PlayerColorManager.Instance.HasColorsAvailable())
+        {
+            int newColorID = PlayerColorManager.Instance.TakeNextAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(m_playerIndex));
+            UpdateColor(newColorID);
+        }
+    }
+
+    public void HandleAction_Lobby_ColorDown(InputAction.CallbackContext context)
+    {
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(m_playerIndex))
+            return;
+
+        if (!context.performed)
+            return;
+
+        if (PlayerColorManager.Instance.HasColorsAvailable())
+        {
+            int newColorID = PlayerColorManager.Instance.TakePreviousAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(m_playerIndex));
+            UpdateColor(newColorID);
+        }
     }
 }
 

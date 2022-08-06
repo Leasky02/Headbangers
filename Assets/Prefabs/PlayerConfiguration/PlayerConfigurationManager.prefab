@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1838992114957370328}
   - component: {fileID: 1838992114957370311}
   - component: {fileID: 1838992114957370310}
+  - component: {fileID: 7506639523548745603}
   m_Layer: 0
   m_Name: PlayerConfigurationManager
   m_TagString: PlayerConfigurationManager
@@ -124,3 +125,24 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &7506639523548745603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838992114957370309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd47953f3128dfb4582409fd406833b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerColors:
+  - {r: 231, g: 92, b: 97, a: 1}
+  - {r: 133, g: 188, b: 185, a: 1}
+  - {r: 134, g: 203, b: 121, a: 1}
+  - {r: 221, g: 205, b: 132, a: 1}
+  - {r: 233, g: 104, b: 151, a: 1}
+  - {r: 183, g: 102, b: 210, a: 1}
+  - {r: 226, g: 147, b: 93, a: 1}
+  - {r: 127, g: 167, b: 243, a: 1}

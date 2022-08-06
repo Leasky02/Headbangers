@@ -1,13 +1,7 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerColor : MonoBehaviour
 {
-    //default colours for the player
-    [SerializeField] private Color[] playerColours;
-    [SerializeField] public static bool[] colorTaken = new bool[8];
-    [SerializeField] private int currentColorID;
-
     [SerializeField] private Outline playerOutline;
 
     [SerializeField] private MeshRenderer bodyMeshRenderer;
@@ -26,19 +20,16 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] private float deadTransparency;
 
-    //change player color
-    private void UpdateColor(Color newColor)
+    public void ApplyColor(Color playerColor)
     {
-        PlayerConfigurationManager.Instance.SetPlayerColor(Player.GetPlayerComponent(gameObject).GetPlayerIndex(), newColor);
-        playerOutline.OutlineColor = new Color(newColor.r, newColor.g, newColor.b, 1);
-
+        playerOutline.OutlineColor = new Color(playerColor.r, playerColor.g, playerColor.b, 1);
         UpdateMaterial();
     }
 
-    //update material with colour and transparency based on dead state
+    // Update material with colour and transparency based on dead state
     public void UpdateMaterial()
     {
-        Color playerColor = PlayerConfigurationManager.Instance.GetPlayerColor(Player.GetPlayerComponent(gameObject).GetPlayerIndex());
+        Color playerColor = PlayerColorManager.Instance.GetColor(PlayerConfigurationManager.Instance.GetPlayerColorID(Player.GetPlayerComponent(gameObject).GetPlayerIndex()));
         bool isDead = Player.GetPlayerComponent(gameObject).IsDead();
         if (isDead)
         {
@@ -63,162 +54,14 @@ public class PlayerColor : MonoBehaviour
         UpdateFace(isDead);
     }
 
-    //update transparency of face based on dead state
+    // Update transparency of face based on dead state
     private void UpdateFace(bool isDead)
     {
-        //change transparency of each face component
+        // Change transparency of each face component
         foreach (SpriteRenderer facePart in faceParts)
         {
-            if (isDead)
-            {
-                Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, deadTransparency);
-                facePart.color = newColor;
-            }
-            else
-            {
-                Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, 1f);
-                facePart.color = newColor;
-            }
+            Color newColor = new Color(facePart.color.r, facePart.color.g, facePart.color.b, isDead ? deadTransparency : 1f);
+            facePart.color = newColor;
         }
-    }
-
-    public void OnColorUp(InputAction.CallbackContext context)
-    {
-        if (PlayerConfigurationManager.Instance.IsPlayerReady(Player.GetPlayerComponent(gameObject).GetPlayerIndex()))
-            return;
-
-        if (!context.performed)
-        {
-            return;
-        }
-        Debug.Log("colorUp");
-        ColorUp();
-    }
-    public void OnColorDown(InputAction.CallbackContext context)
-    {
-        if (PlayerConfigurationManager.Instance.IsPlayerReady(Player.GetPlayerComponent(gameObject).GetPlayerIndex()))
-            return;
-
-        if (!context.performed)
-        {
-            return;
-        }
-        Debug.Log("colorDown");
-        ColorDown();
-    }
-
-    public void Init()
-    {
-        bool colorAssigned = false;
-        currentColorID = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
-        Color newColor;
-        do
-        {
-            if (!colorTaken[currentColorID])
-            {
-                newColor = playerColours[currentColorID];
-                UpdateColor(newColor);
-                colorTaken[currentColorID] = true;
-                colorAssigned = true;
-            }
-            else
-            {
-                colorAssigned = false;
-                currentColorID++;
-                if (currentColorID >= colorTaken.Length)
-                    currentColorID = 0;
-            }
-        } while (colorAssigned == false);
-    }
-
-    public void ColorUp()
-    {
-        //determine if another colour is available
-        bool availableColor = false;
-        foreach (bool colorUsed in colorTaken)
-        {
-            if (colorUsed == false)
-            {
-                availableColor = true;
-                break;
-            }
-            else
-            {
-                availableColor = false;
-            }
-        }
-
-        if (availableColor)
-        {
-            bool colorAssigned = false;
-            Color newColor;
-
-            colorTaken[currentColorID] = false;
-
-            do
-            {
-                currentColorID++;
-                if (currentColorID >= colorTaken.Length)
-                    currentColorID = 0;
-
-                if (!colorTaken[currentColorID])
-                {
-                    newColor = playerColours[currentColorID];
-                    UpdateColor(newColor);
-                    colorTaken[currentColorID] = true;
-                    colorAssigned = true;
-
-                }
-
-            } while (colorAssigned == false);
-        }
-    }
-
-    public void ColorDown()
-    {
-        //determine if another colour is available
-        bool availableColor = false;
-        foreach (bool colorUsed in colorTaken)
-        {
-            if (colorUsed == false)
-            {
-                availableColor = true;
-                break;
-            }
-            else
-            {
-                availableColor = false;
-            }
-        }
-
-        if (availableColor)
-        {
-            bool colorAssigned = false;
-            Color newColor;
-
-            colorTaken[currentColorID] = false;
-
-            do
-            {
-                currentColorID--;
-                if (currentColorID < 0)
-                    currentColorID = colorTaken.Length - 1;
-
-                if (!colorTaken[currentColorID])
-                {
-                    newColor = playerColours[currentColorID];
-                    UpdateColor(newColor);
-                    colorTaken[currentColorID] = true;
-                    colorAssigned = true;
-
-                }
-
-            } while (colorAssigned == false);
-        }
-    }
-
-    public int GetColourID()
-    {
-        return currentColorID;
     }
 }

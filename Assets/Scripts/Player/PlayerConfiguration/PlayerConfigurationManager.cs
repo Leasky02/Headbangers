@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerConfigurationManager, PlayerConfiguration>
 {
-    // TODO: can this be removed?
     protected override PlayerConfiguration ConstructPlayerConfig(PlayerInput pi)
     {
         return new PlayerConfiguration(pi);
@@ -11,29 +10,30 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
 
     protected override void AfterPlayerRemoved()
     {
-        Invoke("UpdatePlayerOrder", 0.05f);
+        UpdatePlayerOrder();
     }
 
     private void UpdatePlayerOrder()
     {
         playerConfigs.ForEach(playerConfig =>
         {
+            // TODO: only do this when in the lobby
             GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
             spawnPlayerObject.GetComponent<LS.ISpawnPlayer<PlayerConfiguration>>().ShufflePlayer(playerConfig);
         });
     }
 
-    public Color GetPlayerColor(int playerIndex)
+    public int GetPlayerColorID(int playerIndex)
     {
-        return GetPlayerConfiguration(playerIndex).PlayerColor;
+        return GetPlayerConfiguration(playerIndex).PlayerColorID;
     }
 
-    public void SetPlayerColor(int playerIndex, Color color)
+    public void SetPlayerColorID(int playerIndex, int colorID)
     {
         PlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
         if (playerConfig != null)
         {
-            playerConfig.PlayerColor = color;
+            playerConfig.PlayerColorID = colorID;
         }
     }
 

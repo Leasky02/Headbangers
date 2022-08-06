@@ -8,7 +8,7 @@ public class PlayerConfiguration : LS.IPlayerConfiguration
 
     }
 
-    public Color PlayerColor { get; set; }
+    public int PlayerColorID { get; set; }
 
     public string DisplayName { get; set; }
 }

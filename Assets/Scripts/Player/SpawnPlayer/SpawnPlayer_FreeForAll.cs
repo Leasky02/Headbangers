@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
 {
-    //camera
     [SerializeField] private MultipleTargetCamera playerCamera;
-    //spawnpositions
+
     [SerializeField] private Transform[] spawnPositions;
 
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
@@ -26,13 +23,11 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
 
     private void SetPosition(PlayerConfiguration playerConfig)
     {
-        Transform playerTransform = playerConfig.Input.transform.GetChild(0);
-        playerTransform.position = spawnPositions[playerConfig.GetUserIndex()].position;
+        Player.GetPlayerComponent(playerConfig.Input.gameObject).SetPosition(spawnPositions[playerConfig.GetUserIndex()].position);
     }
     public void UnFreezePosition(PlayerConfiguration playerConfig)
     {
-        Rigidbody playerHip = playerConfig.Input.gameObject.transform.GetChild(0).GetComponent<Rigidbody>();
-        playerHip.constraints = RigidbodyConstraints.None;
+        Player.GetPlayerComponent(playerConfig.Input.gameObject).GetRigidbodyHip().constraints = RigidbodyConstraints.None;
     }
 
     private void FindRespawnPoint(PlayerConfiguration playerConfig)
