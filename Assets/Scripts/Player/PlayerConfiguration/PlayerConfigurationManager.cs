@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerConfigurationManager, PlayerConfiguration>
 {
-    // TODO: can this be removed?
     protected override PlayerConfiguration ConstructPlayerConfig(PlayerInput pi)
     {
         return new PlayerConfiguration(pi);
