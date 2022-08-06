@@ -50,6 +50,7 @@ public class LobbySpawnPoint : MonoBehaviour
         for (int i = 0; i < letters.Length; ++i)
         {
             letters[i].text = playerLobbyInputHandler.GetLetter(i).ToString();
+            letters[i].color = playerLobbyInputHandler.GetActiveLetterIndex() == i ? new Color(0, 255, 0) : new Color(255, 255, 255);
         }
     }
 }

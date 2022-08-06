@@ -14,6 +14,11 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         return m_letters[index];
     }
 
+    public int GetActiveLetterIndex()
+    {
+        return m_activeLetterIndex;
+    }
+
     public void HandleAction_Lobby_NavigateLeft(InputAction.CallbackContext context)
     {
         if (!context.performed)
