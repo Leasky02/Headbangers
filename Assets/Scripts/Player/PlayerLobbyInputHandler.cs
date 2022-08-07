@@ -26,6 +26,7 @@ public class PlayerLobbyInputHandler : MonoBehaviour
 
         int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
         PlayerConfigurationManager.Instance.TogglePlayerReady(playerIndex);
+        PlayerConfigurationManager.Instance.SetPlayerDisplayName(playerIndex, new string(m_letters));
 
         UpdateAssociatedLobbySpawnPoint();
     }

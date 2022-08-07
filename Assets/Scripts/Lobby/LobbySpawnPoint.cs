@@ -17,6 +17,7 @@ public class LobbySpawnPoint : MonoBehaviour
     {
         m_userIndex = playerNumber - 1;
         playerNumberText.text = "Player " + playerNumber;
+        UpdateForUser();
     }
 
     public Vector3 GetPosition()
@@ -51,6 +52,7 @@ public class LobbySpawnPoint : MonoBehaviour
         {
             letters[i].text = playerLobbyInputHandler.GetLetter(i).ToString();
             letters[i].color = (playerLobbyInputHandler.GetActiveLetterIndex() == i && !playerConfig.IsReady) ? new Color(0, 255, 0) : new Color(255, 255, 255);
+            letters[i].gameObject.SetActive(true);
         }
     }
 

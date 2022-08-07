@@ -52,4 +52,12 @@ public class LobbyManager : MonoBehaviour
     {
         return spawnPoints[userIndex];
     }
+
+    public void UpdateAllSpawnPoint()
+    {
+        foreach (LobbySpawnPoint spawnPoint in spawnPoints)
+        {
+            spawnPoint.UpdateForUser();
+        }
+    }
 }

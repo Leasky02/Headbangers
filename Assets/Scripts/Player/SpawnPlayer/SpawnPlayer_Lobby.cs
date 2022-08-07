@@ -18,21 +18,12 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex()).UpdateForUser();
     }
 
-    //
     public override void ShufflePlayers(List<PlayerConfiguration> playerConfigs)
     {
-        // TODO: improve!
+        LobbyManager.Find().UpdateAllSpawnPoint();
         playerConfigs.ForEach(playerConfig =>
         {
-            int userIndex = playerConfig.GetUserIndex();
-            Debug.Log(userIndex);
-            //LobbyManager.Find().GetSpawnPointForUserIndex(userIndex).SetReadyText(false);
-
             SetPosition(playerConfig);
-            SetInputMap(playerConfig);
-
-            LobbySpawnPoint lobbySpawnPoint = LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex());
-            lobbySpawnPoint.UpdateForUser();
         });
     }
 

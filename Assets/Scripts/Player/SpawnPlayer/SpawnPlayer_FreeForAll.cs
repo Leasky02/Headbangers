@@ -14,6 +14,8 @@ public class SpawnPlayer_FreeForAll : LS.ISpawnPlayer<PlayerConfiguration>
         SetPosition(playerConfig);
         FindRespawnPoint(playerConfig);
         UnFreezePosition(playerConfig);
+
+        Player.GetPlayerComponent(playerConfig.Input.gameObject).OnGameStart();
     }
 
     private void SetAsCameraTarget(Transform playerTransform)

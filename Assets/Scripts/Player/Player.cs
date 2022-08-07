@@ -4,6 +4,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rigidbodyHip;
 
+    [SerializeField] private DisplayNameText displayNameText;
+
     private int m_playerIndex = -1;
 
     private bool m_isCameraTarget = true;
@@ -114,6 +116,11 @@ public class Player : MonoBehaviour
         Color playerColor = PlayerColorManager.Instance.GetColor(colorID);
 
         transform.GetChild(0).GetComponent<PlayerColor>().ApplyColor(playerColor);
+    }
+
+    public void OnGameStart()
+    {
+        displayNameText.SetText(GetPlayerConfiguration().DisplayName);
     }
 }
 
