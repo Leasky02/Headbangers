@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rigidbodyHip;
+
+    [SerializeField] private DisplayNameRenderer displayNameRenderer;
 
     private int m_playerIndex = -1;
 
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour
         m_playerIndex = playerIndex;
 
         int nextColorID = PlayerColorManager.Instance.TakeNextAvailableColorID();
-        UpdateColor(nextColorID);
+        AssignColor(nextColorID);
     }
 
     private bool IsInitialized()
@@ -62,6 +63,11 @@ public class Player : MonoBehaviour
     public int GetPlayerIndex()
     {
         return GetPlayerConfiguration().PlayerIndex;
+    }
+
+    public int GetUserIndex()
+    {
+        return GetPlayerConfiguration().GetUserIndex();
     }
 
     public bool IsCameraTarget()
@@ -104,7 +110,7 @@ public class Player : MonoBehaviour
         m_playerState.IsDead = dead;
     }
 
-    private void UpdateColor(int colorID)
+    public void AssignColor(int colorID)
     {
         PlayerConfigurationManager.Instance.SetPlayerColorID(m_playerIndex, colorID);
         Color playerColor = PlayerColorManager.Instance.GetColor(colorID);
@@ -112,53 +118,9 @@ public class Player : MonoBehaviour
         transform.GetChild(0).GetComponent<PlayerColor>().ApplyColor(playerColor);
     }
 
-    // Input Action Handlers
-
-    public void HandleAction_Lobby_ReadyUp(InputAction.CallbackContext context)
+    public void OnGameStart()
     {
-        if (context.performed)
-        {
-            PlayerConfigurationManager.Instance.TogglePlayerReady(m_playerIndex);
-        }
-    }
-
-    public void HandleAction_Lobby_Leave(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            PlayerColorManager.Instance.SetColorAvailable(PlayerConfigurationManager.Instance.GetPlayerColorID(m_playerIndex));
-            PlayerConfigurationManager.Instance.RemovePlayer(m_playerIndex, gameObject);
-        }
-    }
-
-    public void HandleAction_Lobby_ColorUp(InputAction.CallbackContext context)
-    {
-        if (PlayerConfigurationManager.Instance.IsPlayerReady(m_playerIndex))
-            return;
-
-        if (!context.performed)
-            return;
-
-        if (PlayerColorManager.Instance.HasColorsAvailable())
-        {
-            int newColorID = PlayerColorManager.Instance.TakeNextAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(m_playerIndex));
-            UpdateColor(newColorID);
-        }
-    }
-
-    public void HandleAction_Lobby_ColorDown(InputAction.CallbackContext context)
-    {
-        if (PlayerConfigurationManager.Instance.IsPlayerReady(m_playerIndex))
-            return;
-
-        if (!context.performed)
-            return;
-
-        if (PlayerColorManager.Instance.HasColorsAvailable())
-        {
-            int newColorID = PlayerColorManager.Instance.TakePreviousAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(m_playerIndex));
-            UpdateColor(newColorID);
-        }
+        displayNameRenderer.SetDisplayName(GetPlayerConfiguration().DisplayName);
     }
 }
 

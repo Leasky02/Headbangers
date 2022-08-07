@@ -88,7 +88,7 @@ public class PlayerColorManager : Singleton<PlayerColorManager>
 
     public int TakeNextAvailableColorID(int currentColorID = -1)
     {
-        int numAvailableColors = m_colorIDsAvailable.ToArray().Length;
+        int numAvailableColors = m_colorIDsAvailable.Count;
         if (numAvailableColors > 0)
         {
             int nextColorID = m_colorIDsAvailable[0];
@@ -112,7 +112,7 @@ public class PlayerColorManager : Singleton<PlayerColorManager>
 
     public int TakePreviousAvailableColorID(int currentColorID = -1)
     {
-        int numAvailableColors = m_colorIDsAvailable.ToArray().Length;
+        int numAvailableColors = m_colorIDsAvailable.Count;
         if (numAvailableColors > 0)
         {
             int nextColorID = m_colorIDsAvailable[numAvailableColors - 1];
@@ -136,7 +136,7 @@ public class PlayerColorManager : Singleton<PlayerColorManager>
 
     public bool HasColorsAvailable()
     {
-        return m_colorIDsAvailable.ToArray().Length > 0;
+        return m_colorIDsAvailable.Count > 0;
     }
 
 }

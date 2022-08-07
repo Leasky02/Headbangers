@@ -1,11 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 {
-    //spawnpositions
-    [SerializeField] private LobbySpawnPoint[] spawnPositions;
-
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
         int playerIndex = playerConfig.PlayerIndex;
@@ -18,19 +16,18 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         FreezePosition(playerConfig);
     }
 
-    public override void ShufflePlayer(PlayerConfiguration playerConfig)
+    public override void ShufflePlayers(List<PlayerConfiguration> playerConfigs)
     {
-        int userIndex = playerConfig.GetUserIndex();
-        Debug.Log(userIndex);
-        //spawnPositions[userIndex].SetReadyText(false);
-
-        SetPosition(playerConfig);
-        SetInputMap(playerConfig);
+        LobbyManager.Find().UpdateAllSpawnPoint();
+        playerConfigs.ForEach(playerConfig =>
+        {
+            SetPosition(playerConfig);
+        });
     }
 
     public void SetPosition(PlayerConfiguration playerConfig)
     {
-        Player.GetPlayerComponent(playerConfig.Input.gameObject).SetPosition(spawnPositions[playerConfig.GetUserIndex()].GetPosition());
+        Player.GetPlayerComponent(playerConfig.Input.gameObject).SetPosition(LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex()).GetPosition());
     }
 
     public void FreezePosition(PlayerConfiguration playerConfig)

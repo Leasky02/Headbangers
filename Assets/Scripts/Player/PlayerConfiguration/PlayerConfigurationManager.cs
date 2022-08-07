@@ -15,12 +15,9 @@ public class PlayerConfigurationManager : LS.IPlayerConfigurationManager<PlayerC
 
     private void UpdatePlayerOrder()
     {
-        playerConfigs.ForEach(playerConfig =>
-        {
-            // TODO: only do this when in the lobby
-            GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
-            spawnPlayerObject.GetComponent<LS.ISpawnPlayer<PlayerConfiguration>>().ShufflePlayer(playerConfig);
-        });
+        // TODO: only do this when in the lobby
+        GameObject spawnPlayerObject = GameObject.FindGameObjectWithTag("SpawnPlayer");
+        spawnPlayerObject.GetComponent<LS.ISpawnPlayer<PlayerConfiguration>>().ShufflePlayers(playerConfigs);
     }
 
     public int GetPlayerColorID(int playerIndex)
