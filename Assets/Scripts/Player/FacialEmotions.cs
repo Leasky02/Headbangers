@@ -121,8 +121,7 @@ public class FacialEmotions : MonoBehaviour
 
     public IEnumerator ChangeEmotion(string eyebrowState, string eyeState, string mouthState, float emotionLength)
     {
-        bool isKnockedOut = Player.GetPlayerComponent(gameObject).IsKnockedOut();
-        if (!isKnockedOut)
+        if (!Player.GetPlayerComponent(gameObject).IsKnockedOut())
         {
             changeEmotionQueue++;
 
@@ -196,9 +195,12 @@ public class FacialEmotions : MonoBehaviour
     //reset face to default
     private void ResetFace()
     {
-        eyebrows.sprite = eyebrow_sprite[0];
-        eyes.sprite = eye_sprite[0];
-        mouth.sprite = mouth_sprite[0];
+        if (!Player.GetPlayerComponent(gameObject).IsKnockedOut())
+        {
+            eyebrows.sprite = eyebrow_sprite[0];
+            eyes.sprite = eye_sprite[0];
+            mouth.sprite = mouth_sprite[0];
+        }
     }
 
     //when knocked out
