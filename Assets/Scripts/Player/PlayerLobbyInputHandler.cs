@@ -9,6 +9,15 @@ public class PlayerLobbyInputHandler : MonoBehaviour
 
     private char[] m_letters = new char[NUM_LETTERS] { 'A', 'A', 'A' };
 
+    public void Start()
+    {
+        int userIndex = Player.GetPlayerComponent(gameObject).GetUserIndex();
+        m_letters[0] = (char)(m_letters[0] + userIndex * 3 + 0);
+        m_letters[1] = (char)(m_letters[1] + userIndex * 3 + 1);
+        m_letters[2] = (char)(m_letters[2] + userIndex * 3 + 2);
+        UpdateAssociatedLobbySpawnPoint();
+    }
+
     public char GetLetter(int index)
     {
         return m_letters[index];

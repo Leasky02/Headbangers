@@ -14,8 +14,6 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         SetPosition(playerConfig);
         SetInputMap(playerConfig);
         FreezePosition(playerConfig);
-
-        LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex()).UpdateForUser();
     }
 
     public override void ShufflePlayers(List<PlayerConfiguration> playerConfigs)
