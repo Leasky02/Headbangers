@@ -224,6 +224,7 @@ public class PlayerActions : MonoBehaviour
     {
         if (!IsKnockedOut())
         {
+            //change back to angry open sad
             StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
         }
 

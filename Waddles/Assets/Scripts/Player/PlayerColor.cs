@@ -22,6 +22,9 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private MeshRenderer shoeMeshRenderer_L;
     [SerializeField] private MeshRenderer shoeMeshRenderer_R;
 
+
+    [SerializeField] private MeshRenderer[] headphoneBranding;
+
     [SerializeField] private SpriteRenderer[] faceParts;
 
     [SerializeField] private float deadTransparency;
@@ -42,7 +45,6 @@ public class PlayerColor : MonoBehaviour
         bool isDead = Player.GetPlayerComponent(gameObject).IsDead();
         if (isDead)
         {
-
             Color transparentColor_Headphone = new Color(transparentMaterial_Headphone.color.r, transparentMaterial_Headphone.color.g, transparentMaterial_Headphone.color.b, deadTransparency);
             headphoneMeshRenderer.material = transparentMaterial_Headphone;
             headphoneMeshRenderer.material.color = transparentColor_Headphone;
@@ -50,6 +52,9 @@ public class PlayerColor : MonoBehaviour
             Color transparentColor = new Color(playerColor.r, playerColor.g, playerColor.b, deadTransparency);
             bodyMeshRenderer.material = transparentMaterial;
             bodyMeshRenderer.material.color = transparentColor;
+
+            headphoneBranding[0].material.color = transparentColor;
+            headphoneBranding[1].material.color = transparentColor;
         }
         else
         {
@@ -58,6 +63,9 @@ public class PlayerColor : MonoBehaviour
             headphoneMeshRenderer.material = standardMaterial_Headphone;
 
             bodyMeshRenderer.material.color = playerColor;
+
+            headphoneBranding[0].material.color = new Color(playerColor.r , playerColor.g, playerColor.b, 1f);
+            headphoneBranding[1].material.color = new Color(playerColor.r, playerColor.g, playerColor.b, 1f);
         }
 
         UpdateFace(isDead);

@@ -102,10 +102,13 @@ public class PlayerKO : MonoBehaviour
     //change face based on current health
     private void ChangeFace()
     {
-        if (currentHealth > 50)
-            StartCoroutine(face.ChangeEmotion("sad", "open", "sad", 2f));
-        else if (currentHealth > 0)
-            StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 3f));
+        if (Player.GetPlayerComponent(gameObject).IsKnockedOut())
+        {
+            if (currentHealth > 50)
+                StartCoroutine(face.ChangeEmotion("sad", "open", "sad", 2f));
+            else if (currentHealth > 0)
+                StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 3f));
+        }
     }
 
     //knocked out
