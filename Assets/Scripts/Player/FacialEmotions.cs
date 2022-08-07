@@ -196,9 +196,12 @@ public class FacialEmotions : MonoBehaviour
     //reset face to default
     private void ResetFace()
     {
-        eyebrows.sprite = eyebrow_sprite[0];
-        eyes.sprite = eye_sprite[0];
-        mouth.sprite = mouth_sprite[0];
+        if (!Player.GetPlayerComponent(gameObject).IsKnockedOut())
+        {
+            eyebrows.sprite = eyebrow_sprite[0];
+            eyes.sprite = eye_sprite[0];
+            mouth.sprite = mouth_sprite[0];
+        }
     }
 
     //when knocked out
