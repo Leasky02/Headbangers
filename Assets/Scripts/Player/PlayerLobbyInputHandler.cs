@@ -26,6 +26,8 @@ public class PlayerLobbyInputHandler : MonoBehaviour
 
         int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
         PlayerConfigurationManager.Instance.TogglePlayerReady(playerIndex);
+
+        UpdateAssociatedLobbySpawnPoint();
     }
 
     public void HandleAction_Lobby_Leave(InputAction.CallbackContext context)
@@ -43,6 +45,10 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
+            return;
+
         m_activeLetterIndex -= 1;
         if (m_activeLetterIndex < 0)
         {
@@ -54,6 +60,10 @@ public class PlayerLobbyInputHandler : MonoBehaviour
     public void HandleAction_Lobby_NavigateRight(InputAction.CallbackContext context)
     {
         if (!context.performed)
+            return;
+
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
         m_activeLetterIndex += 1;
@@ -69,6 +79,10 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
+            return;
+
         char letter = m_letters[m_activeLetterIndex];
         char newLetter = ((char)(letter + 1));
         if (newLetter > 'Z')
@@ -82,6 +96,10 @@ public class PlayerLobbyInputHandler : MonoBehaviour
     public void HandleAction_Lobby_NavigateDown(InputAction.CallbackContext context)
     {
         if (!context.performed)
+            return;
+
+        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
         char letter = m_letters[m_activeLetterIndex];
@@ -130,6 +148,6 @@ public class PlayerLobbyInputHandler : MonoBehaviour
     {
         LobbyManager lobbyManager = LobbyManager.Find();
         LobbySpawnPoint lobbySpawnPoint = lobbyManager.GetSpawnPointForUserIndex(Player.GetPlayerComponent(gameObject).GetUserIndex());
-        lobbySpawnPoint.UpdateDisplayNameText();
+        lobbySpawnPoint.UpdateForUser();
     }
 }

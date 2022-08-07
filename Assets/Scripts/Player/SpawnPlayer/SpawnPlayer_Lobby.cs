@@ -15,7 +15,7 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
         SetInputMap(playerConfig);
         FreezePosition(playerConfig);
 
-        LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex()).AssignUserIndex(playerConfig.GetUserIndex());
+        LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex()).UpdateForUser();
     }
 
     //
@@ -32,7 +32,7 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
             SetInputMap(playerConfig);
 
             LobbySpawnPoint lobbySpawnPoint = LobbyManager.Find().GetSpawnPointForUserIndex(playerConfig.GetUserIndex());
-            lobbySpawnPoint.UpdateDisplayNameText();
+            lobbySpawnPoint.UpdateForUser();
         });
     }
 
