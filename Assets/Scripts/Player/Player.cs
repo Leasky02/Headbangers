@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
 
     public void OnGameStart()
     {
-        displayNameText.SetText(GetPlayerConfiguration().DisplayName);
+        displayNameText.SetDisplayName(GetPlayerConfiguration().DisplayName);
     }
 }
 
