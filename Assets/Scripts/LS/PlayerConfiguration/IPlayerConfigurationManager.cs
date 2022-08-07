@@ -96,6 +96,11 @@ namespace LS
             return new IPlayerConfiguration(pi) as TPlayerConfiguration;
         }
 
+        public List<TPlayerConfiguration> GetPlayerConfigurations()
+        {
+            return playerConfigs;
+        }
+
         public TPlayerConfiguration GetPlayerConfiguration(int playerIndex)
         {
             return playerConfigs.Find(p => p.PlayerIndex == playerIndex);

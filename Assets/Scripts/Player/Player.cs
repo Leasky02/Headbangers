@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Rigidbody rigidbodyHip;
 
-    [SerializeField] private DisplayNameText displayNameText;
+    [SerializeField] private DisplayNameRenderer displayNameRenderer;
 
     private int m_playerIndex = -1;
 
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour
 
     public void OnGameStart()
     {
-        displayNameText.SetDisplayName(GetPlayerConfiguration().DisplayName);
+        displayNameRenderer.SetDisplayName(GetPlayerConfiguration().DisplayName);
     }
 }
 

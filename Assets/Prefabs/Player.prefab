@@ -3634,7 +3634,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3689678011699505302}
-  - component: {fileID: 8214821886597594857}
+  - component: {fileID: 2114465142717712753}
   m_Layer: 9
   m_Name: DisplayName
   m_TagString: Untagged
@@ -3662,7 +3662,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1.2}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8214821886597594857
+--- !u!114 &2114465142717712753
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3671,7 +3671,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3254983995957493875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 397dbc45b50c36040bf26a29797629a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2004e3ac9948ec040afecef1ef30499b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   width: 150
@@ -3731,7 +3731,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 249c95e2ec930154785cf44a7dfc2664, type: 3}
-    m_FontSize: 30
+    m_FontSize: 40
     m_FontStyle: 0
     m_Alignment: 4
     m_WordWrap: 0
@@ -4273,6 +4273,7 @@ GameObject:
   - component: {fileID: 1373281312171942305}
   - component: {fileID: 2588644690707937556}
   - component: {fileID: 7684810738315467476}
+  - component: {fileID: 6637693239564466092}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4619,6 +4620,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: fff5caf5-d7cc-4059-9725-dd2aa73c0c3f
     m_ActionName: Lobby/NavigateDown[/XInputControllerWindows/leftStick/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_ShowPlayerNames
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 02ab4e59-16d5-42af-9d05-7a97f6ff719a
+    m_ActionName: Gameplay/ShowPlayerNames[/XInputControllerWindows/leftShoulder,/XInputControllerWindows1/leftShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -4637,7 +4654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbodyHip: {fileID: 287567893963814831}
-  displayNameText: {fileID: 8214821886597594857}
+  displayNameRenderer: {fileID: 2114465142717712753}
 --- !u!114 &7684810738315467476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4648,6 +4665,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 602dc17f008d4524ebc5ea1c0e8ba2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6637693239564466092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b4015c8caebcb24d9ee407da2eca396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9109140273182710656

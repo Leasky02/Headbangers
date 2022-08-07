@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DisplayNameText : MonoBehaviour
+public class DisplayNameRenderer : MonoBehaviour
 {
     [SerializeField] private int width = 150;
 
@@ -14,8 +14,6 @@ public class DisplayNameText : MonoBehaviour
     private Vector3 m_screenPos;
 
     private Camera m_camera = null;
-
-    private bool m_shouldRender = true; // TODO: set when button being held
 
     private bool m_onScreen = false;
 
@@ -39,9 +37,14 @@ public class DisplayNameText : MonoBehaviour
         m_guiContent = new GUIContent(displayName);
     }
 
+    private bool ShouldRender()
+    {
+        return DisplayNameRenderingManager.Instance.ShouldRenderDisplayNames();
+    }
+
     public void Update()
     {
-        if (m_camera && m_shouldRender)
+        if (m_camera && ShouldRender())
         {
             m_screenPos = m_camera.WorldToScreenPoint(transform.position);
 
