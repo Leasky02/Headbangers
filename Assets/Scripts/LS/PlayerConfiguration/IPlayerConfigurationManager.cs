@@ -167,6 +167,15 @@ namespace LS
         {
             playerConfigs.ForEach(config => config.Input.SwitchCurrentActionMap(mapNameOrId));
         }
+
+        public void SwitchCurrentActionMap(int playerIndex, string mapNameOrId)
+        {
+            TPlayerConfiguration playerConfig = GetPlayerConfiguration(playerIndex);
+            if (playerConfig != null)
+            {
+                playerConfig.Input.SwitchCurrentActionMap(mapNameOrId);
+            }
+        }
     }
 
 }
