@@ -5,7 +5,7 @@ public class IPlayerRespawn
 {
     private RespawnPoint[] m_respawnPoints;
 
-    public void Init()
+    public void InitOnSceneLoad()
     {
         GameObject spawnPlayerObj = GameObject.FindGameObjectWithTag("SpawnPlayer");
         m_respawnPoints = spawnPlayerObj.GetComponentsInChildren<RespawnPoint>();

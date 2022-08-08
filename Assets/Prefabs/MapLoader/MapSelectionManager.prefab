@@ -47,3 +47,6 @@ MonoBehaviour:
   mapNames:
   - Map_1
   - Map_2
+  gameModeNames:
+  - FreeForAll
+  - Tag

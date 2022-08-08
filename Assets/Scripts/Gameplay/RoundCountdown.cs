@@ -7,11 +7,6 @@ public class RoundCountdown : MonoBehaviour
 {
     [SerializeField] private TMP_Text countdownText;
 
-    public void Awake()
-    {
-        Gameplay.Instance.Init();
-    }
-
     public void Start()
     {
         StartRoundCountdown();
