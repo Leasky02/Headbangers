@@ -6,4 +6,9 @@ public class IGameSetupFactory
     {
         return new IPlayerRespawn();
     }
+
+    public virtual IPlayerKickedHandler CreatePlayerKickedHandler()
+    {
+        return new IPlayerKickedHandler();
+    }
 }
