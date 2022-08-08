@@ -121,6 +121,17 @@ public class Player : MonoBehaviour
     public void OnGameStart()
     {
         displayNameRenderer.SetDisplayName(GetPlayerConfiguration().DisplayName);
+        UnfreezePosition();
+    }
+
+    public void FreezePosition()
+    {
+        GetRigidbodyHip().constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void UnfreezePosition()
+    {
+        GetRigidbodyHip().constraints = RigidbodyConstraints.None;
     }
 }
 

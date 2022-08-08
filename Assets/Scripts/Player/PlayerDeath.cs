@@ -6,7 +6,6 @@ public class PlayerDeath : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerColor playerColor;
-    private Transform spawnPoint;
 
     [SerializeField] private BoxCollider[] bodyDetectors;
 
@@ -24,7 +23,7 @@ public class PlayerDeath : MonoBehaviour
     {
         playerInput.SwitchCurrentActionMap("Deactive");
         Player.GetPlayerComponent(gameObject).SetIsCameraTarget(false);
-        StartCoroutine(Respawn());
+        Respawn();
 
         deadAudioSource.Play();
 
@@ -77,22 +76,15 @@ public class PlayerDeath : MonoBehaviour
     }
 
     //player respawns
-    private IEnumerator Respawn()
+    private void Respawn()
     {
-        yield return new WaitForSeconds(1f);
-
-        Vector3 newPosition = new Vector3(spawnPoint.position.x + (Random.Range(-1f, 1f)), spawnPoint.position.y, spawnPoint.position.z + (Random.Range(-1f, 1f)));
-        transform.position = newPosition;
-        yield return new WaitForSeconds(0.5f);
-
-        Player.GetPlayerComponent(gameObject).SetIsCameraTarget(true);
-        playerInput.SwitchCurrentActionMap("Gameplay");
+        Gameplay.Instance.PlayerRespawn.RespawnPlayer(Player.GetPlayerComponent(gameObject));
     }
 
     //when player is brought back to life
     public void Revive()
     {
-        StartCoroutine(Respawn());
+        Respawn();
 
         //change layers of body parts
         foreach (GameObject bodyPart in bodyParts)
@@ -133,11 +125,5 @@ public class PlayerDeath : MonoBehaviour
 
         //change material of body and face
         playerColor.UpdateMaterial();
-    }
-
-    public void FindRespawnPoint()
-    {
-        //set respawn point
-        spawnPoint = GameObject.FindGameObjectWithTag("RespawnPoint").transform;
     }
 }

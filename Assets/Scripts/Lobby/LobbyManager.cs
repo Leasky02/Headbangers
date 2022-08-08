@@ -9,6 +9,8 @@ public class LobbyManager : MonoBehaviour
 {
     [SerializeField] MainMenuController mainMenuController;
 
+    [SerializeField] LobbyCountdown lobbyCountdown;
+
     [SerializeField] private int requiredPlayers = 1;
 
     [SerializeField] private LobbySpawnPoint[] spawnPoints;
@@ -40,12 +42,13 @@ public class LobbyManager : MonoBehaviour
 
     public void Update()
     {
-        if (RoundManager.Instance.IsCountdownInProgress())
+        // TODO: does this need reworked?
+        if (lobbyCountdown.IsCountdownInProgress())
         {
             if (!PlayerConfigurationManager.Instance.AllPlayersReady()
               || PlayerConfigurationManager.Instance.GetPlayerCount() < requiredPlayers)
             {
-                RoundManager.Instance.StopCountdown();
+                lobbyCountdown.StopCountdown();
             }
         }
         else
@@ -53,7 +56,7 @@ public class LobbyManager : MonoBehaviour
             if (PlayerConfigurationManager.Instance.AllPlayersReady()
               && PlayerConfigurationManager.Instance.GetPlayerCount() >= requiredPlayers)
             {
-                RoundManager.Instance.PlayersReady();
+                lobbyCountdown.PlayersReady();
             }
         }
     }
