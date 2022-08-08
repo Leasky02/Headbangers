@@ -15,13 +15,6 @@ public class PlayerKO : MonoBehaviour
     [SerializeField] private float knockbackForce;
     [SerializeField] private float knockbackHeightVelocity;
 
-    [SerializeField] private float startingHealth;
-    [SerializeField] private float currentHealth;
-    private int recoveryHealth;
-    [SerializeField] private int minRecoveryHealth;
-    [SerializeField] private int maxRecoveryHealth;
-    [SerializeField] private int recoveryHealthReduction;
-
     [SerializeField] private float minimumDamage;
     [SerializeField] private float maximumDamage;
     [SerializeField] private float minimumAngle;
@@ -32,7 +25,6 @@ public class PlayerKO : MonoBehaviour
     [SerializeField] private float startingKnockoutTime;
     [SerializeField] private float knockoutTime;
     [SerializeField] private float graceTime;
-    [SerializeField] private float healthRegenerateTimeDelay;
     [SerializeField] private float knockoutReduceTimeDelay;
 
     [SerializeField] private FacialEmotions face;
@@ -44,11 +36,8 @@ public class PlayerKO : MonoBehaviour
         cj = GetComponent<ConfigurableJoint>();
         rb = GetComponent<Rigidbody>();
 
-        currentHealth = startingHealth;
         knockoutTime = startingKnockoutTime;
-        recoveryHealth = maxRecoveryHealth;
 
-        StartCoroutine(RegenerateHealth());
         StartCoroutine(ImproveEndurance());
     }
 
@@ -59,17 +48,20 @@ public class PlayerKO : MonoBehaviour
 
         //calculate damage
         bool fightingBack = actionScript.IsAttemptingHeadButt();
+        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
         if (!fightingBack)
         {
-            currentHealth = Mathf.Round(currentHealth - CalculateDamage(angle));
+            playerHealth.ReduceHealth(CalculateDamage(angle));
+
         }
         else
         {
-            currentHealth = Mathf.Round(currentHealth - (CalculateDamage(angle) * 0.5f));
+            playerHealth.ReduceHealth(CalculateDamage(angle) * 0.5f);
         }
 
         //determine if KO'd
-        bool shouldKO = currentHealth <= 0 && !IsKnockedOut();
+        // TODO: handle KO elsewhere
+        bool shouldKO = playerHealth.Health <= 0 && !IsKnockedOut();
         if (shouldKO)
         {
             StartCoroutine(KO(headButtingPlayer));
@@ -86,9 +78,13 @@ public class PlayerKO : MonoBehaviour
 
     public void Kicked(GameObject headButtingPlayer)
     {
-        currentHealth -= kickingDamage;
+        Gameplay.Instance.PlayerKickedHandler.HandleKicked(Player.GetPlayerComponent(gameObject), Player.GetPlayerComponent(headButtingPlayer));
 
-        if (currentHealth <= 0 && !IsKnockedOut())
+        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
+        playerHealth.ReduceHealth(kickingDamage);
+
+        // TODO: handle KO elsewhere
+        if (playerHealth.Health <= 0 && !IsKnockedOut())
         {
             StartCoroutine(KO(headButtingPlayer));
         }
@@ -102,13 +98,14 @@ public class PlayerKO : MonoBehaviour
     //change face based on current health
     private void ChangeFace()
     {
+        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
         if (Player.GetPlayerComponent(gameObject).IsKnockedOut())
         {
-            if (currentHealth > 50)
+            if (playerHealth.Health > 50)
             {
                 StartCoroutine(face.ChangeEmotion("sad", "open", "sad", 2f));
             }
-            else if (currentHealth > 0)
+            else if (playerHealth.Health > 0)
             {
                 StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 3f));
             }
@@ -118,8 +115,8 @@ public class PlayerKO : MonoBehaviour
     //knocked out
     private IEnumerator KO(GameObject headButtingPlayer)
     {
-        currentHealth = recoveryHealth;
-        recoveryHealth = Mathf.Clamp(recoveryHealth - recoveryHealthReduction, minRecoveryHealth, maxRecoveryHealth);
+        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
+        playerHealth.Recover();
 
         SetKnockedOut(true);
         face.KnockedOut();
@@ -170,7 +167,6 @@ public class PlayerKO : MonoBehaviour
             bodyPart.angularYZDrive = springDriveYZ;
         }
 
-        StartCoroutine(RegenerateHealth());
         StartCoroutine(ImproveEndurance());
 
         yield return new WaitForSeconds(graceTime);
@@ -205,19 +201,6 @@ public class PlayerKO : MonoBehaviour
         return damage;
     }
 
-    //regenerates health regularly
-    private IEnumerator RegenerateHealth()
-    {
-        if (!IsKnockedOut())
-        {
-            if (currentHealth < startingHealth)
-                currentHealth++;
-
-            yield return new WaitForSeconds(healthRegenerateTimeDelay);
-            StartCoroutine(RegenerateHealth());
-        }
-    }
-
     //improves knockout time and increases starting amount of health after waking up
     private IEnumerator ImproveEndurance()
     {
@@ -237,9 +220,11 @@ public class PlayerKO : MonoBehaviour
         if (knockoutTime > startingKnockoutTime)
             knockoutTime -= 0.1f;
     }
+
     private void IncreaseRecoveryHealth()
     {
-        recoveryHealth = Mathf.Clamp(recoveryHealth + 2, minRecoveryHealth, maxRecoveryHealth);
+        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
+        playerHealth.IncreaseRecoveryHealth(2);
     }
 
     //returns if player is being currently headbutted

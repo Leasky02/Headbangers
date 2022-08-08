@@ -1750,11 +1750,7 @@ MonoBehaviour:
   deadSpringValue: 0
   knockbackForce: 20
   knockbackHeightVelocity: 10
-  startingHealth: 100
-  currentHealth: 0
-  minRecoveryHealth: 55
-  maxRecoveryHealth: 100
-  recoveryHealthReduction: 15
+  
   minimumDamage: 10
   maximumDamage: 40
   minimumAngle: 0
@@ -1763,7 +1759,6 @@ MonoBehaviour:
   startingKnockoutTime: 3
   knockoutTime: 0
   graceTime: 2
-  healthRegenerateTimeDelay: 1
   knockoutReduceTimeDelay: 8
   face: {fileID: 671975495570311663}
 --- !u!54 &287567893963814831
@@ -4273,6 +4268,7 @@ GameObject:
   - component: {fileID: 2588644690707937556}
   - component: {fileID: 7684810738315467476}
   - component: {fileID: 6637693239564466092}
+  - component: {fileID: 3020414139288603351}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4666,6 +4662,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4015c8caebcb24d9ee407da2eca396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3020414139288603351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94f6bbec57704d8458205c01563e8f3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 100
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0

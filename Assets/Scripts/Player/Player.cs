@@ -120,6 +120,8 @@ public class Player : MonoBehaviour
 
     public void OnGameStart()
     {
+        GetComponentInChildren<PlayerHealth>().OnGameStart();
+
         displayNameRenderer.SetDisplayName(GetPlayerConfiguration().DisplayName);
         UnfreezePosition();
     }
