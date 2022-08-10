@@ -15,7 +15,7 @@ public class IPlayerKnockedOutHandler
 
         KnockOut(player, knockedOutBy);
 
-        float knockoutTime = player.GetComponentInChildren<PlayerKO>().GetKnockOutTime(); // TODO: improve
+        float knockoutTime = player.GetComponent<PlayerEndurance>().GetKnockOutTime();
 
         player.StartCoroutine(RevivePlayerIn(player, knockoutTime));
     }
@@ -48,9 +48,7 @@ public class IPlayerKnockedOutHandler
 
         player.GetComponent<PlayerBody>().Revive();
 
-        player.StartCoroutine(player.GetComponentInChildren<PlayerKO>().ImproveEndurance()); // TODO: ask Alasdair, does this need stopped at some point i.e. when knocked out
-
-        float graceTime = player.GetComponentInChildren<PlayerKO>().GetGraceTime(); // TODO: improve
+        float graceTime = player.GetComponent<PlayerEndurance>().GetGraceTime();
 
         yield return new WaitForSeconds(graceTime);
         player.EnableBeingHeadbutted();

@@ -10,48 +10,6 @@ public class PlayerKO : MonoBehaviour
 
     [SerializeField] private float kickingDamage = 10;
 
-    [SerializeField] private float startingKnockoutTime = 3;
-    [SerializeField] private float graceTime = 2;
-    [SerializeField] private float knockoutReduceTimeDelay = 8;
-
-    private float knockoutTime;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        knockoutTime = startingKnockoutTime;
-
-        StartCoroutine(ImproveEndurance());
-    }
-
-    // TODO: use invoke
-    //improves knockout time and increases starting amount of health after waking up
-    public IEnumerator ImproveEndurance()
-    {
-        if (!IsKnockedOut())
-        {
-            ReduceKnockoutTime();
-            IncreaseRecoveryHealth();
-
-            yield return new WaitForSeconds(knockoutReduceTimeDelay);
-
-            StartCoroutine(ImproveEndurance());
-        }
-    }
-
-    private void ReduceKnockoutTime()
-    {
-        if (knockoutTime > startingKnockoutTime)
-            knockoutTime -= 0.1f;
-    }
-
-    private void IncreaseRecoveryHealth()
-    {
-        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
-        playerHealth.IncreaseRecoveryHealth(2);
-    }
-
     private bool IsKnockedOut()
     {
         return Player.GetPlayerComponent(gameObject).IsKnockedOut();
@@ -62,11 +20,6 @@ public class PlayerKO : MonoBehaviour
     public float GetKickingDamage()
     {
         return kickingDamage;
-    }
-
-    public float GetGraceTime()
-    {
-        return graceTime;
     }
 
     public float GetMinimumAngle()
@@ -87,10 +40,5 @@ public class PlayerKO : MonoBehaviour
     public float GetMaximumDamage()
     {
         return maximumDamage;
-    }
-
-    public float GetKnockOutTime()
-    {
-        return knockoutTime;
     }
 }

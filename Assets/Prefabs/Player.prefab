@@ -1749,9 +1749,6 @@ MonoBehaviour:
   minimumAngle: 0
   maximumAngle: 75
   kickingDamage: 10
-  startingKnockoutTime: 3
-  graceTime: 2
-  knockoutReduceTimeDelay: 8
 --- !u!54 &287567893963814831
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4261,6 +4258,7 @@ GameObject:
   - component: {fileID: 3561804351890700345}
   - component: {fileID: 8095274628030267591}
   - component: {fileID: 7218298953471864256}
+  - component: {fileID: 6682580538198946016}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4714,6 +4712,21 @@ MonoBehaviour:
   knockout: {fileID: 6358340269515398159}
   interaction: {fileID: 1847766996422167199}
   dead: {fileID: 1185979569055248356}
+--- !u!114 &6682580538198946016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0debb33c3c58a94d86663726251ba73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingKnockoutTime: 3
+  graceTime: 2
+  knockoutReduceTimeDelay: 8
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0
