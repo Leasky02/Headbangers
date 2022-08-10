@@ -4,7 +4,6 @@ public class PlayerBody : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ConfigurableJoint cj;
-    [SerializeField] private Rigidbody rbBody;
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private float knockBackForce = 20;
     [SerializeField] private float knockBackHeightVelocity = 10;
@@ -97,5 +96,16 @@ public class PlayerBody : MonoBehaviour
     public void AddForce(Vector3 force)
     {
         rb.AddForce(force);
+    }
+
+    public void RotateTowards(Vector3 direction)
+    {
+        Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
+        cj.targetRotation = toRotation;
+    }
+
+    public void PerformHeadbutt()
+    {
+
     }
 }

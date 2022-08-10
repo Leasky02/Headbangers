@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-    private ConfigurableJoint cj;
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private ConfigurableJoint cjLeftThigh;
 
@@ -43,12 +42,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float attackSpringValue_LeftThigh;
 
     private Vector2 normalizedInputDirection;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        cj = GetComponent<ConfigurableJoint>();
-    }
 
     public void SetMoveDirection(Vector2 normalizedDirection)
     {
@@ -288,11 +281,12 @@ public class PlayerActions : MonoBehaviour
         {
             walkingForce *= 2;
         }
+
+        // Move the player
         Player.GetPlayerComponent(gameObject).GetComponent<PlayerBody>().AddForce(walkingForce);
 
         // Rotate the player
-        Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
-        cj.targetRotation = toRotation;
+        Player.GetPlayerComponent(gameObject).GetComponent<PlayerBody>().RotateTowards(direction);
 
         PlayWalkAnimation();
     }
