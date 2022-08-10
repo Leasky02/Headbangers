@@ -25,38 +25,6 @@ public class PlayerKO : MonoBehaviour
         StartCoroutine(ImproveEndurance());
     }
 
-    public void KnockOut(GameObject knockedOutBy = null)
-    {
-        ConfigurableJoint[] bodyParts = gameObject.GetComponentsInChildren<ConfigurableJoint>();
-        foreach (ConfigurableJoint bodyPart in bodyParts)
-        {
-            JointDrive springDriveX = bodyPart.angularXDrive;
-            JointDrive springDriveYZ = bodyPart.angularYZDrive;
-
-            springDriveX.positionSpring /= 100;
-            springDriveYZ.positionSpring /= 100;
-
-            bodyPart.angularXDrive = springDriveX;
-            bodyPart.angularYZDrive = springDriveYZ;
-        }
-    }
-
-    public void Revive()
-    {
-        ConfigurableJoint[] bodyParts = gameObject.GetComponentsInChildren<ConfigurableJoint>();
-        foreach (ConfigurableJoint bodyPart in bodyParts)
-        {
-            JointDrive springDriveX = bodyPart.angularXDrive;
-            JointDrive springDriveYZ = bodyPart.angularYZDrive;
-
-            springDriveX.positionSpring *= 100;
-            springDriveYZ.positionSpring *= 100;
-
-            bodyPart.angularXDrive = springDriveX;
-            bodyPart.angularYZDrive = springDriveYZ;
-        }
-    }
-
     // TODO: use invoke
     //improves knockout time and increases starting amount of health after waking up
     public IEnumerator ImproveEndurance()

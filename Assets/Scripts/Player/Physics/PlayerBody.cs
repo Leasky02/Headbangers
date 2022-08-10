@@ -45,4 +45,39 @@ public class PlayerBody : MonoBehaviour
         direction.y = knockBackHeightVelocity;
         rb.velocity = new Vector3(direction.x, direction.y, direction.z);
     }
+
+    public void KnockOut(GameObject knockedOutBy = null)
+    {
+        foreach (ConfigurableJoint bodyPart in GetBodyParts())
+        {
+            JointDrive springDriveX = bodyPart.angularXDrive;
+            JointDrive springDriveYZ = bodyPart.angularYZDrive;
+
+            springDriveX.positionSpring /= 100;
+            springDriveYZ.positionSpring /= 100;
+
+            bodyPart.angularXDrive = springDriveX;
+            bodyPart.angularYZDrive = springDriveYZ;
+        }
+    }
+
+    public void Revive()
+    {
+        foreach (ConfigurableJoint bodyPart in GetBodyParts())
+        {
+            JointDrive springDriveX = bodyPart.angularXDrive;
+            JointDrive springDriveYZ = bodyPart.angularYZDrive;
+
+            springDriveX.positionSpring *= 100;
+            springDriveYZ.positionSpring *= 100;
+
+            bodyPart.angularXDrive = springDriveX;
+            bodyPart.angularYZDrive = springDriveYZ;
+        }
+    }
+
+    private ConfigurableJoint[] GetBodyParts()
+    {
+        return rb.gameObject.GetComponentsInChildren<ConfigurableJoint>();
+    }
 }

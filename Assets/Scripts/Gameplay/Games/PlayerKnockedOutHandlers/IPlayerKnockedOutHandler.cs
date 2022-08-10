@@ -33,7 +33,7 @@ public class IPlayerKnockedOutHandler
             player.GetComponent<PlayerBody>().KnockBack(knockedOutBy.transform.position, true);
         }
 
-        player.GetComponentInChildren<PlayerKO>().KnockOut(); // TODO: Add this method to a body class or something similar
+        player.GetComponent<PlayerBody>().KnockOut();
     }
 
     private IEnumerator RevivePlayerIn(Player player, float reviveIn)
@@ -46,7 +46,7 @@ public class IPlayerKnockedOutHandler
 
         player.GetComponent<PlayerFace>().Revived();
 
-        player.GetComponentInChildren<PlayerKO>().Revive(); // TODO: Add this method to a body class or something similar
+        player.GetComponent<PlayerBody>().Revive();
 
         player.StartCoroutine(player.GetComponentInChildren<PlayerKO>().ImproveEndurance()); // TODO: ask Alasdair, does this need stopped at some point i.e. when knocked out
 
