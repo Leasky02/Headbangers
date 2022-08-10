@@ -12,13 +12,13 @@ public class IPlayerHeadbuttedHandler
         if (!headbuttedPlayer.CanBeHeadbutted())
             return;
 
-        Debug.Log("Player headbutted" + headbuttedPlayer.GetUserIndex());
+        Debug.Log("Player headbutted: " + headbuttedPlayer.GetUserIndex());
 
         // Change headbutting players face
         headbuttingPlayer.GetComponent<PlayerFace>().AttackingFace();
 
         // Calculate damage
-        bool fightingBack = headbuttingPlayer.GetComponentInChildren<PlayerActions>().IsHeadbutting(); // TODO: improve
+        bool fightingBack = headbuttedPlayer.GetComponentInChildren<PlayerActions>().IsHeadbutting(); // TODO: improve
         float damage = CalculateDamage(headbuttingPlayer) * (fightingBack ? 0.5f : 1); // TODO: improve
 
         // Reduce headbutted players health
@@ -54,6 +54,8 @@ public class IPlayerHeadbuttedHandler
         float m = ((pointA.y - pointB.y) / (pointA.x - pointB.x));
         float c = pointA.y - m * pointA.x;
         float damage = m * angle + c;
+
+        Debug.Log(damage);
         return damage;
     }
 }

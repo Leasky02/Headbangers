@@ -9,7 +9,7 @@ public class IPlayerKickedHandler
 
     public virtual void HandleKicked(Player kickedPlayer, Player kickingPlayer)
     {
-        Debug.Log("Player kicked" + kickedPlayer.GetUserIndex());
+        Debug.Log("Player kicked: " + kickedPlayer.GetUserIndex());
 
         // Change kicking players face
         kickingPlayer.GetComponent<PlayerFace>().AttackingFace();

@@ -159,6 +159,13 @@ public class Player : MonoBehaviour
 
 public class PlayerState
 {
+    public PlayerState()
+    {
+        IsKnockedOut = false;
+        IsDead = false;
+        CanBeHeadbutted = true;
+    }
+
     public bool IsKnockedOut { get; set; }
     public bool IsDead { get; set; }
     public bool CanBeHeadbutted { get; set; }
