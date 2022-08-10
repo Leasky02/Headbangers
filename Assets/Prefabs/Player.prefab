@@ -4310,9 +4310,9 @@ MonoBehaviour:
     m_ActionName: Gameplay/Move[/XInputControllerWindows/leftStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287567893963814829}
-        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
-        m_MethodName: OnJump
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_Jump
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4358,9 +4358,9 @@ MonoBehaviour:
     m_ActionName: Gameplay/Kick[/XInputControllerWindows/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287567893963814829}
-        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
-        m_MethodName: OnSit
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_Sit
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4634,6 +4634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4015c8caebcb24d9ee407da2eca396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actions: {fileID: 287567893963814829}
 --- !u!114 &3020414139288603351
 MonoBehaviour:
   m_ObjectHideFlags: 0

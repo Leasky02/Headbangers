@@ -2,6 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// TODO: move some logic into body class
+
 public class PlayerActions : MonoBehaviour
 {
     private Rigidbody rb;
@@ -57,17 +59,11 @@ public class PlayerActions : MonoBehaviour
     {
         inputDirection = context.ReadValue<Vector2>();
     }
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        //only jump on performed
-        if (!context.performed)
-        {
-            return;
-        }
 
-        if (ShouldJump())
+    public void AttemptJump()
+    {
+        if (CanJump())
         {
-            //if on ground
             if (groundDetector.IsGrounded())
             {
                 jumpCount = 0;
@@ -79,23 +75,21 @@ public class PlayerActions : MonoBehaviour
             }
         }
     }
-    public void OnSit(InputAction.CallbackContext context)
+
+    public void AttemptSit()
     {
-        //only jump on performed
-        if (context.performed)
+        if (ShouldSit())
         {
-            isSitting = ShouldSit();
-            if (isSitting)
-            {
-                PlaySitAnimation();
-            }
-        }
-        else if (context.canceled)
-        {
-            isSitting = false;
+            PlaySitAnimation();
         }
 
     }
+
+    public void StopSitting()
+    {
+        isSitting = false;
+    }
+
     public void OnKick(InputAction.CallbackContext context)
     {
         //only jump on performed
@@ -197,7 +191,7 @@ public class PlayerActions : MonoBehaviour
     {
         return !isSitting && canHeadButt && !IsKnockedOut();
     }
-    private bool ShouldJump()
+    private bool CanJump()
     {
         return !isKicking && !isSitting && !IsKnockedOut();
     }
