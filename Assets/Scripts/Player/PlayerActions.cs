@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerActions : MonoBehaviour
 {
-    private Rigidbody rb;
     private ConfigurableJoint cj;
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private ConfigurableJoint cjLeftThigh;
@@ -48,7 +47,6 @@ public class PlayerActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         cj = GetComponent<ConfigurableJoint>();
     }
 
@@ -233,7 +231,7 @@ public class PlayerActions : MonoBehaviour
     private void Jump()
     {
         jumpCount++;
-        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+        Player.GetPlayerComponent(gameObject).GetComponent<PlayerBody>().Jump(jumpForce);
     }
 
     private IEnumerator Kick()
@@ -276,19 +274,21 @@ public class PlayerActions : MonoBehaviour
 
     private void Walk(Vector3 direction)
     {
+        Vector3 walkingForce = direction * speed * Time.deltaTime;
         // TODO: confirm logic with Alasdair
         if (!IsDead() || (IsDead() && !groundDetector.IsGrounded()))
         {
-            rb.AddForce(direction * speed * Time.deltaTime);
+            // Do nothing
         }
         else if (!IsDead() && !groundDetector.IsGrounded())
         {
-            rb.AddForce(direction * speed * 3 * Time.deltaTime);
+            walkingForce *= 3;
         }
         else
         {
-            rb.AddForce(direction * speed * 2f * Time.deltaTime);
+            walkingForce *= 2;
         }
+        Player.GetPlayerComponent(gameObject).GetComponent<PlayerBody>().AddForce(walkingForce);
 
         // Rotate the player
         Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
@@ -352,12 +352,5 @@ public class PlayerActions : MonoBehaviour
         // We probably want to say the player take less damage if the headbutt motion is still downward whether or not the connection has been made yet
         // Can probably test with player debug health bars.
         return isHeadbutting;
-    }
-
-    // TEMP
-
-    public float GetBodyAngle()
-    {
-        return cjBody.gameObject.transform.localRotation.eulerAngles.x;
     }
 }

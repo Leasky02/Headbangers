@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerBody : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private ConfigurableJoint cj;
+    [SerializeField] private Rigidbody rbBody;
+    [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private float knockBackForce = 20;
     [SerializeField] private float knockBackHeightVelocity = 10;
 
@@ -79,5 +82,20 @@ public class PlayerBody : MonoBehaviour
     private ConfigurableJoint[] GetBodyParts()
     {
         return rb.gameObject.GetComponentsInChildren<ConfigurableJoint>();
+    }
+
+    public float GetBodyAngle()
+    {
+        return cjBody.gameObject.transform.localRotation.eulerAngles.x;
+    }
+
+    public void Jump(float upwardForce)
+    {
+        rb.velocity = new Vector3(rb.velocity.x, upwardForce, rb.velocity.z);
+    }
+
+    public void AddForce(Vector3 force)
+    {
+        rb.AddForce(force);
     }
 }

@@ -45,7 +45,7 @@ public class IPlayerHeadbuttedHandler
 
     private float CalculateDamage(Player headbuttingPlayer)
     {
-        float angle = headbuttingPlayer.GetComponentInChildren<PlayerActions>().GetBodyAngle(); // TODO: improve
+        float angle = headbuttingPlayer.GetComponent<PlayerBody>().GetBodyAngle();
         angle = Mathf.Clamp(angle, 0f, 75f);
 
         PlayerAttack playerAttack = headbuttingPlayer.GetComponent<PlayerAttack>(); // TODO: improve

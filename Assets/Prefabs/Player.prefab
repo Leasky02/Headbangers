@@ -4678,6 +4678,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 287567893963814831}
+  cj: {fileID: 287567893963814828}
+  rbBody: {fileID: 287567893246454671}
+  cjBody: {fileID: 287567893246454670}
   knockBackForce: 20
   knockBackHeightVelocity: 10
 --- !u!114 &7218298953471864256
