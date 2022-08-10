@@ -6,22 +6,22 @@ public class PlayerKO : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private AudioSource audioSource_KO;
 
-    [SerializeField] private float deadSpringValue;
+    [SerializeField] private float knockBackForce = 20;
+    [SerializeField] private float knockBackHeightVelocity = 10;
 
-    [SerializeField] private float knockBackForce;
-    [SerializeField] private float knockBackHeightVelocity;
+    [SerializeField] private float minimumDamage = 10;
+    [SerializeField] private float maximumDamage = 40;
+    [SerializeField] private float minimumAngle = 0;
+    [SerializeField] private float maximumAngle = 75;
 
-    [SerializeField] private float minimumDamage;
-    [SerializeField] private float maximumDamage;
-    [SerializeField] private float minimumAngle;
-    [SerializeField] private float maximumAngle;
+    [SerializeField] private float kickingDamage = 10;
 
-    [SerializeField] private float kickingDamage;
+    [SerializeField] private float startingKnockoutTime = 3;
+    [SerializeField] private float graceTime = 2;
+    [SerializeField] private float knockoutReduceTimeDelay = 8;
 
-    [SerializeField] private float startingKnockoutTime;
-    [SerializeField] private float knockoutTime;
-    [SerializeField] private float graceTime;
-    [SerializeField] private float knockoutReduceTimeDelay;
+    private float knockoutTime;
+
 
     // Start is called before the first frame update
     void Start()

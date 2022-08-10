@@ -55,7 +55,6 @@ public class IPlayerHeadbuttedHandler
         float c = pointA.y - m * pointA.x;
         float damage = m * angle + c;
 
-        Debug.Log(damage);
         return damage;
     }
 }

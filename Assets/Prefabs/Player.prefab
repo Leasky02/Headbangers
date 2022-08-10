@@ -1747,9 +1747,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource_KO: {fileID: 6358340269515398159}
-  deadSpringValue: 0
-  knockBackForce: 0
-  knockBackHeightVelocity: 0
+  knockBackForce: 20
+  knockBackHeightVelocity: 10
   minimumDamage: 10
   maximumDamage: 40
   minimumAngle: 0
