@@ -1,7 +1,6 @@
-using System.Collections;
 using UnityEngine;
 
-public class PlayerKO : MonoBehaviour
+public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private float minimumDamage = 10;
     [SerializeField] private float maximumDamage = 40;
@@ -9,13 +8,6 @@ public class PlayerKO : MonoBehaviour
     [SerializeField] private float maximumAngle = 75;
 
     [SerializeField] private float kickingDamage = 10;
-
-    private bool IsKnockedOut()
-    {
-        return Player.GetPlayerComponent(gameObject).IsKnockedOut();
-    }
-
-    // TEMP
 
     public float GetKickingDamage()
     {

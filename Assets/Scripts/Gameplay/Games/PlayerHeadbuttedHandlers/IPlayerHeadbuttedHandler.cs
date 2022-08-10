@@ -48,9 +48,9 @@ public class IPlayerHeadbuttedHandler
         float angle = headbuttingPlayer.GetComponentInChildren<PlayerActions>().GetBodyAngle(); // TODO: improve
         angle = Mathf.Clamp(angle, 0f, 75f);
 
-        PlayerKO playerKO = headbuttingPlayer.GetComponentInChildren<PlayerKO>(); // TODO: improve
-        Vector2 pointA = new Vector2(playerKO.GetMinimumAngle(), playerKO.GetMinimumDamage());
-        Vector2 pointB = new Vector2(playerKO.GetMaximumAngle(), playerKO.GetMaximumDamage());
+        PlayerAttack playerAttack = headbuttingPlayer.GetComponent<PlayerAttack>(); // TODO: improve
+        Vector2 pointA = new Vector2(playerAttack.GetMinimumAngle(), playerAttack.GetMinimumDamage());
+        Vector2 pointB = new Vector2(playerAttack.GetMaximumAngle(), playerAttack.GetMaximumDamage());
         float m = ((pointA.y - pointB.y) / (pointA.x - pointB.x));
         float c = pointA.y - m * pointA.x;
         float damage = m * angle + c;
