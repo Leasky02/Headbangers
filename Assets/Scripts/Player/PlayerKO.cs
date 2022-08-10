@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class PlayerKO : MonoBehaviour
 {
-    private Rigidbody rb;
-    [SerializeField] private AudioSource audioSource_KO;
-
     [SerializeField] private float minimumDamage = 10;
     [SerializeField] private float maximumDamage = 40;
     [SerializeField] private float minimumAngle = 0;
@@ -23,8 +20,6 @@ public class PlayerKO : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-
         knockoutTime = startingKnockoutTime;
 
         StartCoroutine(ImproveEndurance());
@@ -129,11 +124,5 @@ public class PlayerKO : MonoBehaviour
     public float GetKnockOutTime()
     {
         return knockoutTime;
-    }
-
-    public void PlayKnockOutSound()
-    {
-        audioSource_KO.pitch = Random.Range(0.8f, 1.2f);
-        audioSource_KO.Play();
     }
 }

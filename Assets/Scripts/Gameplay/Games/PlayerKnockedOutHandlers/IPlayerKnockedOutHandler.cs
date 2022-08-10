@@ -26,7 +26,7 @@ public class IPlayerKnockedOutHandler
 
         player.GetComponent<PlayerFace>().KnockedOut();
 
-        player.GetComponentInChildren<PlayerKO>().PlayKnockOutSound(); // TODO: improve
+        player.GetComponent<PlayerAudio>().PlayKnockOutSound();
 
         if (knockedOutBy)
         {

@@ -9,8 +9,6 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private ConfigurableJoint cjLeftThigh;
 
-    [SerializeField] private AudioSource audioSource_Attack;
-
     [SerializeField] private int speed;
     [SerializeField] private int jumpForce;
     private int jumpCount = 0;
@@ -155,8 +153,7 @@ public class PlayerActions : MonoBehaviour
             {
                 if (canPlayHitSound) // TODO: is the required?
                 {
-                    audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
-                    audioSource_Attack.Play();
+                    Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayAttackSound();
                     canPlayHitSound = false;
                 }
 
@@ -173,8 +170,7 @@ public class PlayerActions : MonoBehaviour
             {
                 isKicking = false;
 
-                audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
-                audioSource_Attack.Play();
+                Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayAttackSound();
 
                 Player playerKicked = Player.GetPlayerComponent(bodyKicked);
                 Gameplay.Instance.PlayerKickedHandler.HandleKicked(playerKicked, Player.GetPlayerComponent(gameObject));

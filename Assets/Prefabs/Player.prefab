@@ -1653,7 +1653,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cjBody: {fileID: 287567893246454670}
   cjLeftThigh: {fileID: 287567893227178274}
-  audioSource_Attack: {fileID: 1827410766340730214}
   speed: 2000
   jumpForce: 45
   decoyAnimator: {fileID: 287567892653818831}
@@ -1705,7 +1704,6 @@ MonoBehaviour:
   - {fileID: 287567892636320905}
   - {fileID: 287567894438307734}
   hipCollider: {fileID: 220206565819900079}
-  deadAudioSource: {fileID: 1185979569055248356}
 --- !u!114 &5732016547039446277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1746,7 +1744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2718338f288d74aa4a6444e3ce25df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource_KO: {fileID: 6358340269515398159}
   minimumDamage: 10
   maximumDamage: 40
   minimumAngle: 0
@@ -4020,7 +4017,6 @@ MonoBehaviour:
   isFoot: 0
   isBody: 1
   actionScript: {fileID: 287567893963814829}
-  interactionAudioSource: {fileID: 1847766996422167199}
   objectForce: 4
 --- !u!54 &6296502896523965792
 Rigidbody:
@@ -4147,7 +4143,6 @@ MonoBehaviour:
   isFoot: 1
   isBody: 0
   actionScript: {fileID: 287567893963814829}
-  interactionAudioSource: {fileID: 1847766996422167199}
   objectForce: 3
 --- !u!54 &8982372935273019008
 Rigidbody:
@@ -4265,6 +4260,7 @@ GameObject:
   - component: {fileID: 3020414139288603351}
   - component: {fileID: 3561804351890700345}
   - component: {fileID: 8095274628030267591}
+  - component: {fileID: 7218298953471864256}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4702,6 +4698,22 @@ MonoBehaviour:
   rb: {fileID: 287567893963814831}
   knockBackForce: 20
   knockBackHeightVelocity: 10
+--- !u!114 &7218298953471864256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b40b40d59a0624b8d3b9c6f0f265b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: {fileID: 1827410766340730214}
+  knockout: {fileID: 6358340269515398159}
+  interaction: {fileID: 1847766996422167199}
+  dead: {fileID: 1185979569055248356}
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0

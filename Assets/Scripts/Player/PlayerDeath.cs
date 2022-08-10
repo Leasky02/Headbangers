@@ -16,8 +16,6 @@ public class PlayerDeath : MonoBehaviour
 
     [SerializeField] private BoxCollider hipCollider;
 
-    [SerializeField] private AudioSource deadAudioSource;
-
     //player dies
     public IEnumerator Die()
     {
@@ -25,7 +23,7 @@ public class PlayerDeath : MonoBehaviour
         Player.GetPlayerComponent(gameObject).SetIsCameraTarget(false);
         Respawn();
 
-        deadAudioSource.Play();
+        Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayDeadSound();
 
         yield return new WaitForSeconds(1f);
 
