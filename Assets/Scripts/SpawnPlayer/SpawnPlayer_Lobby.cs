@@ -10,7 +10,7 @@ public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 
         SetPosition(playerConfig);
 
-        Player.GetPlayerComponent(playerConfig.Input.gameObject).FreezePosition();
+        Player.GetPlayerComponent(playerConfig.Input.gameObject).GetComponent<PlayerBody>().FreezePosition();
 
         playerConfig.Input.SwitchCurrentActionMap("Lobby");
     }

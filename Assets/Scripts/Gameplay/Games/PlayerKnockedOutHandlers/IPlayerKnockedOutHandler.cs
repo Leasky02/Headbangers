@@ -30,7 +30,7 @@ public class IPlayerKnockedOutHandler
 
         if (knockedOutBy)
         {
-            player.GetComponentInChildren<PlayerKO>().KnockBack(knockedOutBy.transform.position, true);
+            player.GetComponent<PlayerBody>().KnockBack(knockedOutBy.transform.position, true);
         }
 
         player.GetComponentInChildren<PlayerKO>().KnockOut(); // TODO: Add this method to a body class or something similar

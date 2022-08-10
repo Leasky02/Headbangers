@@ -6,9 +6,6 @@ public class PlayerKO : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private AudioSource audioSource_KO;
 
-    [SerializeField] private float knockBackForce = 20;
-    [SerializeField] private float knockBackHeightVelocity = 10;
-
     [SerializeField] private float minimumDamage = 10;
     [SerializeField] private float maximumDamage = 40;
     [SerializeField] private float minimumAngle = 0;
@@ -63,27 +60,6 @@ public class PlayerKO : MonoBehaviour
             bodyPart.angularXDrive = springDriveX;
             bodyPart.angularYZDrive = springDriveYZ;
         }
-    }
-
-    // TODO: move elsewhere
-    public void KnockBack(Vector3 knockedBackFrom, bool knockBackAtHead = false)
-    {
-        Vector3 selfPosition = transform.position;
-        Vector3 direction = new Vector3(selfPosition.x - knockedBackFrom.x, 0f, selfPosition.z - knockedBackFrom.z);
-        direction = direction.normalized;
-
-        if (knockBackAtHead)
-        {
-            Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-            rb.AddForceAtPosition(direction * knockBackForce * 0.4f, forcePosition, ForceMode.Impulse);
-        }
-        else
-        {
-            rb.AddForce(direction * knockBackForce, ForceMode.Impulse);
-        }
-
-        direction.y = knockBackHeightVelocity;
-        rb.velocity = new Vector3(direction.x, direction.y, direction.z);
     }
 
     // TODO: use invoke

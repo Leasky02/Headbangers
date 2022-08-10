@@ -36,7 +36,7 @@ public class IPlayerHeadbuttedHandler
         else
         {
             // Knock the headbutted player back
-            headbuttedPlayer.GetComponentInChildren<PlayerKO>().KnockBack(headbuttingPlayer.GetPosition());
+            headbuttedPlayer.GetComponent<PlayerBody>().KnockBack(headbuttingPlayer.GetPosition());
             headbuttedPlayer.GetComponent<PlayerFace>().UpdateFaceBasedOnHealth();
             float graceTime = headbuttedPlayer.GetComponentInChildren<PlayerKO>().GetGraceTime(); // TODO: improve
             headbuttedPlayer.Invoke("EnableBeingHeadbutted", graceTime * 0.5f); // TODO: improve

@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rigidbodyHip;
-
     [SerializeField] private DisplayNameRenderer displayNameRenderer;
 
     private int m_playerIndex = -1;
@@ -80,19 +78,14 @@ public class Player : MonoBehaviour
         m_isCameraTarget = isCameraTarget;
     }
 
-    public Rigidbody GetRigidbodyHip()
-    {
-        return rigidbodyHip;
-    }
-
     public Vector3 GetPosition()
     {
-        return rigidbodyHip.transform.position;
+        return GetComponent<PlayerBody>().GetPosition();
     }
 
     public void SetPosition(Vector3 position)
     {
-        rigidbodyHip.transform.position = position;
+        GetComponent<PlayerBody>().SetPosition(position);
     }
 
     public bool IsKnockedOut()
@@ -143,17 +136,7 @@ public class Player : MonoBehaviour
         GetComponentInChildren<PlayerHealth>().OnGameStart();
 
         displayNameRenderer.SetDisplayName(GetPlayerConfiguration().DisplayName);
-        UnfreezePosition();
-    }
-
-    public void FreezePosition()
-    {
-        GetRigidbodyHip().constraints = RigidbodyConstraints.FreezeAll;
-    }
-
-    public void UnfreezePosition()
-    {
-        GetRigidbodyHip().constraints = RigidbodyConstraints.None;
+        GetComponent<PlayerBody>().UnfreezePosition();
     }
 }
 

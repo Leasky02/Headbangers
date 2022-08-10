@@ -1747,15 +1747,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource_KO: {fileID: 6358340269515398159}
-  knockBackForce: 20
-  knockBackHeightVelocity: 10
   minimumDamage: 10
   maximumDamage: 40
   minimumAngle: 0
   maximumAngle: 75
   kickingDamage: 10
   startingKnockoutTime: 3
-  knockoutTime: 0
   graceTime: 2
   knockoutReduceTimeDelay: 8
 --- !u!54 &287567893963814831
@@ -4267,6 +4264,7 @@ GameObject:
   - component: {fileID: 6637693239564466092}
   - component: {fileID: 3020414139288603351}
   - component: {fileID: 3561804351890700345}
+  - component: {fileID: 8095274628030267591}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4634,7 +4632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed3852d7dd63c04ebbfd30a80fc2cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbodyHip: {fileID: 287567893963814831}
   displayNameRenderer: {fileID: 2114465142717712753}
 --- !u!114 &7684810738315467476
 MonoBehaviour:
@@ -4690,6 +4687,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   face: {fileID: 671975495570311663}
+--- !u!114 &8095274628030267591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ac04eedf00829468d2a1845eb7c094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 287567893963814831}
+  knockBackForce: 20
+  knockBackHeightVelocity: 10
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0
