@@ -31,7 +31,7 @@ public class IPlayerHeadbuttedHandler
         if (playerHealth.Health == 0)
         {
             // Knock the headbutted player out
-            Gameplay.Instance.PlayerKnockedOutHandler.HandleKnockedOut(headbuttedPlayer, headbuttedPlayer.gameObject);
+            Gameplay.Instance.PlayerKnockedOutHandler.HandleKnockedOut(headbuttedPlayer, headbuttingPlayer.gameObject);
         }
         else
         {

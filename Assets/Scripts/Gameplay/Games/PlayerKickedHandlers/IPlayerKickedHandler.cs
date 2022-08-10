@@ -24,7 +24,7 @@ public class IPlayerKickedHandler
         if (playerHealth.Health == 0)
         {
             // Knock the kicked player out
-            Gameplay.Instance.PlayerKnockedOutHandler.HandleKnockedOut(kickedPlayer, kickedPlayer.gameObject);
+            Gameplay.Instance.PlayerKnockedOutHandler.HandleKnockedOut(kickedPlayer, kickingPlayer.gameObject);
         }
         else
         {
