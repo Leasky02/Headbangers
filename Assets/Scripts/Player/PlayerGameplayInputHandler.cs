@@ -31,10 +31,18 @@ public class PlayerGameplayInputHandler : MonoBehaviour
 
     public void HandleAction_Gameplay_Headbutt(InputAction.CallbackContext context)
     {
+        if (!context.performed)
+            return;
+
+        actions.AttemptHeadbutt();
     }
 
     public void HandleAction_Gameplay_Kick(InputAction.CallbackContext context)
     {
+        if (!context.performed)
+            return;
+
+        actions.AttemptKick();
     }
 
     public void HandleAction_Gameplay_Jump(InputAction.CallbackContext context)

@@ -4326,9 +4326,9 @@ MonoBehaviour:
     m_ActionName: Gameplay/Jump[/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287567893963814829}
-        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
-        m_MethodName: OnHeadButt
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_Headbutt
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4342,9 +4342,9 @@ MonoBehaviour:
     m_ActionName: Gameplay/HeadButt[/XInputControllerWindows/buttonNorth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287567893963814829}
-        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
-        m_MethodName: OnKick
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_Kick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4482,9 +4482,9 @@ MonoBehaviour:
     m_ActionName: Lobby/Leave[/XInputControllerWindows/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287567893963814829}
-        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
-        m_MethodName: OnKick
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_Kick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4498,9 +4498,9 @@ MonoBehaviour:
     m_ActionName: Lobby/Kick[/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287567893963814829}
-        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
-        m_MethodName: OnHeadButt
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_Headbutt
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

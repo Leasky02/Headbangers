@@ -90,27 +90,15 @@ public class PlayerActions : MonoBehaviour
         isSitting = false;
     }
 
-    public void OnKick(InputAction.CallbackContext context)
+    public void AttemptKick()
     {
-        //only jump on performed
-        if (!context.performed)
-        {
-            return;
-        }
-
         if (ShouldKick())
         {
             StartCoroutine(Kick());
         }
     }
-    public void OnHeadButt(InputAction.CallbackContext context)
+    public void AttemptHeadbutt()
     {
-        //only jump on performed
-        if (!context.performed)
-        {
-            return;
-        }
-
         if (ShouldHeadButt())
         {
             StartCoroutine(HeadButt());
@@ -206,7 +194,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator HeadButt()
     {
-        if (!IsKnockedOut())
+        if (!IsKnockedOut()) // TODO: is this required?
         {
             StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
         }
