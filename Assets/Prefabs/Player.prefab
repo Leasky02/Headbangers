@@ -1604,7 +1604,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 287567893963814830}
-  - component: {fileID: 287567893963814829}
   - component: {fileID: 8813903090943198542}
   - component: {fileID: 5732016547039446277}
   - component: {fileID: 287567893963814831}
@@ -1638,34 +1637,6 @@ Transform:
   m_Father: {fileID: 4353178036784682740}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &287567893963814829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287567893963814817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5efa16e9685998447885c639be1b8301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cjBody: {fileID: 287567893246454670}
-  cjLeftThigh: {fileID: 287567893227178274}
-  speed: 2000
-  jumpForce: 45
-  decoyAnimator: {fileID: 287567892653818831}
-  groundDetector: {fileID: 287567894028973367}
-  bodyDetector_HEAD: {fileID: 6884108239244774980}
-  bodyDetector_FOOT: {fileID: 71671381993922268}
-  face: {fileID: 671975495570311663}
-  kickTimeLength: 0.3
-  HeadButtLength: 0.15
-  cooldownLength: 0.25
-  normalSpringValue_BODY: 20
-  normalSpringValue_LeftThigh: 1000
-  attackSpringValue_BODY: 120
-  attackSpringValue_LeftThigh: 3000
 --- !u!114 &8813903090943198542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3995,7 +3966,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFoot: 0
   isBody: 1
-  actionScript: {fileID: 287567893963814829}
   objectForce: 4
 --- !u!54 &6296502896523965792
 Rigidbody:
@@ -4121,7 +4091,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFoot: 1
   isBody: 0
-  actionScript: {fileID: 287567893963814829}
   objectForce: 3
 --- !u!54 &8982372935273019008
 Rigidbody:
@@ -4242,6 +4211,7 @@ GameObject:
   - component: {fileID: 7218298953471864256}
   - component: {fileID: 6682580538198946016}
   - component: {fileID: 4973540908520972142}
+  - component: {fileID: 378626490083574954}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4634,7 +4604,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b4015c8caebcb24d9ee407da2eca396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: {fileID: 287567893963814829}
 --- !u!114 &3020414139288603351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4679,7 +4648,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 287567893963814831}
   cj: {fileID: 287567893963814828}
-  rbBody: {fileID: 287567893246454671}
   cjBody: {fileID: 287567893246454670}
   knockBackForce: 20
   knockBackHeightVelocity: 10
@@ -4731,6 +4699,34 @@ MonoBehaviour:
   minimumAngle: 0
   maximumAngle: 75
   kickingDamage: 10
+--- !u!114 &378626490083574954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efa16e9685998447885c639be1b8301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cjBody: {fileID: 287567893246454670}
+  cjLeftThigh: {fileID: 287567893227178274}
+  speed: 2000
+  jumpForce: 45
+  decoyAnimator: {fileID: 287567892653818831}
+  groundDetector: {fileID: 287567894028973367}
+  bodyDetector_HEAD: {fileID: 6884108239244774980}
+  bodyDetector_FOOT: {fileID: 71671381993922268}
+  face: {fileID: 671975495570311663}
+  kickTimeLength: 0.4
+  HeadButtLength: 0.15
+  cooldownLength: 0.25
+  normalSpringValue_BODY: 20
+  normalSpringValue_LeftThigh: 1000
+  attackSpringValue_BODY: 120
+  attackSpringValue_LeftThigh: 3000
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0

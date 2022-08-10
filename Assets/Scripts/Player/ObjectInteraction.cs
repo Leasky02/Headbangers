@@ -1,20 +1,23 @@
 using UnityEngine;
 
-// TODO: cleanup
 public class ObjectInteraction : MonoBehaviour
 {
     [SerializeField] private bool isFoot;
     [SerializeField] private bool isBody;
-
-    [SerializeField] private PlayerActions actionScript;
-
     [SerializeField] private int objectForce;
+
+    private PlayerActions actions;
+
+    public void Start()
+    {
+        actions = Player.GetPlayerComponent(gameObject).GetComponent<PlayerActions>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Interactable"))
         {
-            if ((isFoot && actionScript.IsKicking()) || (isBody && actionScript.IsHeadbutting()))
+            if ((isFoot && actions.IsKicking()) || (isBody && actions.IsHeadbutting()))
             {
                 ApplyForce(other.gameObject);
 

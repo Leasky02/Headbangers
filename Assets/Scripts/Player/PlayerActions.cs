@@ -8,8 +8,8 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private ConfigurableJoint cjLeftThigh;
 
-    [SerializeField] private int speed;
-    [SerializeField] private int jumpForce;
+    [SerializeField] private int speed = 2000;
+    [SerializeField] private int jumpForce = 45;
     private int jumpCount = 0;
     [SerializeField] private const int jumpLimit = 1;
 
@@ -31,15 +31,15 @@ public class PlayerActions : MonoBehaviour
     private bool isSitting = false;
     private bool isKicking = false;
 
-    [SerializeField] private float kickTimeLength;
+    [SerializeField] private float kickTimeLength = 0.4f;
 
-    [SerializeField] private float HeadButtLength;
-    [SerializeField] private float cooldownLength;
+    [SerializeField] private float HeadButtLength = 0.15f;
+    [SerializeField] private float cooldownLength = 0.25f;
 
-    [SerializeField] private float normalSpringValue_BODY;
-    [SerializeField] private float normalSpringValue_LeftThigh;
-    [SerializeField] private float attackSpringValue_BODY;
-    [SerializeField] private float attackSpringValue_LeftThigh;
+    [SerializeField] private float normalSpringValue_BODY = 20;
+    [SerializeField] private float normalSpringValue_LeftThigh = 1000;
+    [SerializeField] private float attackSpringValue_BODY = 120;
+    [SerializeField] private float attackSpringValue_LeftThigh = 3000;
 
     private Vector2 normalizedInputDirection;
 

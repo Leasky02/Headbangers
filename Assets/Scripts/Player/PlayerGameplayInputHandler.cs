@@ -3,7 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerGameplayInputHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerActions actions;
+    private PlayerActions actions;
+
+    public void Start()
+    {
+        actions = Player.GetPlayerComponent(gameObject).GetComponent<PlayerActions>();
+    }
 
     public void HandleAction_Gameplay_ShowPlayerNames(InputAction.CallbackContext context)
     {
