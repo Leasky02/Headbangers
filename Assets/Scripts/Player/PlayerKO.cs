@@ -8,8 +8,6 @@ public class PlayerKO : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private AudioSource audioSource_KO;
 
-    private bool headButtInProgress = false;
-
     [SerializeField] private float deadSpringValue;
 
     [SerializeField] private float knockbackForce;
@@ -29,6 +27,8 @@ public class PlayerKO : MonoBehaviour
 
     [SerializeField] private FacialEmotions face;
 
+    private bool m_canBeHit = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,10 +41,9 @@ public class PlayerKO : MonoBehaviour
         StartCoroutine(ImproveEndurance());
     }
 
-    //called when headbutted
-    public IEnumerator HeadButted(GameObject headButtingPlayer, float angle)
+    public void HeadButted(GameObject headButtingPlayer, float angle)
     {
-        headButtInProgress = true;
+        PreventFromBeingHit();
 
         //calculate damage
         bool fightingBack = actionScript.IsAttemptingHeadButt();
@@ -71,8 +70,7 @@ public class PlayerKO : MonoBehaviour
             Knockback(headButtingPlayer);
             ChangeFace();
 
-            yield return new WaitForSeconds(graceTime / 2f);
-            headButtInProgress = false;
+            Invoke("EnableBeingHit", graceTime / 2f);
         }
     }
 
@@ -171,7 +169,7 @@ public class PlayerKO : MonoBehaviour
 
         yield return new WaitForSeconds(graceTime);
 
-        headButtInProgress = false;
+        Invoke("EnableBeingHit", graceTime);
     }
 
     //knocked back
@@ -227,10 +225,19 @@ public class PlayerKO : MonoBehaviour
         playerHealth.IncreaseRecoveryHealth(2);
     }
 
-    //returns if player is being currently headbutted
-    public bool IsHeadButtInProgress()
+    public bool CanBeHit()
     {
-        return headButtInProgress;
+        return m_canBeHit;
+    }
+
+    private void EnableBeingHit()
+    {
+        m_canBeHit = true;
+    }
+
+    private void PreventFromBeingHit()
+    {
+        m_canBeHit = false;
     }
 
     private bool IsKnockedOut()

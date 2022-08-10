@@ -163,9 +163,9 @@ public class PlayerActions : MonoBehaviour
 
             //access the player attacked for checks
             PlayerKO victim = bodyDetector_HEAD.IsTouchingBody().transform.parent.transform.parent.gameObject.GetComponent<PlayerKO>();
-            if (!victim.IsHeadButtInProgress())
+            if (victim.CanBeHit())
             {
-                victim.StartCoroutine(victim.HeadButted(gameObject, cjBody.gameObject.transform.localRotation.eulerAngles.x));
+                victim.HeadButted(gameObject, cjBody.gameObject.transform.localRotation.eulerAngles.x);
 
                 StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
             }
