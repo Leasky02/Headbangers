@@ -33,30 +33,8 @@ public class PlayerKO : MonoBehaviour
         StartCoroutine(ImproveEndurance());
     }
 
-    //knocked out
-    private IEnumerator KO(GameObject headButtingPlayer)
+    public void KnockOut(GameObject knockedOutBy = null)
     {
-        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
-        playerHealth.Recover();
-
-        SetKnockedOut(true);
-        //face.KnockedOut(); TODO: replace
-
-        audioSource_KO.pitch = Random.Range(0.8f, 1.2f);
-        audioSource_KO.Play();
-
-        Vector3 headButterPosition = headButtingPlayer.transform.position;
-        Vector3 selfPosition = transform.position;
-        Vector3 direction = new Vector3(selfPosition.x - headButterPosition.x, 0f, selfPosition.z - headButterPosition.z);
-        direction = direction.normalized;
-
-        Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
-        rb.AddForceAtPosition(direction * knockbackForce * 0.4f, forcePosition, ForceMode.Impulse);
-
-        direction.y = knockbackHeightVelocity;
-        rb.velocity = new Vector3(direction.x, direction.y, direction.z);
-
-
         ConfigurableJoint[] bodyParts = gameObject.GetComponentsInChildren<ConfigurableJoint>();
         foreach (ConfigurableJoint bodyPart in bodyParts)
         {
@@ -69,13 +47,11 @@ public class PlayerKO : MonoBehaviour
             bodyPart.angularXDrive = springDriveX;
             bodyPart.angularYZDrive = springDriveYZ;
         }
+    }
 
-        yield return new WaitForSeconds(knockoutTime);
-
-        knockoutTime += 0.5f;
-        SetKnockedOut(false);
-        //face.Revived(); TODO: replace
-
+    public void Revive()
+    {
+        ConfigurableJoint[] bodyParts = gameObject.GetComponentsInChildren<ConfigurableJoint>();
         foreach (ConfigurableJoint bodyPart in bodyParts)
         {
             JointDrive springDriveX = bodyPart.angularXDrive;
@@ -87,12 +63,6 @@ public class PlayerKO : MonoBehaviour
             bodyPart.angularXDrive = springDriveX;
             bodyPart.angularYZDrive = springDriveYZ;
         }
-
-        StartCoroutine(ImproveEndurance());
-
-        yield return new WaitForSeconds(graceTime);
-
-        Invoke("EnableBeingHit", graceTime);
     }
 
     // TODO: move elsewhere
@@ -106,9 +76,9 @@ public class PlayerKO : MonoBehaviour
         {
             Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
             rb.AddForceAtPosition(direction * knockBackForce * 0.4f, forcePosition, ForceMode.Impulse);
-    }
+        }
         else
-    {
+        {
             rb.AddForce(direction * knockBackForce, ForceMode.Impulse);
         }
 
@@ -118,7 +88,7 @@ public class PlayerKO : MonoBehaviour
 
     // TODO: use invoke
     //improves knockout time and increases starting amount of health after waking up
-    private IEnumerator ImproveEndurance()
+    public IEnumerator ImproveEndurance()
     {
         if (!IsKnockedOut())
         {
@@ -178,5 +148,16 @@ public class PlayerKO : MonoBehaviour
     public float GetMaximumDamage()
     {
         return maximumDamage;
+    }
+
+    public float GetKnockOutTime()
+    {
+        return knockoutTime;
+    }
+
+    public void PlayKnockOutSound()
+    {
+        audioSource_KO.pitch = Random.Range(0.8f, 1.2f);
+        audioSource_KO.Play();
     }
 }
