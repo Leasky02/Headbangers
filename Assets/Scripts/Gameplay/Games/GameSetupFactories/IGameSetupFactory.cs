@@ -15,4 +15,9 @@ public class IGameSetupFactory
     {
         return new IPlayerKickedHandler();
     }
+
+    public virtual IPlayerHeadbuttedHandler CreatePlayerHeadbuttedHandler()
+    {
+        return new IPlayerHeadbuttedHandler();
+    }
 }
