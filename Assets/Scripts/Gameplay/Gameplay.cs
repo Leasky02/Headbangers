@@ -6,6 +6,8 @@ public class Gameplay : Singleton<Gameplay>
 
     public IPlayerRespawn PlayerRespawn { get; private set; }
 
+    public IPlayerKnockedOutHandler PlayerKnockedOutHandler { get; private set; }
+
     public IPlayerKickedHandler PlayerKickedHandler { get; private set; }
 
     public void Start()
@@ -16,6 +18,7 @@ public class Gameplay : Singleton<Gameplay>
     public void Setup(IGameSetupFactory gameSetupFactory)
     {
         PlayerRespawn = gameSetupFactory.CreatePlayerRespawn();
+        PlayerKnockedOutHandler = gameSetupFactory.CreatePlayerKnockedOutHandler();
         PlayerKickedHandler = gameSetupFactory.CreatePlayerKickedHandler();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -29,6 +32,7 @@ public class Gameplay : Singleton<Gameplay>
             SceneManager.sceneUnloaded += OnSceneUnloaded;
 
             PlayerRespawn.InitOnSceneLoad();
+            PlayerKnockedOutHandler.InitOnSceneLoad();
             PlayerKickedHandler.InitOnSceneLoad();
 
             InGame = true;
@@ -43,6 +47,7 @@ public class Gameplay : Singleton<Gameplay>
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
 
             PlayerRespawn = null;
+            PlayerKnockedOutHandler = null;
             PlayerKickedHandler = null;
 
             InGame = false;
