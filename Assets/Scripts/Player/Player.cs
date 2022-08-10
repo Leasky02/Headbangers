@@ -85,6 +85,11 @@ public class Player : MonoBehaviour
         return rigidbodyHip;
     }
 
+    public Vector3 GetPosition()
+    {
+        return rigidbodyHip.transform.position;
+    }
+
     public void SetPosition(Vector3 position)
     {
         rigidbodyHip.transform.position = position;
