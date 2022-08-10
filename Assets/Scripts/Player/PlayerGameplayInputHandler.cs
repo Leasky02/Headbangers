@@ -17,6 +17,19 @@ public class PlayerGameplayInputHandler : MonoBehaviour
         }
     }
 
+    public void HandleAction_Gameplay_Move(InputAction.CallbackContext context)
+    {
+        Vector2 normalizedDirection = context.ReadValue<Vector2>();
+        if (normalizedDirection.sqrMagnitude > 0.16f)
+        {
+            actions.SetMoveDirection(normalizedDirection);
+        }
+        else
+        {
+            actions.SetMoveDirection(new Vector2(0, 0));
+        }
+    }
+
     public void HandleAction_Gameplay_Sit(InputAction.CallbackContext context)
     {
         if (context.performed)

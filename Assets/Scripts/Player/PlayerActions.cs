@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 // TODO: move some logic into body class
 
@@ -36,7 +35,6 @@ public class PlayerActions : MonoBehaviour
 
     [SerializeField] private float kickTimeLength;
 
-
     [SerializeField] private float HeadButtLength;
     [SerializeField] private float cooldownLength;
 
@@ -45,7 +43,7 @@ public class PlayerActions : MonoBehaviour
     [SerializeField] private float attackSpringValue_BODY;
     [SerializeField] private float attackSpringValue_LeftThigh;
 
-    private Vector2 inputDirection;
+    private Vector2 normalizedInputDirection;
 
     // Start is called before the first frame update
     void Start()
@@ -54,10 +52,9 @@ public class PlayerActions : MonoBehaviour
         cj = GetComponent<ConfigurableJoint>();
     }
 
-    //functions called from input
-    public void OnMove(InputAction.CallbackContext context)
+    public void SetMoveDirection(Vector2 normalizedDirection)
     {
-        inputDirection = context.ReadValue<Vector2>();
+        normalizedInputDirection = normalizedDirection;
     }
 
     public void AttemptJump()
@@ -82,7 +79,6 @@ public class PlayerActions : MonoBehaviour
         {
             PlaySitAnimation();
         }
-
     }
 
     public void StopSitting()
@@ -97,6 +93,7 @@ public class PlayerActions : MonoBehaviour
             StartCoroutine(Kick());
         }
     }
+
     public void AttemptHeadbutt()
     {
         if (ShouldHeadButt())
@@ -108,14 +105,14 @@ public class PlayerActions : MonoBehaviour
     // Fixed Update is called 30x per frame
     void FixedUpdate()
     {
-        inputDirection = inputDirection.normalized;
-
-        Vector3 moveDirection = new Vector3(inputDirection.x, 0f, inputDirection.y);
-        //Walk
-        isWalking = IsWalking(moveDirection);
-        if (isWalking)
+        if (CanWalk())
         {
-            Walk(moveDirection);
+            Vector3 moveDirection = new Vector3(normalizedInputDirection.x, 0f, normalizedInputDirection.y);
+            isWalking = (moveDirection.sqrMagnitude > 0);
+            if (isWalking)
+            {
+                Walk(moveDirection);
+            }
         }
     }
 
@@ -241,7 +238,7 @@ public class PlayerActions : MonoBehaviour
 
     private IEnumerator Kick()
     {
-        if (!IsKnockedOut())
+        if (!IsKnockedOut()) // TODO: is this required?
         {
             StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
         }
@@ -276,9 +273,10 @@ public class PlayerActions : MonoBehaviour
 
         canKick = true;
     }
+
     private void Walk(Vector3 direction)
     {
-        //move the player
+        // TODO: confirm logic with Alasdair
         if (!IsDead() || (IsDead() && !groundDetector.IsGrounded()))
         {
             rb.AddForce(direction * speed * Time.deltaTime);
@@ -292,14 +290,15 @@ public class PlayerActions : MonoBehaviour
             rb.AddForce(direction * speed * 2f * Time.deltaTime);
         }
 
-        //rotate the player
+        // Rotate the player
         Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
         cj.targetRotation = toRotation;
 
         PlayWalkAnimation();
     }
 
-    //animations
+    // Animations
+
     private void PlayHeadButtAnimation()
     {
         decoyAnimator.speed = 1f;
@@ -322,6 +321,7 @@ public class PlayerActions : MonoBehaviour
     {
         decoyAnimator.Play("Idle");
     }
+
     private void PlayWalkAnimation()
     {
         if (!IsDead())
@@ -335,16 +335,11 @@ public class PlayerActions : MonoBehaviour
             decoyAnimator.speed = 0.5f;
     }
 
-    //return checks for action states
-    public bool IsWalking(Vector3 direction)
+    public bool CanWalk()
     {
-        return (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !isHeadbutting && !IsKnockedOut();
+        return !isKicking && !isSitting && !isHeadbutting && !IsKnockedOut();
     }
 
-    public bool IsSitting()
-    {
-        return isSitting;
-    }
     public bool IsKicking()
     {
         return isKicking;

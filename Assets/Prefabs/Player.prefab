@@ -4294,9 +4294,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 287567893963814829}
-        m_TargetAssemblyTypeName: PlayerActions, Assembly-CSharp
-        m_MethodName: OnMove
+      - m_Target: {fileID: 6637693239564466092}
+        m_TargetAssemblyTypeName: PlayerGameplayInputHandler, Assembly-CSharp
+        m_MethodName: HandleAction_Gameplay_Move
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
