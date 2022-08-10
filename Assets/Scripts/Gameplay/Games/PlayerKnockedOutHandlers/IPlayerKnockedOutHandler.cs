@@ -26,14 +26,14 @@ public class IPlayerKnockedOutHandler
 
         player.GetComponent<PlayerFace>().KnockedOut();
 
-        player.GetComponent<PlayerKO>().PlayKnockOutSound(); // TODO: improve
+        player.GetComponentInChildren<PlayerKO>().PlayKnockOutSound(); // TODO: improve
 
         if (knockedOutBy)
         {
-            player.GetComponent<PlayerKO>().KnockBack(knockedOutBy.transform.position, true);
+            player.GetComponentInChildren<PlayerKO>().KnockBack(knockedOutBy.transform.position, true);
         }
 
-        player.GetComponent<PlayerKO>().KnockOut(); // TODO: Add this method to a body class or something similar
+        player.GetComponentInChildren<PlayerKO>().KnockOut(); // TODO: Add this method to a body class or something similar
     }
 
     private IEnumerator RevivePlayerIn(Player player, float reviveIn)
@@ -46,7 +46,7 @@ public class IPlayerKnockedOutHandler
 
         player.GetComponent<PlayerFace>().Revived();
 
-        player.GetComponent<PlayerKO>().Revive(); // TODO: Add this method to a body class or something similar
+        player.GetComponentInChildren<PlayerKO>().Revive(); // TODO: Add this method to a body class or something similar
 
         player.StartCoroutine(player.GetComponentInChildren<PlayerKO>().ImproveEndurance()); // TODO: ask Alasdair, does this need stopped at some point i.e. when knocked out
 

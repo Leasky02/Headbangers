@@ -29,7 +29,7 @@ public class IPlayerKickedHandler
         else
         {
             // Knock the headbutted player back
-            kickedPlayer.GetComponent<PlayerKO>().KnockBack(kickingPlayer.GetPosition());
+            kickedPlayer.GetComponentInChildren<PlayerKO>().KnockBack(kickingPlayer.GetPosition());
             kickedPlayer.GetComponent<PlayerFace>().UpdateFaceBasedOnHealth();
         }
     }
