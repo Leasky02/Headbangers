@@ -25,8 +25,6 @@ public class PlayerKO : MonoBehaviour
     [SerializeField] private float graceTime;
     [SerializeField] private float knockoutReduceTimeDelay;
 
-    [SerializeField] private FacialEmotions face;
-
     private bool m_canBeHit = true;
 
     // Start is called before the first frame update
@@ -68,7 +66,7 @@ public class PlayerKO : MonoBehaviour
         else
         {
             Knockback(headButtingPlayer);
-            ChangeFace();
+            //ChangeFace(); TODO: replace
 
             Invoke("EnableBeingHit", graceTime / 2f);
         }
@@ -86,30 +84,7 @@ public class PlayerKO : MonoBehaviour
         {
             StartCoroutine(KO(headButtingPlayer));
         }
-        else
-        {
-            Knockback(headButtingPlayer);
-            ChangeFace();
         }
-    }
-
-    //change face based on current health
-    private void ChangeFace()
-    {
-        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
-        if (Player.GetPlayerComponent(gameObject).IsKnockedOut())
-        {
-            if (playerHealth.Health > 50)
-            {
-                StartCoroutine(face.ChangeEmotion("sad", "open", "sad", 2f));
-            }
-            else if (playerHealth.Health > 0)
-            {
-                StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 3f));
-            }
-        }
-    }
-
     //knocked out
     private IEnumerator KO(GameObject headButtingPlayer)
     {
@@ -117,7 +92,7 @@ public class PlayerKO : MonoBehaviour
         playerHealth.Recover();
 
         SetKnockedOut(true);
-        face.KnockedOut();
+        //face.KnockedOut(); TODO: replace
 
         audioSource_KO.pitch = Random.Range(0.8f, 1.2f);
         audioSource_KO.Play();
@@ -151,7 +126,7 @@ public class PlayerKO : MonoBehaviour
 
         knockoutTime += 0.5f;
         SetKnockedOut(false);
-        face.Revived();
+        //face.Revived(); TODO: replace
 
         foreach (ConfigurableJoint bodyPart in bodyParts)
         {
