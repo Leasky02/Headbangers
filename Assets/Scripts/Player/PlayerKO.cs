@@ -3,15 +3,13 @@ using UnityEngine;
 
 public class PlayerKO : MonoBehaviour
 {
-    private PlayerActions actionScript;
-    private ConfigurableJoint cj;
     private Rigidbody rb;
     [SerializeField] private AudioSource audioSource_KO;
 
     [SerializeField] private float deadSpringValue;
 
-    [SerializeField] private float knockbackForce;
-    [SerializeField] private float knockbackHeightVelocity;
+    [SerializeField] private float knockBackForce;
+    [SerializeField] private float knockBackHeightVelocity;
 
     [SerializeField] private float minimumDamage;
     [SerializeField] private float maximumDamage;
@@ -25,13 +23,9 @@ public class PlayerKO : MonoBehaviour
     [SerializeField] private float graceTime;
     [SerializeField] private float knockoutReduceTimeDelay;
 
-    private bool m_canBeHit = true;
-
     // Start is called before the first frame update
     void Start()
     {
-        actionScript = GetComponent<PlayerActions>();
-        cj = GetComponent<ConfigurableJoint>();
         rb = GetComponent<Rigidbody>();
 
         knockoutTime = startingKnockoutTime;
@@ -39,52 +33,6 @@ public class PlayerKO : MonoBehaviour
         StartCoroutine(ImproveEndurance());
     }
 
-    public void HeadButted(GameObject headButtingPlayer, float angle)
-    {
-        PreventFromBeingHit();
-
-        //calculate damage
-        bool fightingBack = actionScript.IsAttemptingHeadButt();
-        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
-        if (!fightingBack)
-        {
-            playerHealth.ReduceHealth(CalculateDamage(angle));
-
-        }
-        else
-        {
-            playerHealth.ReduceHealth(CalculateDamage(angle) * 0.5f);
-        }
-
-        //determine if KO'd
-        // TODO: handle KO elsewhere
-        bool shouldKO = playerHealth.Health <= 0 && !IsKnockedOut();
-        if (shouldKO)
-        {
-            StartCoroutine(KO(headButtingPlayer));
-        }
-        else
-        {
-            Knockback(headButtingPlayer);
-            //ChangeFace(); TODO: replace
-
-            Invoke("EnableBeingHit", graceTime / 2f);
-        }
-    }
-
-    public void Kicked(GameObject headButtingPlayer)
-    {
-        Gameplay.Instance.PlayerKickedHandler.HandleKicked(Player.GetPlayerComponent(gameObject), Player.GetPlayerComponent(headButtingPlayer));
-
-        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
-        playerHealth.ReduceHealth(kickingDamage);
-
-        // TODO: handle KO elsewhere
-        if (playerHealth.Health <= 0 && !IsKnockedOut())
-        {
-            StartCoroutine(KO(headButtingPlayer));
-        }
-        }
     //knocked out
     private IEnumerator KO(GameObject headButtingPlayer)
     {
@@ -147,33 +95,28 @@ public class PlayerKO : MonoBehaviour
         Invoke("EnableBeingHit", graceTime);
     }
 
-    //knocked back
-    private void Knockback(GameObject headButtingPlayer)
+    // TODO: move elsewhere
+    public void KnockBack(Vector3 knockedBackFrom, bool knockBackAtHead = false)
     {
-        Vector3 headButterPosition = headButtingPlayer.transform.position;
         Vector3 selfPosition = transform.position;
-        Vector3 direction = new Vector3(selfPosition.x - headButterPosition.x, 0f, selfPosition.z - headButterPosition.z);
+        Vector3 direction = new Vector3(selfPosition.x - knockedBackFrom.x, 0f, selfPosition.z - knockedBackFrom.z);
         direction = direction.normalized;
 
-        rb.AddForce(direction * knockbackForce, ForceMode.Impulse);
+        if (knockBackAtHead)
+        {
+            Vector3 forcePosition = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            rb.AddForceAtPosition(direction * knockBackForce * 0.4f, forcePosition, ForceMode.Impulse);
+    }
+        else
+    {
+            rb.AddForce(direction * knockBackForce, ForceMode.Impulse);
+        }
 
-        direction.y = knockbackHeightVelocity;
+        direction.y = knockBackHeightVelocity;
         rb.velocity = new Vector3(direction.x, direction.y, direction.z);
     }
 
-    //calculates damage when headbutted
-    private float CalculateDamage(float angle)
-    {
-        angle = Mathf.Clamp(angle, 0f, 75f);
-
-        Vector2 pointA = new Vector2(minimumAngle, minimumDamage);
-        Vector2 pointB = new Vector2(maximumAngle, maximumDamage);
-        float m = ((pointA.y - pointB.y) / (pointA.x - pointB.x));
-        float c = pointA.y - m * pointA.x;
-        float damage = m * angle + c;
-        return damage;
-    }
-
+    // TODO: use invoke
     //improves knockout time and increases starting amount of health after waking up
     private IEnumerator ImproveEndurance()
     {
@@ -200,28 +143,40 @@ public class PlayerKO : MonoBehaviour
         playerHealth.IncreaseRecoveryHealth(2);
     }
 
-    public bool CanBeHit()
-    {
-        return m_canBeHit;
-    }
-
-    private void EnableBeingHit()
-    {
-        m_canBeHit = true;
-    }
-
-    private void PreventFromBeingHit()
-    {
-        m_canBeHit = false;
-    }
-
     private bool IsKnockedOut()
     {
         return Player.GetPlayerComponent(gameObject).IsKnockedOut();
     }
 
-    private void SetKnockedOut(bool knockedOut)
+    // TEMP
+
+    public float GetKickingDamage()
     {
-        Player.GetPlayerComponent(gameObject).SetKnockedOut(knockedOut);
+        return kickingDamage;
+    }
+
+    public float GetGraceTime()
+    {
+        return graceTime;
+    }
+
+    public float GetMinimumAngle()
+    {
+        return minimumAngle;
+    }
+
+    public float GetMaximumAngle()
+    {
+        return maximumAngle;
+    }
+
+    public float GetMinimumDamage()
+    {
+        return minimumDamage;
+    }
+
+    public float GetMaximumDamage()
+    {
+        return maximumDamage;
     }
 }

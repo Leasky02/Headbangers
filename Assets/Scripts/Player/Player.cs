@@ -115,6 +115,21 @@ public class Player : MonoBehaviour
         m_playerState.IsDead = dead;
     }
 
+    public bool CanBeHeadbutted()
+    {
+        return m_playerState.CanBeHeadbutted;
+    }
+
+    public void PreventFromBeingHeadbutted()
+    {
+        m_playerState.CanBeHeadbutted = false;
+    }
+
+    public void EnableBeingHeadbutted()
+    {
+        m_playerState.CanBeHeadbutted = true;
+    }
+
     public void AssignColor(int colorID)
     {
         PlayerConfigurationManager.Instance.SetPlayerColorID(m_playerIndex, colorID);
@@ -146,4 +161,5 @@ public class PlayerState
 {
     public bool IsKnockedOut { get; set; }
     public bool IsDead { get; set; }
+    public bool CanBeHeadbutted { get; set; }
 }

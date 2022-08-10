@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: cleanup
 public class ObjectInteraction : MonoBehaviour
 {
     [SerializeField] private bool isFoot;
@@ -14,9 +13,9 @@ public class ObjectInteraction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Interactable"))
+        if (other.CompareTag("Interactable"))
         {
-            if ((isFoot && actionScript.IsKicking()) || (isBody && actionScript.IsAttemptingHeadButt()))
+            if ((isFoot && actionScript.IsKicking()) || (isBody && actionScript.IsHeadbutting()))
             {
                 ApplyForce(other.gameObject);
 

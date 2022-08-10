@@ -8,7 +8,6 @@ public class PlayerActions : MonoBehaviour
     private ConfigurableJoint cj;
     [SerializeField] private ConfigurableJoint cjBody;
     [SerializeField] private ConfigurableJoint cjLeftThigh;
-    private PlayerKO KOscript;
 
     [SerializeField] private AudioSource audioSource_Attack;
 
@@ -30,7 +29,7 @@ public class PlayerActions : MonoBehaviour
 
     private bool canPlayHitSound = true;
 
-    private bool attemptingHeadButt = false;
+    private bool isHeadbutting = false;
     private bool isWalking = false;
     private bool isSitting = false;
     private bool isKicking = false;
@@ -53,7 +52,6 @@ public class PlayerActions : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         cj = GetComponent<ConfigurableJoint>();
-        KOscript = GetComponent<PlayerKO>();
     }
 
     //functions called from input
@@ -143,48 +141,44 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        //Idle
+        // Idle
         if (ShouldIdle())
         {
             PlayIdleAnimation();
         }
 
-        //successful HeadButt
-        bool HeadButtingPlayer = attemptingHeadButt && bodyDetector_HEAD.IsTouchingBody() != null;
-        if (HeadButtingPlayer)
+        // Headbutting
+        if (IsHeadbutting())
         {
-            //if can play the attack sound
-            if (canPlayHitSound)
+            GameObject bodyHeadbutted = bodyDetector_HEAD.IsTouchingBody();
+            if (bodyHeadbutted != null)
             {
-                audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
-                audioSource_Attack.Play();
-                canPlayHitSound = false;
-            }
+                if (canPlayHitSound) // TODO: is the required?
+                {
+                    audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
+                    audioSource_Attack.Play();
+                    canPlayHitSound = false;
+                }
 
-            //access the player attacked for checks
-            PlayerKO victim = bodyDetector_HEAD.IsTouchingBody().transform.parent.transform.parent.gameObject.GetComponent<PlayerKO>();
-            if (victim.CanBeHit())
-            {
-                victim.HeadButted(gameObject, cjBody.gameObject.transform.localRotation.eulerAngles.x);
-
-                StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
+                Player playerHeadbutted = Player.GetPlayerComponent(bodyHeadbutted);
+                Gameplay.Instance.PlayerHeadbuttedHandler.HandleHeadbutted(playerHeadbutted, Player.GetPlayerComponent(gameObject));
             }
         }
 
-        //successful kick
-        bool kickingPlayer = isKicking && bodyDetector_FOOT.IsTouchingBody() != null;
-        if (kickingPlayer)
+        // Kicking
+        if (IsKicking())
         {
-            isKicking = false;
+            GameObject bodyKicked = bodyDetector_FOOT.IsTouchingBody();
+            if (bodyKicked != null)
+            {
+                isKicking = false;
 
-            audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
-            audioSource_Attack.Play();
+                audioSource_Attack.pitch = Random.Range(0.8f, 1.4f);
+                audioSource_Attack.Play();
 
-            //access the player attacked for checks
-            PlayerKO victim = bodyDetector_FOOT.IsTouchingBody().transform.parent.transform.parent.gameObject.GetComponent<PlayerKO>();
-            victim.Kicked(gameObject);
-
-            StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
+                Player playerKicked = Player.GetPlayerComponent(bodyKicked);
+                Gameplay.Instance.PlayerKickedHandler.HandleKicked(playerKicked, Player.GetPlayerComponent(gameObject));
+            }
         }
     }
 
@@ -217,7 +211,7 @@ public class PlayerActions : MonoBehaviour
     }
     private bool ShouldIdle()
     {
-        return !isKicking && !isSitting && !isWalking && !attemptingHeadButt;
+        return !isKicking && !isSitting && !isWalking && !isHeadbutting;
     }
 
     private IEnumerator HeadButt()
@@ -238,7 +232,7 @@ public class PlayerActions : MonoBehaviour
         cjBody.angularYZDrive = springDriveYZ;
 
         canHeadButt = false;
-        attemptingHeadButt = true;
+        isHeadbutting = true;
 
         PlayHeadButtAnimation();
 
@@ -253,7 +247,7 @@ public class PlayerActions : MonoBehaviour
 
         yield return new WaitForSeconds(HeadButtLength / 2);
 
-        attemptingHeadButt = false;
+        isHeadbutting = false; // TODO: Ask Alasdair if this should go before yield i.e. on way back up from headbut
 
         yield return new WaitForSeconds(cooldownLength);
 
@@ -366,7 +360,7 @@ public class PlayerActions : MonoBehaviour
     //return checks for action states
     public bool IsWalking(Vector3 direction)
     {
-        return (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !attemptingHeadButt && !IsKnockedOut();
+        return (Mathf.Abs(direction.magnitude) > 0.4f) && !isKicking && !isSitting && !isHeadbutting && !IsKnockedOut();
     }
 
     public bool IsSitting()
@@ -378,8 +372,19 @@ public class PlayerActions : MonoBehaviour
         return isKicking;
     }
 
-    public bool IsAttemptingHeadButt()
+    public bool IsHeadbutting()
     {
-        return attemptingHeadButt;
+        // TODO: Check with Alasdair - We probably need to distinguish between isHeadbutting and which will be set to false when the player starts to move back up
+        // and whether a headbut has made a connection or not yet.
+        // We probably want to say the player take less damage if the headbutt motion is still downward whether or not the connection has been made yet
+        // Can probably test with player debug health bars.
+        return isHeadbutting;
+    }
+
+    // TEMP
+
+    public float GetBodyAngle()
+    {
+        return cjBody.gameObject.transform.localRotation.eulerAngles.x;
     }
 }

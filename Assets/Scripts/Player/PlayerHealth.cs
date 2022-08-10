@@ -44,7 +44,6 @@ public class PlayerHealth : MonoBehaviour
         if (Health <= 0)
         {
             Health = 0;
-            // TODO: handle knockout
         }
     }
 
