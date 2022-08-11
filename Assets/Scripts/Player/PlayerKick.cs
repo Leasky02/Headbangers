@@ -1,12 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-// TODO: move some logic into body class
-
 public class PlayerKick : MonoBehaviour
 {
     [SerializeField] private ConfigurableJoint cjLeftThigh;
-    [SerializeField] private Animator decoyAnimator;
     [SerializeField] private BodyDetector bodyDetector_FOOT;
     [SerializeField] private float kickTimeLength = 0.4f;
     [SerializeField] private float normalSpringValue_LeftThigh = 1000;
@@ -47,7 +44,7 @@ public class PlayerKick : MonoBehaviour
         canKick = false;
 
         isKicking = true;
-        PlayKickAnimation();
+        GetComponent<PlayerDecoyAnimator>().PlayKickAnimation();
 
         //increase joint spring for fast attack
         JointDrive springDriveX = cjLeftThigh.angularXDrive;
@@ -73,12 +70,6 @@ public class PlayerKick : MonoBehaviour
         yield return new WaitForSeconds(kickTimeLength / 2);
 
         canKick = true;
-    }
-
-    private void PlayKickAnimation()
-    {
-        decoyAnimator.speed = 1f;
-        decoyAnimator.Play("Kick");
     }
 
     private bool CanKick()

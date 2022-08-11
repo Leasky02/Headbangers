@@ -4216,6 +4216,7 @@ GameObject:
   - component: {fileID: 431864923758370687}
   - component: {fileID: 7834476310552283331}
   - component: {fileID: 2150707635192782725}
+  - component: {fileID: 8636552126480240123}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4730,7 +4731,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cjLeftThigh: {fileID: 287567893227178274}
-  decoyAnimator: {fileID: 287567892653818831}
   bodyDetector_FOOT: {fileID: 71671381993922268}
   kickTimeLength: 0.4
   normalSpringValue_LeftThigh: 1000
@@ -4748,7 +4748,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cjBody: {fileID: 287567893246454670}
-  decoyAnimator: {fileID: 287567892653818831}
   bodyDetector_HEAD: {fileID: 6884108239244774980}
   HeadbuttLength: 0.15
   coolDownLength: 0.25
@@ -4766,7 +4765,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e4dfb1dbc5c9334183b989caf77136d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decoyAnimator: {fileID: 287567892653818831}
 --- !u!114 &2150707635192782725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4781,8 +4779,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 287567893963814831}
   cj: {fileID: 287567893963814828}
-  decoyAnimator: {fileID: 287567892653818831}
   speed: 2000
+--- !u!114 &8636552126480240123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d534f6ff966c441aba653111e54a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decoyAnimator: {fileID: 287567892653818831}
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0

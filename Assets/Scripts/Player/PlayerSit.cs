@@ -1,11 +1,7 @@
 using UnityEngine;
 
-// TODO: move some logic into body class
-
 public class PlayerSit : MonoBehaviour
 {
-    [SerializeField] private Animator decoyAnimator;
-
     private bool isSitting = false;
 
     public void AttemptSit()
@@ -13,19 +9,13 @@ public class PlayerSit : MonoBehaviour
         if (CanSit())
         {
             isSitting = true;
-            PlaySitAnimation();
+            GetComponent<PlayerDecoyAnimator>().PlaySitAnimation();
         }
     }
 
     public void StopSitting()
     {
         isSitting = false;
-    }
-
-    private void PlaySitAnimation()
-    {
-        decoyAnimator.speed = 1f;
-        decoyAnimator.Play("Sit");
     }
 
     private bool CanSit()

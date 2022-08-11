@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerHeadbutt : MonoBehaviour
 {
     [SerializeField] private ConfigurableJoint cjBody;
-    [SerializeField] private Animator decoyAnimator;
     [SerializeField] private BodyDetector bodyDetector_HEAD;
     [SerializeField] private float HeadbuttLength = 0.15f;
     [SerializeField] private float coolDownLength = 0.25f;
@@ -59,7 +58,7 @@ public class PlayerHeadbutt : MonoBehaviour
         canHeadbutt = false;
         isHeadbutting = true;
 
-        PlayHeadbuttAnimation();
+        GetComponent<PlayerDecoyAnimator>().PlayHeadbuttAnimation();
 
         yield return new WaitForSeconds(HeadbuttLength / 2);
 
@@ -78,12 +77,6 @@ public class PlayerHeadbutt : MonoBehaviour
 
         canHeadbutt = true;
         canPlayHitSound = true;
-    }
-
-    private void PlayHeadbuttAnimation()
-    {
-        decoyAnimator.speed = 1f;
-        decoyAnimator.Play("Headbutt");
     }
 
     private bool CanHeadbutt()

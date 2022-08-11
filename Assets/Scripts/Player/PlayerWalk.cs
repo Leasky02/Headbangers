@@ -1,11 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerWalk : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ConfigurableJoint cj;
-    [SerializeField] private Animator decoyAnimator;
     [SerializeField] private int speed = 2000;
 
     private bool isWalking = false;
@@ -29,7 +27,7 @@ public class PlayerWalk : MonoBehaviour
     {
         if (ShouldIdle())
         {
-            PlayIdleAnimation();
+            GetComponent<PlayerDecoyAnimator>().PlayIdleAnimation();
         }
     }
 
@@ -63,22 +61,11 @@ public class PlayerWalk : MonoBehaviour
         Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
         cj.targetRotation = toRotation;
 
-        PlayWalkAnimation(isGrounded);
-    }
-
-    private void PlayIdleAnimation()
-    {
-        decoyAnimator.Play("Idle");
-    }
-
-    private void PlayWalkAnimation(bool isGrounded)
-    {
+        // Play walking animation only when not dead
         if (!IsDead())
         {
-            decoyAnimator.Play("Walk");
+            GetComponent<PlayerDecoyAnimator>().PlayWalkAnimation(isGrounded);
         }
-
-        decoyAnimator.speed = isGrounded ? 1f : 0.5f;
     }
 
     private bool IsDead()
