@@ -5,9 +5,4 @@ public class GameSetupFactory_FreeForAll : IGameSetupFactory
     {
         return new GameState_FreeForAll();
     }
-
-    public override IPlayerKickedHandler CreatePlayerKickedHandler()
-    {
-        return new PlayerKickedHandler_FreeForAll();
-    }
 }

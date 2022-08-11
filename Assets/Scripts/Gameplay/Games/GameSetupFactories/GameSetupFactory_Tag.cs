@@ -10,4 +10,9 @@ public class GameSetupFactory_Tag : IGameSetupFactory
     {
         return new PlayerKickedHandler_Tag();
     }
+
+    public override IPlayerHeadbuttedHandler CreatePlayerHeadbuttedHandler()
+    {
+        return new PlayerHeadbuttedHandler_Tag();
+    }
 }
