@@ -7,7 +7,7 @@ public class PlayerGameplayInputHandler : MonoBehaviour
 
     public void Start()
     {
-        player = Player.GetPlayerComponent(gameObject);
+        player = GetComponent<Player>();
     }
 
     public void HandleAction_Gameplay_ShowPlayerNames(InputAction.CallbackContext context)

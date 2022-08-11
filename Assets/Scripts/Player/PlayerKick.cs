@@ -22,7 +22,7 @@ public class PlayerKick : MonoBehaviour
             {
                 isKicking = false;
 
-                Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayAttackSound();
+                GetComponent<PlayerAudio>().PlayAttackSound();
 
                 Player playerKicked = Player.GetPlayerComponent(bodyKicked);
                 Gameplay.Instance.PlayerKickedHandler.HandleKicked(playerKicked, Player.GetPlayerComponent(gameObject));

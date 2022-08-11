@@ -59,13 +59,13 @@ public class PlayerEndurance : MonoBehaviour
 
     private void IncreaseRecoveryHealth()
     {
-        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
+        PlayerHealth playerHealth = GetComponent<PlayerHealth>();
         playerHealth.IncreaseRecoveryHealth(2);
     }
 
     private bool IsKnockedOut()
     {
-        return Player.GetPlayerComponent(gameObject).IsKnockedOut();
+        return GetComponent<Player>().IsKnockedOut();
     }
 
     // TEMP

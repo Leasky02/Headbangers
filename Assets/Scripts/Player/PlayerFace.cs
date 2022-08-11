@@ -7,7 +7,7 @@ public class PlayerFace : MonoBehaviour
     public void UpdateFaceBasedOnHealth()
     {
         // TODO: facial emotions handler
-        PlayerHealth playerHealth = Player.GetPlayerComponent(gameObject).GetComponent<PlayerHealth>();
+        PlayerHealth playerHealth = GetComponent<PlayerHealth>();
         if (playerHealth.Health > 50)
         {
             StartCoroutine(face.ChangeEmotion("sad", "open", "sad", 2f));

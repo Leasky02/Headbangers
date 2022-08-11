@@ -86,6 +86,6 @@ public class PlayerHealth : MonoBehaviour
     // TODO: move elsewhere
     private bool IsKnockedOut()
     {
-        return Player.GetPlayerComponent(gameObject).IsKnockedOut();
+        return GetComponent<Player>().IsKnockedOut();
     }
 }

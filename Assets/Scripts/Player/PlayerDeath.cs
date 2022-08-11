@@ -15,13 +15,15 @@ public class PlayerDeath : MonoBehaviour
     //player dies
     public IEnumerator Die()
     {
-        Player.GetPlayerComponent(gameObject).SetDead(true);
+        Player player = GetComponent<Player>();
 
-        PlayerConfigurationManager.Instance.SwitchCurrentActionMap(Player.GetPlayerComponent(gameObject).GetPlayerIndex(), "Deactive");
-        Player.GetPlayerComponent(gameObject).SetIsCameraTarget(false);
+        player.SetDead(true);
+
+        PlayerConfigurationManager.Instance.SwitchCurrentActionMap(player.GetPlayerIndex(), "Deactive");
+        player.SetIsCameraTarget(false);
         Respawn();
 
-        Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayDeadSound();
+        player.GetComponent<PlayerAudio>().PlayDeadSound();
 
         yield return new WaitForSeconds(1f);
 
@@ -74,7 +76,7 @@ public class PlayerDeath : MonoBehaviour
     //player respawns
     private void Respawn()
     {
-        Gameplay.Instance.PlayerRespawn.RespawnPlayer(Player.GetPlayerComponent(gameObject));
+        Gameplay.Instance.PlayerRespawn.RespawnPlayer(GetComponent<Player>());
     }
 
     //when player is brought back to life

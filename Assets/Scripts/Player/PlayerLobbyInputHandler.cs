@@ -9,9 +9,12 @@ public class PlayerLobbyInputHandler : MonoBehaviour
 
     private char[] m_letters = new char[NUM_LETTERS] { 'A', 'A', 'A' };
 
+    private Player player;
+
     public void Start()
     {
-        int userIndex = Player.GetPlayerComponent(gameObject).GetUserIndex();
+        player = GetComponent<Player>();
+        int userIndex = player.GetUserIndex();
         m_letters[0] = (char)(m_letters[0] + userIndex * 3 + 0);
         m_letters[1] = (char)(m_letters[1] + userIndex * 3 + 1);
         m_letters[2] = (char)(m_letters[2] + userIndex * 3 + 2);
@@ -33,7 +36,7 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         PlayerConfigurationManager.Instance.TogglePlayerReady(playerIndex);
         PlayerConfigurationManager.Instance.SetPlayerDisplayName(playerIndex, new string(m_letters));
 
@@ -45,7 +48,7 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         PlayerColorManager.Instance.SetColorAvailable(PlayerConfigurationManager.Instance.GetPlayerColorID(playerIndex));
         PlayerConfigurationManager.Instance.RemovePlayer(playerIndex, gameObject);
     }
@@ -55,7 +58,7 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
@@ -72,7 +75,7 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
@@ -89,7 +92,7 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
@@ -108,7 +111,7 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
@@ -127,14 +130,14 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
         if (PlayerColorManager.Instance.HasColorsAvailable())
         {
             int newColorID = PlayerColorManager.Instance.TakeNextAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(playerIndex));
-            Player.GetPlayerComponent(gameObject).AssignColor(newColorID);
+            player.AssignColor(newColorID);
         }
     }
 
@@ -143,21 +146,21 @@ public class PlayerLobbyInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        int playerIndex = Player.GetPlayerComponent(gameObject).GetPlayerIndex();
+        int playerIndex = player.GetPlayerIndex();
         if (PlayerConfigurationManager.Instance.IsPlayerReady(playerIndex))
             return;
 
         if (PlayerColorManager.Instance.HasColorsAvailable())
         {
             int newColorID = PlayerColorManager.Instance.TakePreviousAvailableColorID(PlayerConfigurationManager.Instance.GetPlayerColorID(playerIndex));
-            Player.GetPlayerComponent(gameObject).AssignColor(newColorID);
+            player.AssignColor(newColorID);
         }
     }
 
     private void UpdateAssociatedLobbySpawnPoint()
     {
         LobbyManager lobbyManager = LobbyManager.Find();
-        LobbySpawnPoint lobbySpawnPoint = lobbyManager.GetSpawnPointForUserIndex(Player.GetPlayerComponent(gameObject).GetUserIndex());
+        LobbySpawnPoint lobbySpawnPoint = lobbyManager.GetSpawnPointForUserIndex(player.GetUserIndex());
         lobbySpawnPoint.UpdateForUser();
     }
 }

@@ -1,12 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class SpawnPlayer_Lobby : LS.ISpawnPlayer<PlayerConfiguration>
 {
     public override void SpawnPlayer(PlayerConfiguration playerConfig)
     {
-        playerConfig.Input.transform.GetComponent<Player>().Init(playerConfig.PlayerIndex);
+        playerConfig.GetPlayer().Init(playerConfig.PlayerIndex);
 
         SetPosition(playerConfig);
 
