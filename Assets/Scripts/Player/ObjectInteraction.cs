@@ -1,27 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectInteraction : MonoBehaviour
 {
     [SerializeField] private bool isFoot;
     [SerializeField] private bool isBody;
-
-    [SerializeField] private PlayerActions actionScript;
-    [SerializeField] private AudioSource interactionAudioSource;
-
     [SerializeField] private int objectForce;
+
+    private Player player;
+
+    public void Start()
+    {
+        player = Player.GetPlayerComponent(gameObject);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Interactable"))
+        if (other.CompareTag("Interactable"))
         {
-            if ((isFoot && actionScript.IsKicking()) || (isBody && actionScript.IsAttemptingHeadButt()))
+            if ((isFoot && player.GetComponent<PlayerKick>().IsKicking()) || (isBody && player.GetComponent<PlayerHeadbutt>().IsHeadbutting()))
             {
                 ApplyForce(other.gameObject);
 
-                interactionAudioSource.pitch = Random.Range(0.8f, 1.4f);
-                interactionAudioSource.Play();
+                player.GetComponent<PlayerAudio>().PlayInteractionSound();
             }
         }
     }

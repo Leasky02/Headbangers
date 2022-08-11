@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Rigidbody rigidbodyHip;
-
     [SerializeField] private DisplayNameRenderer displayNameRenderer;
+
+    [SerializeField] private GroundedDetector groundDetector;
 
     private int m_playerIndex = -1;
 
@@ -80,14 +80,14 @@ public class Player : MonoBehaviour
         m_isCameraTarget = isCameraTarget;
     }
 
-    public Rigidbody GetRigidbodyHip()
+    public Vector3 GetPosition()
     {
-        return rigidbodyHip;
+        return GetComponent<PlayerBody>().GetPosition();
     }
 
     public void SetPosition(Vector3 position)
     {
-        rigidbodyHip.transform.position = position;
+        GetComponent<PlayerBody>().SetPosition(position);
     }
 
     public bool IsKnockedOut()
@@ -110,33 +110,53 @@ public class Player : MonoBehaviour
         m_playerState.IsDead = dead;
     }
 
+    public bool CanBeHeadbutted()
+    {
+        return m_playerState.CanBeHeadbutted;
+    }
+
+    public void PreventFromBeingHeadbutted()
+    {
+        m_playerState.CanBeHeadbutted = false;
+    }
+
+    public void EnableBeingHeadbutted()
+    {
+        m_playerState.CanBeHeadbutted = true;
+    }
+
     public void AssignColor(int colorID)
     {
         PlayerConfigurationManager.Instance.SetPlayerColorID(m_playerIndex, colorID);
         Color playerColor = PlayerColorManager.Instance.GetColor(colorID);
 
-        transform.GetChild(0).GetComponent<PlayerColor>().ApplyColor(playerColor);
+        GetComponent<PlayerColor>().ApplyColor(playerColor);
     }
 
     public void OnGameStart()
     {
+        GetComponentInChildren<PlayerHealth>().OnGameStart();
+
         displayNameRenderer.SetDisplayName(GetPlayerConfiguration().DisplayName);
-        UnfreezePosition();
+        GetComponent<PlayerBody>().UnfreezePosition();
     }
 
-    public void FreezePosition()
+    public bool IsGrounded()
     {
-        GetRigidbodyHip().constraints = RigidbodyConstraints.FreezeAll;
-    }
-
-    public void UnfreezePosition()
-    {
-        GetRigidbodyHip().constraints = RigidbodyConstraints.None;
+        return groundDetector.IsGrounded();
     }
 }
 
 public class PlayerState
 {
+    public PlayerState()
+    {
+        IsKnockedOut = false;
+        IsDead = false;
+        CanBeHeadbutted = true;
+    }
+
     public bool IsKnockedOut { get; set; }
     public bool IsDead { get; set; }
+    public bool CanBeHeadbutted { get; set; }
 }

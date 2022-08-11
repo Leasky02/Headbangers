@@ -18,7 +18,7 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] private SpriteRenderer[] faceParts;
 
-    [SerializeField] private float deadTransparency;
+    [SerializeField] private float deadTransparency = 0.2f;
 
     public void ApplyColor(Color playerColor)
     {

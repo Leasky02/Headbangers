@@ -1,31 +1,27 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
+// TODO: Add IPlayerDeathHandler script
 
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private PlayerColor playerColor;
-
     [SerializeField] private BoxCollider[] bodyDetectors;
-
     [SerializeField] private GameObject[] bodyParts;
     [SerializeField] private MeshRenderer[] shoes;
     [SerializeField] private GameObject[] legParts;
     [SerializeField] private GameObject[] legLimbs;
-
     [SerializeField] private BoxCollider hipCollider;
-
-    [SerializeField] private AudioSource deadAudioSource;
 
     //player dies
     public IEnumerator Die()
     {
-        playerInput.SwitchCurrentActionMap("Deactive");
+        Player.GetPlayerComponent(gameObject).SetDead(true);
+
+        PlayerConfigurationManager.Instance.SwitchCurrentActionMap(Player.GetPlayerComponent(gameObject).GetPlayerIndex(), "Deactive");
         Player.GetPlayerComponent(gameObject).SetIsCameraTarget(false);
         Respawn();
 
-        deadAudioSource.Play();
+        Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayDeadSound();
 
         yield return new WaitForSeconds(1f);
 
@@ -72,7 +68,7 @@ public class PlayerDeath : MonoBehaviour
         hipCollider.enabled = true;
 
         //change material of body and face
-        playerColor.UpdateMaterial();
+        GetComponent<PlayerColor>().UpdateMaterial();
     }
 
     //player respawns
@@ -124,6 +120,6 @@ public class PlayerDeath : MonoBehaviour
         hipCollider.enabled = false;
 
         //change material of body and face
-        playerColor.UpdateMaterial();
+        GetComponent<PlayerColor>().UpdateMaterial();
     }
 }

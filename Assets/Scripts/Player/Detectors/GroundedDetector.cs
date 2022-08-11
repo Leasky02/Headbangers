@@ -2,14 +2,13 @@ using UnityEngine;
 
 public class GroundedDetector : MonoBehaviour
 {
-    private bool isGrounded = true;
+    [SerializeField] private ConfigurableJoint[] bodyParts;
 
+    private bool isGrounded = true;
     private bool springReachedMax = true;
     private bool springReachedMin = true;
 
-    [SerializeField] private ConfigurableJoint[] bodyparts;
-
-    //when collides with ground
+    // When collides with ground
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Ground") || other.CompareTag("Interactable"))
@@ -25,7 +24,7 @@ public class GroundedDetector : MonoBehaviour
         }
     }
 
-    //when leaves the ground
+    // When leaves the ground
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Ground") || other.CompareTag("Interactable"))
@@ -41,10 +40,10 @@ public class GroundedDetector : MonoBehaviour
         }
     }
 
-    //adjusts body springs depending on isGrounded
+    // Adjusts body springs depending on isGrounded
     private void AdjustSpring(float multiplier)
     {
-        foreach (ConfigurableJoint bodyPart in bodyparts)
+        foreach (ConfigurableJoint bodyPart in bodyParts)
         {
             JointDrive springDriveX = bodyPart.angularXDrive;
             JointDrive springDriveYZ = bodyPart.angularYZDrive;
