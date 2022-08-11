@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
         PlayerConfigurationManager.Instance.SetPlayerColorID(m_playerIndex, colorID);
         Color playerColor = PlayerColorManager.Instance.GetColor(colorID);
 
-        transform.GetChild(0).GetComponent<PlayerColor>().ApplyColor(playerColor);
+        GetComponent<PlayerColor>().ApplyColor(playerColor);
     }
 
     public void OnGameStart()

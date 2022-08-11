@@ -5,15 +5,11 @@ using UnityEngine;
 
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField] private PlayerColor playerColor;
-
     [SerializeField] private BoxCollider[] bodyDetectors;
-
     [SerializeField] private GameObject[] bodyParts;
     [SerializeField] private MeshRenderer[] shoes;
     [SerializeField] private GameObject[] legParts;
     [SerializeField] private GameObject[] legLimbs;
-
     [SerializeField] private BoxCollider hipCollider;
 
     //player dies
@@ -72,7 +68,7 @@ public class PlayerDeath : MonoBehaviour
         hipCollider.enabled = true;
 
         //change material of body and face
-        playerColor.UpdateMaterial();
+        GetComponent<PlayerColor>().UpdateMaterial();
     }
 
     //player respawns
@@ -124,6 +120,6 @@ public class PlayerDeath : MonoBehaviour
         hipCollider.enabled = false;
 
         //change material of body and face
-        playerColor.UpdateMaterial();
+        GetComponent<PlayerColor>().UpdateMaterial();
     }
 }

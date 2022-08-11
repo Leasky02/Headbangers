@@ -1604,7 +1604,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 287567893963814830}
-  - component: {fileID: 5732016547039446277}
   - component: {fileID: 287567893963814831}
   - component: {fileID: 287567893963814828}
   - component: {fileID: 220206565819900079}
@@ -1636,34 +1635,6 @@ Transform:
   m_Father: {fileID: 4353178036784682740}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5732016547039446277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 287567893963814817}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69786bba2f9fa3b4699b837758c47d81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerOutline: {fileID: 4495160996073886903}
-  bodyMeshRenderer: {fileID: 3377492177042574161}
-  headphoneMeshRenderer: {fileID: 5392880225241222211}
-  standardMaterial: {fileID: 2100000, guid: 2a1bcf07298c8574fb023d691ce02213, type: 2}
-  transparentMaterial: {fileID: 2100000, guid: f4c19a91c973a8d419decf2aa96158f4, type: 2}
-  standardMaterial_Headphone: {fileID: 2100000, guid: 0b99fccc3f8e5e04f945d32b578e7089,
-    type: 2}
-  transparentMaterial_Headphone: {fileID: 2100000, guid: f71ef4bf06339184798a3e133efec21a,
-    type: 2}
-  shoeMeshRenderer_L: {fileID: 1692998137304773544}
-  shoeMeshRenderer_R: {fileID: 6458012310095379806}
-  faceParts:
-  - {fileID: 642369810092175285}
-  - {fileID: 4910389947898663600}
-  - {fileID: 3143139070216285244}
-  deadTransparency: 0.2
 --- !u!54 &287567893963814831
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4178,6 +4149,7 @@ GameObject:
   - component: {fileID: 2150707635192782725}
   - component: {fileID: 8636552126480240123}
   - component: {fileID: 3763981177357993038}
+  - component: {fileID: 396461645283086287}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4754,7 +4726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b1f5e849312714786d183f401af51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColor: {fileID: 5732016547039446277}
+  playerColor: {fileID: 0}
   bodyDetectors:
   - {fileID: 4859246438408412083}
   - {fileID: 6657479183739958890}
@@ -4778,6 +4750,34 @@ MonoBehaviour:
   - {fileID: 287567892636320905}
   - {fileID: 287567894438307734}
   hipCollider: {fileID: 220206565819900079}
+--- !u!114 &396461645283086287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8091213087150184089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69786bba2f9fa3b4699b837758c47d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerOutline: {fileID: 4495160996073886903}
+  bodyMeshRenderer: {fileID: 3377492177042574161}
+  headphoneMeshRenderer: {fileID: 5392880225241222211}
+  standardMaterial: {fileID: 2100000, guid: 2a1bcf07298c8574fb023d691ce02213, type: 2}
+  transparentMaterial: {fileID: 2100000, guid: f4c19a91c973a8d419decf2aa96158f4, type: 2}
+  standardMaterial_Headphone: {fileID: 2100000, guid: 0b99fccc3f8e5e04f945d32b578e7089,
+    type: 2}
+  transparentMaterial_Headphone: {fileID: 2100000, guid: f71ef4bf06339184798a3e133efec21a,
+    type: 2}
+  shoeMeshRenderer_L: {fileID: 1692998137304773544}
+  shoeMeshRenderer_R: {fileID: 6458012310095379806}
+  faceParts:
+  - {fileID: 642369810092175285}
+  - {fileID: 4910389947898663600}
+  - {fileID: 3143139070216285244}
+  deadTransparency: 0.2
 --- !u!1 &9109140273182710656
 GameObject:
   m_ObjectHideFlags: 0
