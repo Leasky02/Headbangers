@@ -6,22 +6,22 @@ public class ObjectInteraction : MonoBehaviour
     [SerializeField] private bool isBody;
     [SerializeField] private int objectForce;
 
-    private PlayerActions actions;
+    private Player player;
 
     public void Start()
     {
-        actions = Player.GetPlayerComponent(gameObject).GetComponent<PlayerActions>();
+        player = Player.GetPlayerComponent(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Interactable"))
         {
-            if ((isFoot && actions.IsKicking()) || (isBody && actions.IsHeadbutting()))
+            if ((isFoot && player.GetComponent<PlayerKick>().IsKicking()) || (isBody && player.GetComponent<PlayerHeadbutt>().IsHeadbutting()))
             {
                 ApplyForce(other.gameObject);
 
-                Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayInteractionSound();
+                player.GetComponent<PlayerAudio>().PlayInteractionSound();
             }
         }
     }

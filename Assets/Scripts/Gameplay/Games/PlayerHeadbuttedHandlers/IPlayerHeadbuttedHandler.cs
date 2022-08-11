@@ -18,7 +18,7 @@ public class IPlayerHeadbuttedHandler
         headbuttingPlayer.GetComponent<PlayerFace>().AttackingFace();
 
         // Calculate damage
-        bool fightingBack = headbuttedPlayer.GetComponent<PlayerActions>().IsHeadbutting(); // TODO: improve
+        bool fightingBack = headbuttedPlayer.GetComponent<PlayerHeadbutt>().IsHeadbutting(); // TODO: improve
         float damage = CalculateDamage(headbuttingPlayer) * (fightingBack ? 0.5f : 1); // TODO: improve
 
         // Reduce headbutted players health

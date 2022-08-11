@@ -3,22 +3,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerGameplayInputHandler : MonoBehaviour
 {
-    private PlayerActions actions;
+    private Player player;
 
     public void Start()
     {
-        actions = Player.GetPlayerComponent(gameObject).GetComponent<PlayerActions>();
+        player = Player.GetPlayerComponent(gameObject);
     }
 
     public void HandleAction_Gameplay_ShowPlayerNames(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            DisplayNameRenderingManager.Instance.AddPlayerIndex(Player.GetPlayerComponent(gameObject).GetPlayerIndex());
+            DisplayNameRenderingManager.Instance.AddPlayerIndex(player.GetPlayerIndex());
         }
         else if (context.canceled)
         {
-            DisplayNameRenderingManager.Instance.RemovePlayerIndex(Player.GetPlayerComponent(gameObject).GetPlayerIndex());
+            DisplayNameRenderingManager.Instance.RemovePlayerIndex(player.GetPlayerIndex());
         }
     }
 
@@ -27,11 +27,11 @@ public class PlayerGameplayInputHandler : MonoBehaviour
         Vector2 normalizedDirection = context.ReadValue<Vector2>();
         if (normalizedDirection.sqrMagnitude > 0.16f)
         {
-            actions.SetMoveDirection(normalizedDirection);
+            player.GetComponent<PlayerWalk>().SetMoveDirection(normalizedDirection);
         }
         else
         {
-            actions.SetMoveDirection(new Vector2(0, 0));
+            player.GetComponent<PlayerWalk>().SetMoveDirection(new Vector2(0, 0));
         }
     }
 
@@ -39,11 +39,11 @@ public class PlayerGameplayInputHandler : MonoBehaviour
     {
         if (context.performed)
         {
-            actions.AttemptSit();
+            player.GetComponent<PlayerSit>().AttemptSit();
         }
         else if (context.canceled)
         {
-            actions.StopSitting();
+            player.GetComponent<PlayerSit>().StopSitting();
         }
     }
 
@@ -52,7 +52,7 @@ public class PlayerGameplayInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        actions.AttemptHeadbutt();
+        player.GetComponent<PlayerHeadbutt>().AttemptHeadbutt();
     }
 
     public void HandleAction_Gameplay_Kick(InputAction.CallbackContext context)
@@ -60,7 +60,7 @@ public class PlayerGameplayInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        actions.AttemptKick();
+        player.GetComponent<PlayerKick>().AttemptKick();
     }
 
     public void HandleAction_Gameplay_Jump(InputAction.CallbackContext context)
@@ -68,6 +68,6 @@ public class PlayerGameplayInputHandler : MonoBehaviour
         if (!context.performed)
             return;
 
-        actions.AttemptJump();
+        player.GetComponent<PlayerJump>().AttemptJump();
     }
 }
