@@ -23,6 +23,12 @@ public class PlayerFace : MonoBehaviour
         StartCoroutine(face.ChangeEmotion("angry", "open", "happy", 3f));
     }
 
+    public void AttemptingAttackFace()
+    {
+        // TODO: fix issue where face quickly changes from AttemptingAttackFace to AttackingFace
+        StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f));
+    }
+
     public void KnockedOut()
     {
         face.KnockedOut();

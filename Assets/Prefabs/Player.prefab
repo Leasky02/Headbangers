@@ -3472,7 +3472,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2447163652507507946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c2b5c1dd36f742489e38de81a7c7bee, type: 3}
+  m_Script: {fileID: 11500000, guid: aa418b9b65a08724eb38b98510f60ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   eyebrows: {fileID: 642369810092175285}
@@ -3539,7 +3539,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3254983995957493875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2004e3ac9948ec040afecef1ef30499b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5fad1406ce60f604788e90ab5462b25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   width: 150
@@ -4582,7 +4582,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8091213087150184089}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22ac04eedf00829468d2a1845eb7c094, type: 3}
+  m_Script: {fileID: 11500000, guid: ad0cbd7772d804d40b4775d38342f5e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 287567893963814831}
@@ -4726,7 +4726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b1f5e849312714786d183f401af51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColor: {fileID: 0}
   bodyDetectors:
   - {fileID: 4859246438408412083}
   - {fileID: 6657479183739958890}

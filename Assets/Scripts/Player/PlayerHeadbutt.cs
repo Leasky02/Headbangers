@@ -48,7 +48,7 @@ public class PlayerHeadbutt : MonoBehaviour
 
     private IEnumerator Headbutt()
     {
-        // StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f)); // TODO: uncomment
+        GetComponent<PlayerFace>().AttemptingAttackFace();
 
         //change spring joints to be higher for faster head butt
         JointDrive springDriveX = cjBody.angularXDrive;

@@ -40,7 +40,7 @@ public class PlayerKick : MonoBehaviour
 
     private IEnumerator Kick()
     {
-        // StartCoroutine(face.ChangeEmotion("angry", "open", "sad", 1f)); // TODO: uncomment
+        GetComponent<PlayerFace>().AttemptingAttackFace();
 
         canKick = false;
 
