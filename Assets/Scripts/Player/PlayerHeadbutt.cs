@@ -10,6 +10,11 @@ public class PlayerHeadbutt : MonoBehaviour
     [SerializeField] private float normalSpringValue_BODY = 20;
     [SerializeField] private float attackSpringValue_BODY = 120;
 
+    [SerializeField] private float minimumDamage = 10;
+    [SerializeField] private float maximumDamage = 40;
+    [SerializeField] private float minimumAngle = 0;
+    [SerializeField] private float maximumAngle = 75;
+
     private bool canHeadbutt = true;
     private bool canPlayHitSound = true;
     private bool isHeadbutting = false;
@@ -91,5 +96,25 @@ public class PlayerHeadbutt : MonoBehaviour
         // We probably want to say the player take less damage if the headbutt motion is still downward whether or not the connection has been made yet
         // Can probably test with player debug health bars.
         return isHeadbutting;
+    }
+
+    public float GetMinimumAngle()
+    {
+        return minimumAngle;
+    }
+
+    public float GetMaximumAngle()
+    {
+        return maximumAngle;
+    }
+
+    public float GetMinimumDamage()
+    {
+        return minimumDamage;
+    }
+
+    public float GetMaximumDamage()
+    {
+        return maximumDamage;
     }
 }

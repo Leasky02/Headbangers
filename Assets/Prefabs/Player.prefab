@@ -4210,7 +4210,6 @@ GameObject:
   - component: {fileID: 8095274628030267591}
   - component: {fileID: 7218298953471864256}
   - component: {fileID: 6682580538198946016}
-  - component: {fileID: 4973540908520972142}
   - component: {fileID: 5300306580265091012}
   - component: {fileID: 6891128192566340321}
   - component: {fileID: 431864923758370687}
@@ -4687,23 +4686,6 @@ MonoBehaviour:
   startingKnockoutTime: 3
   graceTime: 2
   knockoutReduceTimeDelay: 8
---- !u!114 &4973540908520972142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8091213087150184089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8acc1b9e3fba74b439e6693d6807a032, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minimumDamage: 10
-  maximumDamage: 40
-  minimumAngle: 0
-  maximumAngle: 75
-  kickingDamage: 10
 --- !u!114 &5300306580265091012
 MonoBehaviour:
   m_ObjectHideFlags: 0

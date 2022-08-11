@@ -5,6 +5,7 @@ public class PlayerKick : MonoBehaviour
 {
     [SerializeField] private ConfigurableJoint cjLeftThigh;
     [SerializeField] private BodyDetector bodyDetector_FOOT;
+    [SerializeField] private float kickingDamage = 10;
     [SerializeField] private float kickTimeLength = 0.4f;
     [SerializeField] private float normalSpringValue_LeftThigh = 1000;
     [SerializeField] private float attackSpringValue_LeftThigh = 3000;
@@ -80,5 +81,10 @@ public class PlayerKick : MonoBehaviour
     public bool IsKicking()
     {
         return isKicking;
+    }
+
+    public float GetKickingDamage()
+    {
+        return kickingDamage;
     }
 }

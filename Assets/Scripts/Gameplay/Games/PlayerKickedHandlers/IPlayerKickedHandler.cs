@@ -36,6 +36,6 @@ public class IPlayerKickedHandler
 
     private float CalculateDamage(Player kickingPlayer)
     {
-        return kickingPlayer.GetComponent<PlayerAttack>().GetKickingDamage(); // TODO: improve
+        return kickingPlayer.GetComponent<PlayerKick>().GetKickingDamage();
     }
 }
