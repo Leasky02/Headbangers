@@ -14,9 +14,9 @@ public class MultipleTargetCamera : MonoBehaviour
     [SerializeField] private Vector3 mapCenter;
 
     //zoom boundries
-    [SerializeField] private float minZoom;
-    [SerializeField] private float maxZoom;
-    [SerializeField] private float zoomLimiter;
+    [SerializeField] private float minZoom = 150;
+    [SerializeField] private float maxZoom = 50;
+    [SerializeField] private float zoomLimiter = 40;
 
     //camera component
     private Camera cam;
