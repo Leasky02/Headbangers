@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     private int recoveryHealth;
 
-    public void OnGameStart()
+    public void Init()
     {
         Health = initialHealth;
         maxHealth = initialHealth;
