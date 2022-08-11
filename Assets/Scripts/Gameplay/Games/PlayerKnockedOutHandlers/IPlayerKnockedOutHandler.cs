@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class IPlayerKnockedOutHandler
 {
-
-    public void InitOnSceneLoad()
+    public virtual void InitOnSceneLoad()
     {
     }
 

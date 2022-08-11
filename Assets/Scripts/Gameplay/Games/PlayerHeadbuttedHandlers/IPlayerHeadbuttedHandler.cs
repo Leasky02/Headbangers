@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class IPlayerHeadbuttedHandler
 {
-
-    public void InitOnSceneLoad()
+    public virtual void InitOnSceneLoad()
     {
     }
 

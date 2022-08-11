@@ -28,7 +28,7 @@ public class RoundCountdown : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countdownText.text = "Fight!";
 
-        PlayerConfigurationManager.Instance.SwitchCurrentActionMap("Gameplay");
+        Gameplay.Instance.OnGameStart();
 
         yield return new WaitForSeconds(1.5f);
         countdownText.text = "";
