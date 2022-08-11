@@ -24,7 +24,7 @@ public class PlayerDecoyAnimator : MonoBehaviour
     public void PlayHeadbuttAnimation()
     {
         decoyAnimator.speed = 1f;
-        decoyAnimator.Play("Headbutt");
+        decoyAnimator.Play("HeadButt");
     }
 
     public void PlaySitAnimation()
