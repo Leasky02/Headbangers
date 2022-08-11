@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
+// TODO: Add IPlayerDeathHandler script
 
 public class PlayerDeath : MonoBehaviour
 {
-    [SerializeField] private PlayerInput playerInput;
     [SerializeField] private PlayerColor playerColor;
 
     [SerializeField] private BoxCollider[] bodyDetectors;
@@ -19,7 +19,9 @@ public class PlayerDeath : MonoBehaviour
     //player dies
     public IEnumerator Die()
     {
-        playerInput.SwitchCurrentActionMap("Deactive");
+        Player.GetPlayerComponent(gameObject).SetDead(true);
+
+        PlayerConfigurationManager.Instance.SwitchCurrentActionMap(Player.GetPlayerComponent(gameObject).GetPlayerIndex(), "Deactive");
         Player.GetPlayerComponent(gameObject).SetIsCameraTarget(false);
         Respawn();
 

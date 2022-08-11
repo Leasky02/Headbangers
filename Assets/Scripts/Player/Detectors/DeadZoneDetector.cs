@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class DeadZoneDetector : MonoBehaviour
 {
-    [SerializeField] private Transform hipParent;
     [SerializeField] private PlayerDeath playerDeath;
 
     //when collides with dead zone beneath map
@@ -10,7 +9,7 @@ public class DeadZoneDetector : MonoBehaviour
     {
         if (other.CompareTag("DeadZone"))
         {
-            Player.GetPlayerComponent(gameObject).SetDead(true);
+            // TODO: Add IPlayerDeathHandler script
             StartCoroutine(playerDeath.Die());
         }
     }
