@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerConfiguration : LS.IPlayerConfiguration
@@ -11,4 +10,9 @@ public class PlayerConfiguration : LS.IPlayerConfiguration
     public int PlayerColorID { get; set; }
 
     public string DisplayName { get; set; }
+
+    public Player GetPlayer()
+    {
+        return Input.GetComponent<Player>();
+    }
 }
