@@ -1923,7 +1923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a02e9f8560d07a4991a1cfa4087d109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bodyparts:
+  bodyParts:
   - {fileID: 287567893963814828}
   - {fileID: 287567893246454670}
 --- !u!65 &287567894028973366
@@ -4584,6 +4584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayNameRenderer: {fileID: 2114465142717712753}
+  groundDetector: {fileID: 287567894028973367}
 --- !u!114 &7684810738315467476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4715,7 +4716,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 287567893963814831}
-  groundDetector: {fileID: 287567894028973367}
   jumpForce: 45
 --- !u!114 &6891128192566340321
 MonoBehaviour:
@@ -4782,7 +4782,6 @@ MonoBehaviour:
   rb: {fileID: 287567893963814831}
   cj: {fileID: 287567893963814828}
   decoyAnimator: {fileID: 287567892653818831}
-  groundDetector: {fileID: 287567894028973367}
   speed: 2000
 --- !u!1 &9109140273182710656
 GameObject:

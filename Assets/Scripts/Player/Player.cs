@@ -4,6 +4,8 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private DisplayNameRenderer displayNameRenderer;
 
+    [SerializeField] private GroundedDetector groundDetector;
+
     private int m_playerIndex = -1;
 
     private bool m_isCameraTarget = true;
@@ -137,6 +139,11 @@ public class Player : MonoBehaviour
 
         displayNameRenderer.SetDisplayName(GetPlayerConfiguration().DisplayName);
         GetComponent<PlayerBody>().UnfreezePosition();
+    }
+
+    public bool IsGrounded()
+    {
+        return groundDetector.IsGrounded();
     }
 }
 

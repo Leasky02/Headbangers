@@ -6,7 +6,6 @@ public class PlayerWalk : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private ConfigurableJoint cj;
     [SerializeField] private Animator decoyAnimator;
-    [SerializeField] private GroundedDetector groundDetector;
     [SerializeField] private int speed = 2000;
 
     private bool isWalking = false;
@@ -41,13 +40,14 @@ public class PlayerWalk : MonoBehaviour
 
     private void Walk(Vector3 direction)
     {
+        bool isGrounded = GetComponent<Player>().IsGrounded();
         Vector3 walkingForce = direction * speed * Time.deltaTime;
         // TODO: confirm logic with Alasdair
-        if (!IsDead() || (IsDead() && !groundDetector.IsGrounded()))
+        if (!IsDead() || (IsDead() && !isGrounded))
         {
             // Do nothing
         }
-        else if (!IsDead() && !groundDetector.IsGrounded())
+        else if (!IsDead() && !isGrounded)
         {
             walkingForce *= 3;
         }
@@ -63,7 +63,7 @@ public class PlayerWalk : MonoBehaviour
         Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
         cj.targetRotation = toRotation;
 
-        PlayWalkAnimation();
+        PlayWalkAnimation(isGrounded);
     }
 
     private void PlayIdleAnimation()
@@ -71,17 +71,14 @@ public class PlayerWalk : MonoBehaviour
         decoyAnimator.Play("Idle");
     }
 
-    private void PlayWalkAnimation()
+    private void PlayWalkAnimation(bool isGrounded)
     {
         if (!IsDead())
         {
             decoyAnimator.Play("Walk");
         }
 
-        if (groundDetector.IsGrounded())
-            decoyAnimator.speed = 1f;
-        else
-            decoyAnimator.speed = 0.5f;
+        decoyAnimator.speed = isGrounded ? 1f : 0.5f;
     }
 
     private bool IsDead()

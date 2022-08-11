@@ -3,7 +3,6 @@ using UnityEngine;
 public class PlayerJump : MonoBehaviour
 {
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private GroundedDetector groundDetector;
     [SerializeField] private int jumpForce = 45;
     [SerializeField] private const int jumpLimit = 1;
 
@@ -13,12 +12,13 @@ public class PlayerJump : MonoBehaviour
     {
         if (CanJump())
         {
-            if (groundDetector.IsGrounded())
+            bool isGrounded = GetComponent<Player>().IsGrounded();
+            if (isGrounded)
             {
                 jumpCount = 0;
             }
 
-            if (groundDetector.IsGrounded() || (jumpCount > 0 && jumpCount < jumpLimit))
+            if (isGrounded || (jumpCount > 0 && jumpCount < jumpLimit))
             {
                 Jump();
             }
