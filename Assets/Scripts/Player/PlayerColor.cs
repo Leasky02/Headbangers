@@ -23,17 +23,19 @@ public class PlayerColor : MonoBehaviour
 
     [SerializeField] private float deadTransparency = 0.2f;
 
+    private Color m_playerColor;
+
     public void ApplyColor(Color playerColor)
     {
-        playerOutline.OutlineColor = new Color(playerColor.r, playerColor.g, playerColor.b, 1);
+        m_playerColor = playerColor;
+        playerOutline.OutlineColor = new Color(m_playerColor.r, m_playerColor.g, m_playerColor.b, 1);
         UpdateMaterial();
     }
 
     // Update material with colour and transparency based on dead state
     public void UpdateMaterial()
     {
-        Color playerColor = PlayerColorManager.Instance.GetColor(PlayerConfigurationManager.Instance.GetPlayerColorID(Player.GetPlayerComponent(gameObject).GetPlayerIndex()));
-        bool isDead = Player.GetPlayerComponent(gameObject).IsDead();
+        bool isDead = GetComponent<Player>().IsDead();
         if (isDead)
         {
 
@@ -41,10 +43,9 @@ public class PlayerColor : MonoBehaviour
             headphoneMeshRenderer.material = transparentMaterial_Headphone;
             headphoneMeshRenderer.material.color = transparentColor_Headphone;
 
+            Color transparentColor = new Color(m_playerColor.r, m_playerColor.g, m_playerColor.b, deadTransparency);
             L_BrandingMeshRenderer.material.color = transparentColor_Headphone;
             R_BrandingMeshRenderer.material.color = transparentColor_Headphone;
-
-            Color transparentColor = new Color(playerColor.r, playerColor.g, playerColor.b, deadTransparency);
             bodyMeshRenderer.material = transparentMaterial;
             bodyMeshRenderer.material.color = transparentColor;
         }
@@ -54,10 +55,10 @@ public class PlayerColor : MonoBehaviour
 
             headphoneMeshRenderer.material = standardMaterial_Headphone;
 
-            bodyMeshRenderer.material.color = playerColor;
+            bodyMeshRenderer.material.color = m_playerColor;
 
-            L_BrandingMeshRenderer.material.color = playerColor;
-            R_BrandingMeshRenderer.material.color = playerColor;
+            L_BrandingMeshRenderer.material.color = m_playerColor;
+            R_BrandingMeshRenderer.material.color = m_playerColor;
         }
 
         UpdateFace(isDead);

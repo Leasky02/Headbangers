@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     private int recoveryHealth;
 
-    public void OnGameStart()
+    public void Init()
     {
         Health = initialHealth;
         maxHealth = initialHealth;
@@ -86,6 +86,6 @@ public class PlayerHealth : MonoBehaviour
     // TODO: move elsewhere
     private bool IsKnockedOut()
     {
-        return Player.GetPlayerComponent(gameObject).IsKnockedOut();
+        return GetComponent<Player>().IsKnockedOut();
     }
 }

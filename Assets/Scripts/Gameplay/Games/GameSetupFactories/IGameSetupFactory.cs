@@ -1,6 +1,11 @@
 
 public class IGameSetupFactory
 {
+    public virtual IGameState CreateGameState()
+    {
+        return new IGameState();
+    }
+
     public virtual IPlayerRespawn CreatePlayerRespawn()
     {
         return new IPlayerRespawn();

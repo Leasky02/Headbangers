@@ -120,82 +120,87 @@ public class FacialEmotions : MonoBehaviour
 
     public IEnumerator ChangeEmotion(string eyebrowState, string eyeState, string mouthState, float emotionLength)
     {
-        bool isKnockedOut = Player.GetPlayerComponent(gameObject).IsKnockedOut();
-        if (!isKnockedOut)
+        if (IsKnockedOut())
+            yield break;
+
+        changeEmotionQueue++;
+
+        //set eyebrows
+        switch (eyebrowState)
         {
-            changeEmotionQueue++;
+            case "happy":
+                eyebrows.sprite = eyebrow_sprite[0];
+                break;
 
-            //set eyebrows
-            switch (eyebrowState)
-            {
-                case "happy":
-                    eyebrows.sprite = eyebrow_sprite[0];
-                    break;
+            case "neutra":
+                eyebrows.sprite = eyebrow_sprite[1];
+                break;
 
-                case "neutra":
-                    eyebrows.sprite = eyebrow_sprite[1];
-                    break;
+            case "sad":
+                eyebrows.sprite = eyebrow_sprite[2];
+                break;
 
-                case "sad":
-                    eyebrows.sprite = eyebrow_sprite[2];
-                    break;
+            case "angry":
+                eyebrows.sprite = eyebrow_sprite[3];
+                break;
+        }
 
-                case "angry":
-                    eyebrows.sprite = eyebrow_sprite[3];
-                    break;
-            }
+        //set eyes
+        switch (eyeState)
+        {
+            case "open":
+                eyes.sprite = eye_sprite[0];
+                break;
 
-            //set eyes
-            switch (eyeState)
-            {
-                case "open":
-                    eyes.sprite = eye_sprite[0];
-                    break;
+            case "closed":
+                eyes.sprite = eye_sprite[1];
+                break;
 
-                case "closed":
-                    eyes.sprite = eye_sprite[1];
-                    break;
+            case "dead":
+                eyes.sprite = eye_sprite[2];
+                break;
+        }
 
-                case "dead":
-                    eyes.sprite = eye_sprite[2];
-                    break;
-            }
+        //set mouth
+        switch (mouthState)
+        {
+            case "happy":
+                mouth.sprite = mouth_sprite[0];
+                break;
 
-            //set mouth
-            switch (mouthState)
-            {
-                case "happy":
-                    mouth.sprite = mouth_sprite[0];
-                    break;
+            case "happy open":
+                mouth.sprite = mouth_sprite[1];
+                break;
 
-                case "happy open":
-                    mouth.sprite = mouth_sprite[1];
-                    break;
+            case "sad":
+                mouth.sprite = mouth_sprite[2];
+                break;
 
-                case "sad":
-                    mouth.sprite = mouth_sprite[2];
-                    break;
+            case "sad open":
+                mouth.sprite = mouth_sprite[3];
+                break;
+        }
 
-                case "sad open":
-                    mouth.sprite = mouth_sprite[3];
-                    break;
-            }
+        yield return new WaitForSeconds(emotionLength);
 
-            yield return new WaitForSeconds(emotionLength);
+        changeEmotionQueue--;
 
-            changeEmotionQueue--;
+        if (IsKnockedOut())
+        {
+            // TODO: Ask Alasdair if we should be setting changeEmotionQueue to 0 here
+            yield break;
+        }
 
-            if (changeEmotionQueue == 0 && !isKnockedOut)
-            {
-                ResetFace();
-            }
+        if (changeEmotionQueue == 0)
+        {
+            ResetFace();
         }
     }
 
     //reset face to default
     private void ResetFace()
     {
-        if (!Player.GetPlayerComponent(gameObject).IsKnockedOut())
+        if (!IsKnockedOut())
         {
             eyebrows.sprite = eyebrow_sprite[0];
             eyes.sprite = eye_sprite[0];
@@ -227,5 +232,10 @@ public class FacialEmotions : MonoBehaviour
     private void SetKnockedOut(bool knockedOut)
     {
         Player.GetPlayerComponent(gameObject).SetKnockedOut(knockedOut);
+    }
+
+    private bool IsKnockedOut()
+    {
+        return Player.GetPlayerComponent(gameObject).IsKnockedOut();
     }
 }

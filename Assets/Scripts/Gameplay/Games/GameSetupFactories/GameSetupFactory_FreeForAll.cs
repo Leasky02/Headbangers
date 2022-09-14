@@ -1,8 +1,8 @@
 
 public class GameSetupFactory_FreeForAll : IGameSetupFactory
 {
-    public override IPlayerKickedHandler CreatePlayerKickedHandler()
+    public override IGameState CreateGameState()
     {
-        return new PlayerKickedHandler_FreeForAll();
+        return new GameState_FreeForAll();
     }
 }

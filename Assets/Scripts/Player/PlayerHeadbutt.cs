@@ -28,7 +28,7 @@ public class PlayerHeadbutt : MonoBehaviour
             {
                 if (canPlayHitSound) // TODO: is the required?
                 {
-                    Player.GetPlayerComponent(gameObject).GetComponent<PlayerAudio>().PlayAttackSound();
+                    GetComponent<PlayerAudio>().PlayAttackSound();
                     canPlayHitSound = false;
                 }
 
