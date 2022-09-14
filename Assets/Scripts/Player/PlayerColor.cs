@@ -7,6 +7,9 @@ public class PlayerColor : MonoBehaviour
     [SerializeField] private MeshRenderer bodyMeshRenderer;
     [SerializeField] private MeshRenderer headphoneMeshRenderer;
 
+    [SerializeField] private MeshRenderer L_BrandingMeshRenderer;
+    [SerializeField] private MeshRenderer R_BrandingMeshRenderer;
+
     [SerializeField] private Material standardMaterial;
     [SerializeField] private Material transparentMaterial;
 
@@ -38,6 +41,9 @@ public class PlayerColor : MonoBehaviour
             headphoneMeshRenderer.material = transparentMaterial_Headphone;
             headphoneMeshRenderer.material.color = transparentColor_Headphone;
 
+            L_BrandingMeshRenderer.material.color = transparentColor_Headphone;
+            R_BrandingMeshRenderer.material.color = transparentColor_Headphone;
+
             Color transparentColor = new Color(playerColor.r, playerColor.g, playerColor.b, deadTransparency);
             bodyMeshRenderer.material = transparentMaterial;
             bodyMeshRenderer.material.color = transparentColor;
@@ -49,6 +55,9 @@ public class PlayerColor : MonoBehaviour
             headphoneMeshRenderer.material = standardMaterial_Headphone;
 
             bodyMeshRenderer.material.color = playerColor;
+
+            L_BrandingMeshRenderer.material.color = playerColor;
+            R_BrandingMeshRenderer.material.color = playerColor;
         }
 
         UpdateFace(isDead);
