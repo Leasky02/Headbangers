@@ -14,7 +14,7 @@ public class PlayerColorManager : Singleton<PlayerColorManager>
         // HexToColor("E96897"),
         // HexToColor("B766D2"),
         // HexToColor("E2935D"),
-        // HexToColor("7FA7F3"),
+        // HexToColor("4A7FE3"),
         new Color( 0.9056604f, 0.36226413f, 0.38078904f),
         new Color( 0.52156866f, 0.7372549f, 0.7254902f),
         new Color( 0.5254902f, 0.79607844f, 0.4745098f),
@@ -22,7 +22,7 @@ public class PlayerColorManager : Singleton<PlayerColorManager>
         new Color( 0.9150943f, 0.40920252f, 0.59062576f),
         new Color( 0.7176471f, 0.4f, 0.8235294f),
         new Color( 0.8867924f, 0.57771796f, 0.36308295f),
-        new Color( 0.49798858f, 0.65494096f, 0.9528302f)
+        new Color( 0.29019607843f, 0.49803921568f, 0.89019607843f)
     };
 
     private List<int> m_colorIDsAvailable = new List<int>();
