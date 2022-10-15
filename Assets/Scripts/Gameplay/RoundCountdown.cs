@@ -10,6 +10,15 @@ public class RoundCountdown : MonoBehaviour
     public void Start()
     {
         StartRoundCountdown();
+
+        FadeEntry();
+
+    }
+    private void FadeEntry()
+    {
+        //queue screen fade
+
+        MusicManager.Instance.SetMusicVolume(1f);
     }
 
     private void StartRoundCountdown()
@@ -19,7 +28,8 @@ public class RoundCountdown : MonoBehaviour
 
     private IEnumerator GameCountdown()
     {
-        yield return new WaitForSeconds(1f);
+        //initial pause for fade in time
+        yield return new WaitForSeconds(2f);
         countdownText.text = "3";
         yield return new WaitForSeconds(1f);
         countdownText.text = "2";

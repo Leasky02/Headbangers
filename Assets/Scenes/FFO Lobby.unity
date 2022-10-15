@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26852533, g: 0.46447325, b: 0.6146784, a: 1}
+  m_IndirectSpecularColor: {r: 0.26854548, g: 0.4644934, b: 0.6146665, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6084,7 +6084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuController: {fileID: 1766075302}
   lobbyCountdown: {fileID: 808080551}
-  requiredPlayers: 2
+  requiredPlayers: 1
   spawnPoints:
   - {fileID: 1817951426}
   - {fileID: 1216864387}
@@ -7899,6 +7899,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8532088130929609499, guid: 130f0d0aa22a5364ebd890b24a19f771,
+        type: 3}
+      propertyPath: fadeSpeed
+      value: 0.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 130f0d0aa22a5364ebd890b24a19f771, type: 3}

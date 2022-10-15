@@ -15,10 +15,15 @@ public class PlayerWalk : MonoBehaviour
         if (CanWalk())
         {
             Vector3 moveDirection = new Vector3(normalizedInputDirection.x, 0f, normalizedInputDirection.y);
+
             isWalking = (moveDirection.sqrMagnitude > 0);
             if (isWalking)
             {
                 Walk(moveDirection);
+            }
+            else
+            {
+                moveDirection = Vector3.zero;
             }
         }
     }
@@ -41,18 +46,6 @@ public class PlayerWalk : MonoBehaviour
         bool isGrounded = GetComponent<Player>().IsGrounded();
         Vector3 walkingForce = direction * speed * Time.deltaTime;
         // TODO: confirm logic with Alasdair
-        if (!IsDead() || (IsDead() && !isGrounded))
-        {
-            // Do nothing
-        }
-        else if (!IsDead() && !isGrounded)
-        {
-            walkingForce *= 3;
-        }
-        else
-        {
-            walkingForce *= 2;
-        }
 
         // Move the player
         rb.AddForce(walkingForce);
@@ -61,16 +54,8 @@ public class PlayerWalk : MonoBehaviour
         Quaternion toRotation = Quaternion.LookRotation(new Vector3(-direction.x, direction.y, direction.z), Vector3.up);
         cj.targetRotation = toRotation;
 
-        // Play walking animation only when not dead
-        if (!IsDead())
-        {
-            GetComponent<PlayerDecoyAnimator>().PlayWalkAnimation(isGrounded);
-        }
-    }
-
-    private bool IsDead()
-    {
-        return GetComponent<Player>().IsDead();
+        // Play walking animation
+        GetComponent<PlayerDecoyAnimator>().PlayWalkAnimation(isGrounded);
     }
 
     private bool CanWalk()
@@ -81,5 +66,10 @@ public class PlayerWalk : MonoBehaviour
     private bool ShouldIdle()
     {
         return !GetComponent<PlayerKick>().IsKicking() && !GetComponent<PlayerSit>().IsSitting() && !isWalking && !GetComponent<PlayerHeadbutt>().IsHeadbutting();
+    }
+
+    public void ResetMovementDirection()
+    {
+        
     }
 }

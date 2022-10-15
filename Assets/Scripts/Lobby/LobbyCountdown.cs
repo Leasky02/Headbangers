@@ -24,6 +24,11 @@ public class LobbyCountdown : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countdownText.text = "";
 
+        //delay for faded exit
+        FadeExit();
+
+        yield return new WaitForSeconds(1.5f);
+
         StartGame();
         m_countdownInProgress = false;
     }
@@ -50,7 +55,15 @@ public class LobbyCountdown : MonoBehaviour
     private void StartGame()
     {
         PlayerConfigurationManager.Instance.DisableJoining();
-        PlayerConfigurationManager.Instance.SwitchCurrentActionMap("Deactive");
+        PlayerConfigurationManager.Instance.SwitchCurrentActionMap("Gameplay");
+
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+    private void FadeExit()
+    {
+        //queue screen fade
+
+        MusicManager.Instance.SetMusicVolume(0f);
     }
 }

@@ -141,3 +141,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da1e4b1a11a7e94a8ea3af40348205e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeSpeed: 0.05
+  songs:
+  - {fileID: 8300000, guid: 9a1398c0b303116448648f2e34f05f8d, type: 3}

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ElevatorAudioQueue : MonoBehaviour
 {
+    [SerializeField] private MapSelectionManager mapManager;
+
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private AudioSource dingAudioSource;
     [SerializeField] private AudioSource ambienceAudioSource;
@@ -16,6 +18,7 @@ public class ElevatorAudioQueue : MonoBehaviour
     public void PlayDing()
     {
         dingAudioSource.Play();
+        RevealText();
     }
     public void PlayAmbience()
     {
@@ -24,5 +27,10 @@ public class ElevatorAudioQueue : MonoBehaviour
     public void PlayDoor()
     {
         doorAudioSource.Play();
+    }
+
+    public void RevealText()
+    {
+        mapManager.RevealText();
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class MapSelectionManager : MonoBehaviour
@@ -7,35 +8,64 @@ public class MapSelectionManager : MonoBehaviour
 
     [SerializeField] string[] gameModeNames;
 
+    [SerializeField] private GameObject[] mapPreviews;
+
+    [SerializeField] private TMP_Text roundNumberDisplay;
+    [SerializeField] private TextMesh roundNumberDisplayElevator;
+
+    [SerializeField] private TMP_Text gameModeDisplay;
+    [SerializeField] private TMP_Text mapNameDisplay;
+    [SerializeField] private TextMesh mapNameDisplayElevator;
+
+    int randomMapIndex;
+    int randomGameModeIndex;
+
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("SetupGame", 1f);
+        SetupGame();
     }
 
     private void SetupGame()
     {
         SelectAndSetupRandomGame();
         SelectRandomMap();
+
+        roundNumberDisplay.text = ("Round " + RoundManager.Instance.GetRoundNumber().ToString());
+        roundNumberDisplayElevator.text = ("" + RoundManager.Instance.GetRoundNumber().ToString());
     }
 
     private void SelectRandomMap()
     {
-        int randomMapIndex = Random.Range(0, mapNames.Length);
-        LoadMap(mapNames[randomMapIndex]);
+        randomMapIndex = Random.Range(0, mapNames.Length);
+        mapPreviews[randomMapIndex].SetActive(true);
+        Invoke("QueueLoadMap", 12f);
     }
 
     private void SelectAndSetupRandomGame()
     {
-        int randomGameModeIndex = Random.Range(0, gameModeNames.Length);
+        randomGameModeIndex = Random.Range(0, gameModeNames.Length);
         string typeString = ComposeGameSetupFactory(gameModeNames[randomGameModeIndex]);
         System.Type type = System.Type.GetType(typeString);
 
         Gameplay.Instance.Setup((IGameSetupFactory)System.Activator.CreateInstance(type));
     }
 
+    public void RevealText()
+    {
+        gameModeDisplay.text = ("" + gameModeNames[randomGameModeIndex]);
+        mapNameDisplay.text = ("" + mapNames[randomMapIndex]);
+        mapNameDisplayElevator.text = ("" + mapNames[randomMapIndex]);
+    }
+
+    private void QueueLoadMap()
+    {
+        LoadMap(mapNames[randomMapIndex]);
+    }
+
     private void LoadMap(string mapName)
     {
+        PlayerConfigurationManager.Instance.SwitchCurrentActionMap("Deactive");
         SceneManager.LoadScene(mapName);
     }
 
