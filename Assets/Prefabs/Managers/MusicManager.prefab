@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8532088130929609498}
   - component: {fileID: 8532088130929609497}
-  - component: {fileID: 8532088130929609499}
+  - component: {fileID: 8777711001792674586}
   m_Layer: 0
   m_Name: MusicManager
   m_TagString: Singleton
@@ -129,7 +129,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8532088130929609499
+--- !u!114 &8777711001792674586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,6 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da1e4b1a11a7e94a8ea3af40348205e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalVolume: 0.5
   fadeSpeed: 0.05
-  songs:
-  - {fileID: 8300000, guid: 9a1398c0b303116448648f2e34f05f8d, type: 3}
+  mainSoundtrack: {fileID: 8300000, guid: 9a1398c0b303116448648f2e34f05f8d, type: 3}
+  soundtracks:
+  - {fileID: 8300000, guid: f40c65a73b2941d4ca377d16bc82df45, type: 3}
+  - {fileID: 8300000, guid: 3f894b757f70192408332a3ec809cec1, type: 3}

@@ -18,7 +18,7 @@ public class RoundCountdown : MonoBehaviour
     {
         //queue screen fade
 
-        MusicManager.Instance.SetMusicVolume(1f);
+        MusicManager.Instance.PlayNextTrack();
     }
 
     private void StartRoundCountdown()

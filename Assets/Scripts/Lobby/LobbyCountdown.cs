@@ -64,6 +64,6 @@ public class LobbyCountdown : MonoBehaviour
     {
         //queue screen fade
 
-        MusicManager.Instance.SetMusicVolume(0f);
+        MusicManager.Instance.StopTrack();
     }
 }
