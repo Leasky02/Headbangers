@@ -2950,7 +2950,8 @@ AudioSource:
   m_GameObject: {fileID: 690595644789452435}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7248318625636647570, guid: d6571b15889b24a4f9de71267324a5dc,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 4f46dec1c5289894ab87125e8a12f6d7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.498
@@ -3078,7 +3079,8 @@ AudioSource:
   m_GameObject: {fileID: 731498690224204832}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7248318625636647570, guid: d6571b15889b24a4f9de71267324a5dc,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: a9e0ddbd119d7894fa97d54d9bc0f004, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.33
@@ -3206,7 +3208,8 @@ AudioSource:
   m_GameObject: {fileID: 813597301130272486}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7248318625636647570, guid: d6571b15889b24a4f9de71267324a5dc,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: f6ec246987fd26f4696b437ee844ddf3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.555
@@ -3736,7 +3739,8 @@ AudioSource:
   m_GameObject: {fileID: 5309301372199035940}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 7248318625636647570, guid: d6571b15889b24a4f9de71267324a5dc,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 4f46dec1c5289894ab87125e8a12f6d7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.351
@@ -4858,16 +4862,6 @@ MonoBehaviour:
   shoes:
   - {fileID: 1692998137304773544}
   - {fileID: 6458012310095379806}
-  legParts:
-  - {fileID: 287567893629943588}
-  - {fileID: 287567894291085660}
-  - {fileID: 287567894594668937}
-  - {fileID: 287567894278376873}
-  legLimbs:
-  - {fileID: 287567893227178279}
-  - {fileID: 287567894396864734}
-  - {fileID: 287567892636320905}
-  - {fileID: 287567894438307734}
   hipCollider: {fileID: 220206565819900079}
 --- !u!114 &396461645283086287
 MonoBehaviour:

@@ -31,6 +31,7 @@ public class MapSelectionManager : MonoBehaviour
         SelectAndSetupRandomGame();
         SelectRandomMap();
 
+        //ERROR trying to access round manager instance??
         roundNumberDisplay.text = ("Round " + RoundManager.Instance.GetRoundNumber().ToString());
         roundNumberDisplayElevator.text = ("" + RoundManager.Instance.GetRoundNumber().ToString());
     }
@@ -71,7 +72,7 @@ public class MapSelectionManager : MonoBehaviour
 
     private string ComposeGameSetupFactory(string gameModeName)
     {
-        Debug.Log(gameModeName);
+        //Debug.Log(gameModeName);
         return "GameSetupFactory_" + gameModeName;
     }
 }

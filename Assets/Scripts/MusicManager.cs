@@ -7,7 +7,7 @@ public class MusicManager : Singleton<MusicManager>
     private float targetVolume;
     [SerializeField] private float normalVolume = 0.5f;
     private AudioSource myAudioSource;
-    [SerializeField] private float fadeSpeed = 0.05f;
+    [SerializeField] private float fadeSpeed = 0.1f;
 
     [SerializeField] private AudioClip mainSoundtrack;
     [SerializeField] private AudioClip[] soundtracks;
@@ -71,6 +71,8 @@ public class MusicManager : Singleton<MusicManager>
         //return volume to normal
         UnMute();
 
+        Debug.Log("track played");
+
         myAudioSource.clip = shuffledSoundtrackList[trackIndex];
         myAudioSource.Play();
 
@@ -83,8 +85,14 @@ public class MusicManager : Singleton<MusicManager>
 
     }
 
+    public void CallStopTrack()
+    {
+        StartCoroutine(StopTrack());
+    }
+
     public IEnumerator StopTrack()
     {
+        Debug.Log("track stopped");
         Mute();
         yield return new WaitForSeconds(1f);
         myAudioSource.Stop();
