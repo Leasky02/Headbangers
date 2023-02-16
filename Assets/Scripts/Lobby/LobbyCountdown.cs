@@ -27,7 +27,7 @@ public class LobbyCountdown : MonoBehaviour
         //delay for faded exit
         FadeExit();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.75f);
 
         StartGame();
         m_countdownInProgress = false;

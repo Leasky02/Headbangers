@@ -7,7 +7,7 @@ public class MusicManager : Singleton<MusicManager>
     private float targetVolume;
     [SerializeField] private float normalVolume = 0.5f;
     private AudioSource myAudioSource;
-    [SerializeField] private float fadeSpeed = 0.1f;
+    [SerializeField] private float fadeSpeed = 0.02f;
 
     [SerializeField] private AudioClip mainSoundtrack;
     [SerializeField] private AudioClip[] soundtracks;
