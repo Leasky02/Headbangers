@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ElevatorAudioQueue : MonoBehaviour
@@ -11,19 +9,17 @@ public class ElevatorAudioQueue : MonoBehaviour
     [SerializeField] private AudioSource ambienceAudioSource;
     [SerializeField] private AudioSource doorAudioSource;
 
-    public void PlayMusic()
-    {
-        musicAudioSource.Play();
-    }
     public void PlayDing()
     {
         dingAudioSource.Play();
         RevealText();
     }
+
     public void PlayAmbience()
     {
         ambienceAudioSource.Play();
     }
+
     public void PlayDoor()
     {
         doorAudioSource.Play();
@@ -31,6 +27,6 @@ public class ElevatorAudioQueue : MonoBehaviour
 
     public void RevealText()
     {
-        mapManager.RevealText();
+        mapManager.RevealText(); // TODO: move text into another class?
     }
 }

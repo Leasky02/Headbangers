@@ -11,13 +11,6 @@ public class RoundCountdown : MonoBehaviour
     {
         StartRoundCountdown();
 
-        FadeEntry();
-
-    }
-    private void FadeEntry()
-    {
-        //queue screen fade
-
         MusicManager.Instance.PlayNextTrack();
     }
 
