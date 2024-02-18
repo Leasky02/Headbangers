@@ -11,11 +11,6 @@ public class MainMenuViewController : MonoBehaviour
         mainMenuController.GoToLobby();
     }
 
-    public void OnAchievements()
-    {
-        Debug.Log("OnAchievements");
-    }
-
     public void OnOptions()
     {
         Debug.Log("OnOptions");

@@ -11,6 +11,7 @@ public class LobbyManager : MonoBehaviour
 
     [SerializeField] LobbyCountdown lobbyCountdown;
 
+    //TODO: Set this to 2 for future
     [SerializeField] private int requiredPlayers = 1;
 
     [SerializeField] private LobbySpawnPoint[] spawnPoints;

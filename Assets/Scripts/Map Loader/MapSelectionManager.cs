@@ -28,7 +28,7 @@ public class MapSelectionManager : MonoBehaviour
 
     private void SetupGame()
     {
-        SelectAndSetupRandomGame();
+        //SelectAndSetupRandomGame();
         SelectRandomMap();
 
         //ERROR trying to access round manager instance??
@@ -45,7 +45,10 @@ public class MapSelectionManager : MonoBehaviour
 
     private void SelectAndSetupRandomGame()
     {
-        randomGameModeIndex = Random.Range(0, gameModeNames.Length);
+        //TEMPORARILY set to default game mode
+        randomGameModeIndex = 0;
+
+        //randomGameModeIndex = Random.Range(0, gameModeNames.Length);
         string typeString = ComposeGameSetupFactory(gameModeNames[randomGameModeIndex]);
         System.Type type = System.Type.GetType(typeString);
 
@@ -72,7 +75,7 @@ public class MapSelectionManager : MonoBehaviour
 
     private string ComposeGameSetupFactory(string gameModeName)
     {
-        //Debug.Log(gameModeName);
+        Debug.Log(gameModeName);
         return "GameSetupFactory_" + gameModeName;
     }
 }
