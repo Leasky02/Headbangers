@@ -96,5 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c67fefe83eaf84dbacbc2c7a686e2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deletionRadius: 60
-  centrePoint: {x: 0, y: 0, z: -70}
+  deletionRadius: 80
+  centrePoint: {x: 0, y: 0, z: -100}
+  minTransparency: 0
+  maxTransparency: 1
+  color: {r: 0.99454737, g: 1, b: 0.7028302, a: 1}

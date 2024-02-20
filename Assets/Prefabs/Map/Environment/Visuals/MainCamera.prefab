@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets: []
   offset: {x: 0, y: 2.5, z: 5}
-  mapCenter: {x: 0, y: 40, z: 0}
+  mapCenter: {x: 0, y: 50, z: 0}
   minZoom: 150
   maxZoom: 50
   zoomLimiter: 40

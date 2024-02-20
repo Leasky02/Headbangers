@@ -4,9 +4,19 @@ public class Window : MonoBehaviour
 {
     [SerializeField] private float deletionRadius = 10f;
     [SerializeField] private Vector3 centrePoint;
+
+    [SerializeField] private float minTransparency = 0f;
+    [SerializeField] private float maxTransparency = 1f;
+
+    [SerializeField] private Color color;
     void Start()
     {
+        DecideRemoval();
+        RandomiseColor();
+    }
 
+    void DecideRemoval()
+    {
         Vector3 positionWithoutY = new Vector3(transform.position.x, 0f, transform.position.z);
         float distanceFromCenter = Vector3.Distance(centrePoint, positionWithoutY);
 
@@ -26,5 +36,13 @@ public class Window : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    void RandomiseColor()
+    {
+        // Generate random alpha
+        color.a = Random.Range(minTransparency, maxTransparency);
+
+        GetComponent<MeshRenderer>().material.color = color;
     }
 }

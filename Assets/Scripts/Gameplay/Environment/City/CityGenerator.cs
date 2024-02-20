@@ -94,8 +94,8 @@ public class CityGenerator : MonoBehaviour
         float randomX = Random.Range(lowestX, highestX);
         float randomZ = Random.Range(lowestZ, highestZ);
 
-        //divide z by 2 to ensure the centre isnt further back
-        cityCentre = new Vector3(randomX, 0, randomZ/2);
+        //divide z by 2 to ensure the centre isnt to close to the side
+        cityCentre = new Vector3(randomX/2, 0, randomZ/2);
     }
 
     void AddBuildings()
