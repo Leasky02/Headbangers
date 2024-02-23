@@ -6,8 +6,14 @@ public class DayCycleLighting : MonoBehaviour
     [Header("Light Sources")]
     //Light sources
     private Light globalLight;
+    [SerializeField] private Light[] levelLights;
 
     [Header("Global Light Sine Wave")]
+    //minimum light level
+    [SerializeField] private float minLight = 0.05f;
+    //minimum light level
+    [SerializeField] private float maxLight = 1f;
+
     //Total range of global light Sine wave
     [Tooltip("The value above and below zero that the sin wave reaches for global light.")]
     [SerializeField] private float globalLightRange;
@@ -16,6 +22,17 @@ public class DayCycleLighting : MonoBehaviour
     [SerializeField] private float globalLightMin;
     [Tooltip("The maximum value in the range for the global light. (Difference between min and max == range * 2)")]
     [SerializeField] private float globalLightMax;
+
+    [Header("Level Light Sine Wave")]
+
+    //Total range of global light Sine wave
+    [Tooltip("The value above and below zero that the sin wave reaches for level light.")]
+    [SerializeField] private float levelLightRange;
+    //Min and max values desired in global light source
+    [Tooltip("The minimum value in the range for the level light. (Difference between min and max == range * 2)")]
+    [SerializeField] private float levelLightMin;
+    [Tooltip("The maximum value in the range for the level light. (Difference between min and max == range * 2)")]
+    [SerializeField] private float levelLightMax;
 
     [Header("Global Light Colour Sine Wave")]
     //Total range of global light colour Sine wave
@@ -47,6 +64,16 @@ public class DayCycleLighting : MonoBehaviour
     [Tooltip("0-1: The maximum value in the range of global light saturation. This is shown during the night.")]
     [SerializeField] private float saturationRangeNight;
 
+    [Header("Fog Colour Sine Wave")]
+    //Total range of global light Sine wave
+    [Tooltip("The value above and below zero that the sin wave reaches for level light.")]
+    [SerializeField] private float fogColourRange;
+    //Min and max values desired in global light source
+    [Tooltip("The minimum value in the range for the level light. (Difference between min and max == range * 2)")]
+    [SerializeField] private float fogColourMin;
+    [Tooltip("The maximum value in the range for the level light. (Difference between min and max == range * 2)")]
+    [SerializeField] private float fogColourMax;
+
     [Header("Fog Colours")]
     //Colour values of global colour to lerp between
     [Tooltip("The colour value in the range of global light colour. This is shown during sunrise and sunset.")]
@@ -63,11 +90,9 @@ public class DayCycleLighting : MonoBehaviour
     private void FixedUpdate()
     {
         SetGlobalLight();
+        SetLevelLight();
         SetGlobalColour();
         SetFogColour();
-
-        //put in window manager
-        //cycleTime.CalculateTimeElapsed();
     }
 
     private void SetGlobalLight()
@@ -75,12 +100,23 @@ public class DayCycleLighting : MonoBehaviour
         //get global light intensity
         float globalLightIntensity = CalculateGlobalLightSineWave();
 
-        //cap it to 1
-        if (globalLightIntensity > 1)
-            globalLightIntensity = 1;
+        globalLightIntensity = Mathf.Clamp(globalLightIntensity, minLight, maxLight);
 
         //set global light intensity
         globalLight.intensity = globalLightIntensity;
+    }
+    private void SetLevelLight()
+    {
+        //get global light intensity
+        float levelLightIntensity = CalculateLevelLightSineWave();
+
+        levelLightIntensity = Mathf.Clamp(levelLightIntensity, 0f, 1f);
+
+        //set global light intensity
+        foreach(Light light in levelLights)
+        {
+            light.intensity = levelLightIntensity;
+        }
     }
 
     private void SetGlobalColour()
@@ -99,8 +135,6 @@ public class DayCycleLighting : MonoBehaviour
         // Calculate the current colour based on the time of day
         if (globalColourLevel < midwayPoint)
         {
-            float lerpRange = midwayPoint;
-            float adjustedGlobalColourLevel = (globalColourLevel) / lerpRange;
             color = colourRangeSun;
         }
         else
@@ -126,7 +160,7 @@ public class DayCycleLighting : MonoBehaviour
     private void SetFogColour()
     {
         //use sine wave of light
-        float fogColourLevel = CalculateFogSineWave();
+        float fogColourLevel = CalculateFogColourSineWave();
 
         //create a basic colour
         Color color = Color.white;
@@ -137,8 +171,6 @@ public class DayCycleLighting : MonoBehaviour
         // Calculate the current colour based on the time of day
         if (fogColourLevel < midwayPoint)
         {
-            float lerpRange = midwayPoint;
-            float adjustedGlobalColourLevel = (fogColourLevel) / lerpRange;
             color = fogColourRangeSun;
         }
         else
@@ -162,17 +194,30 @@ public class DayCycleLighting : MonoBehaviour
         return globalLightLevel;
     }
 
-    private float CalculateFogSineWave()
+    private float CalculateLevelLightSineWave()
     {
         float offsetDegreesColor = 180f;
         float offsetRadiansColor = offsetDegreesColor * Mathf.Deg2Rad;
-        float globalLightLevel = Mathf.Sin(((Mathf.PI * 2.0f * Time.time) / Clock.Instance.GetCycleDuration()) + offsetRadiansColor);
+        float levelLightLevel = Mathf.Sin(((Mathf.PI * 2.0f * Time.time) / Clock.Instance.GetCycleDuration()) + offsetRadiansColor);
 
-        globalLightLevel *= globalLightRange;
-        globalLightLevel += (globalLightMin + globalLightMax) * 0.5f;
-        globalLightLevel = Mathf.Round(globalLightLevel * 1000) * 0.001f;
+        levelLightLevel *= levelLightRange;
+        levelLightLevel += (levelLightMin + levelLightMax) * 0.5f;
+        levelLightLevel = Mathf.Round(levelLightLevel * 1000) * 0.001f;
 
-        return globalLightLevel;
+        return levelLightLevel;
+    }
+
+    private float CalculateFogColourSineWave()
+    {
+        float offsetDegreesColor = 180f;
+        float offsetRadiansColor = offsetDegreesColor * Mathf.Deg2Rad;
+        float fogColourLevel = Mathf.Sin(((Mathf.PI * 2.0f * Time.time) / Clock.Instance.GetCycleDuration()) + offsetRadiansColor);
+
+        fogColourLevel *= fogColourRange;
+        fogColourLevel += (fogColourMin + fogColourMax) * 0.5f;
+        fogColourLevel = Mathf.Round(fogColourLevel * 1000) * 0.001f;
+
+        return fogColourLevel;
     }
 
     private float CalculateColourSineWave()

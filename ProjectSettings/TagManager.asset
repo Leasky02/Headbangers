@@ -16,6 +16,8 @@ TagManager:
   - PlayerConfigurationManager
   - Singleton
   - LobbyManager
+  - Building Mesh
+  - Window
   layers:
   - Default
   - TransparentFX

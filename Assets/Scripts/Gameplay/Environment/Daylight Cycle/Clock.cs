@@ -19,6 +19,7 @@ public class Clock : Singleton<Clock>
     {
         //caluclates day phase and days elapsed
 
+        //PUT THIS INTO 24 HOUR CLOCK instead of percentage??
         //get daylight cycle progression as a percentage
         float dayCycleCompletion = ((Time.time % cycleDuration) / cycleDuration) * 100;
 

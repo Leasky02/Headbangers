@@ -39,7 +39,7 @@ public class CityGenerator : MonoBehaviour
 
     private List<GameObject> cells;
 
-    void Start()
+    void Awake()
     {
         gridParent = transform.GetChild(0);
         cells = new List<GameObject>();

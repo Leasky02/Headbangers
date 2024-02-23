@@ -108,21 +108,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad7e7bd23c39b8e4fadb99ea6177e436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  globalLightRange: 0.5
-  globalLightMin: 0.2
-  globalLightMax: 1.2
+  levelLights: []
+  minLight: 0.1
+  maxLight: 1
+  globalLightRange: 0.7
+  globalLightMin: -0.15
+  globalLightMax: 1.25
+  levelLightRange: 1
+  levelLightMin: -0.8
+  levelLightMax: 1.2
   globalColourRange: 0.4
   globalColourMin: 0
   globalColourMax: 0.8
-  colourRangeSun: {r: 1, g: 0.7035148, b: 0.20188677, a: 1}
-  colourRangeNight: {r: 0.27847248, g: 0, b: 0.46226418, a: 1}
+  colourRangeSun: {r: 1, g: 0.5067355, b: 0.19999999, a: 1}
+  colourRangeNight: {r: 0.103929356, g: 0.06043077, b: 0.13207549, a: 1}
   globalSaturationRange: 0.65
   globalSaturationMin: -0.6
   globalSaturationMax: 0.7
   saturationRangeDay: 0
   saturationRangeNight: 0.5
-  fogColourRangeSun: {r: 0.7773585, g: 0.92324346, b: 1, a: 1}
-  fogColourRangeNight: {r: 0.106002145, g: 0.076041296, b: 0.1509434, a: 1}
+  fogColourRange: 0.8
+  fogColourMin: -0.3
+  fogColourMax: 1.3
+  fogColourRangeSun: {r: 0.8443396, g: 0.9453823, b: 1, a: 1}
+  fogColourRangeNight: {r: 0.07891408, g: 0.06510325, b: 0.103773594, a: 1}
 --- !u!114 &5243652597961783755
 MonoBehaviour:
   m_ObjectHideFlags: 0
