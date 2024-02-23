@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5243652597961783754}
   - component: {fileID: 5243652597961783752}
+  - component: {fileID: 3206908572510767063}
   - component: {fileID: 5243652597961783755}
   m_Layer: 0
   m_Name: DirectionalLight
@@ -89,12 +90,39 @@ Light:
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 5521
-  m_UseColorTemperature: 1
+  m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &3206908572510767063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243652597961783757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad7e7bd23c39b8e4fadb99ea6177e436, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalLightRange: 0.5
+  globalLightMin: 0.2
+  globalLightMax: 1.2
+  globalColourRange: 0.4
+  globalColourMin: 0
+  globalColourMax: 0.8
+  colourRangeSun: {r: 1, g: 0.7035148, b: 0.20188677, a: 1}
+  colourRangeNight: {r: 0.27847248, g: 0, b: 0.46226418, a: 1}
+  globalSaturationRange: 0.65
+  globalSaturationMin: -0.6
+  globalSaturationMax: 0.7
+  saturationRangeDay: 0
+  saturationRangeNight: 0.5
+  fogColourRangeSun: {r: 0.7773585, g: 0.92324346, b: 1, a: 1}
+  fogColourRangeNight: {r: 0.106002145, g: 0.076041296, b: 0.1509434, a: 1}
 --- !u!114 &5243652597961783755
 MonoBehaviour:
   m_ObjectHideFlags: 0
