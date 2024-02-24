@@ -177,10 +177,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windows: []
-  minWindowOnDelay: 0
-  maxWindowOnDelay: 8
-  minWindowOffDelay: 8
-  maxWindowOffDelay: 13
+  minWindowOnDelay: 2
+  maxWindowOnDelay: 10
+  minWindowOffDelay: 6
+  maxWindowOffDelay: 14
   switchOnPercent: 80
 --- !u!1 &8466538950676643692
 GameObject:
