@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLights: []
-  minLight: 0.08
+  minLight: 0.1
   maxLight: 1
   globalLightRange: 0.7
   globalLightMin: -0.15
