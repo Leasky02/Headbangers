@@ -1,29 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MusicManager : Singleton<MusicManager>
 {
-    private float targetVolume;
+    private float _targetVolume;
     [SerializeField] private float normalVolume = 0.5f;
-    private AudioSource myAudioSource;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] private float fadeSpeed = 0.02f;
 
-    [SerializeField] private AudioClip mainSoundtrack;
-    [SerializeField] private AudioClip[] soundtracks;
+    [SerializeField] private AudioClip mainTrack;
+    [SerializeField] private AudioClip[] musicTracks;
 
-    private int[] shuffledSoundtrackIndicies;
+    private int[] _shuffledSoundtrackIndicies;
 
-    private int trackIndex = 0;
+    private int _trackIndex = 0;
+
+    private bool _stopping = false;
 
 
     private void Start()
     {
-        myAudioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
-        targetVolume = normalVolume;
+        _targetVolume = normalVolume;
 
-        shuffledSoundtrackIndicies = new int[soundtracks.Length];
+        _shuffledSoundtrackIndicies = new int[musicTracks.Length];
 
         ShuffleTracks();
         PlayMainSoundtrack();
@@ -31,57 +31,61 @@ public class MusicManager : Singleton<MusicManager>
 
     private void ShuffleTracks()
     {
-        ArrayHelpers.Shuffle(shuffledSoundtrackIndicies);
+        ArrayHelpers.Shuffle(_shuffledSoundtrackIndicies);
     }
 
     public void PlayMainSoundtrack()
     {
-        UnMute();
-
-        myAudioSource.clip = mainSoundtrack;
+        PlayTrack(mainTrack);
     }
 
     public void PlayNextTrack()
     {
-        UnMute();
+        PlayTrack(musicTracks[_shuffledSoundtrackIndicies[_trackIndex]]);
 
-        myAudioSource.clip = soundtracks[shuffledSoundtrackIndicies[trackIndex]];
-        myAudioSource.Play();
+        _trackIndex++;
 
-        trackIndex++;
-        
-        if(trackIndex > shuffledSoundtrackIndicies.Length)
+        if (_trackIndex > _shuffledSoundtrackIndicies.Length)
         {
-            trackIndex = 0;
+            _trackIndex = 0;
         }
-
     }
 
-    public void CallStopTrack()
+    public void PlayTrack(AudioClip track)
     {
-        StartCoroutine(StopTrack());
+        UnMute();
+        audioSource.clip = track;
+        audioSource.Play();
+        _stopping = false;
     }
 
-    public IEnumerator StopTrack()
+    public void StopTrack()
     {
         Mute();
-        yield return new WaitForSeconds(1f);
-        myAudioSource.Stop();
+        _stopping = true;
     }
 
     public void Mute()
     {
-        targetVolume = 0f;
+        _targetVolume = 0f;
     }
 
     public void UnMute()
     {
-        targetVolume = normalVolume;
+        _targetVolume = normalVolume;
     }
 
     private void Update()
     {
-        float currentVolume = myAudioSource.volume;
-        myAudioSource.volume = Mathf.Lerp(currentVolume, targetVolume, fadeSpeed);
+        float currentVolume = audioSource.volume;
+        if (currentVolume != _targetVolume)
+        {
+            audioSource.volume = Mathf.Lerp(currentVolume, _targetVolume, fadeSpeed);
+        }
+        else if (_stopping)
+        {
+            audioSource.Stop();
+            _stopping = false;
+        }
     }
 }
