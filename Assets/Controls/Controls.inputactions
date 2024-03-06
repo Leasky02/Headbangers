@@ -644,6 +644,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Deactive",
+            "id": "86b3f066-7790-4dc5-8dc9-affd0c5ac96a",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "1c20f5e2-0516-4ec9-80c1-fa294cd5a83c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0b87fa56-9d28-40ae-ac79-b50e5f8505ed",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

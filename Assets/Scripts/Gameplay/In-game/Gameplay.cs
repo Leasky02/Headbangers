@@ -2,7 +2,7 @@ using UnityEngine.SceneManagement;
 
 public class Gameplay : Singleton<Gameplay>
 {
-    public bool InGame { get; private set; }
+    public bool InGame { get; private set; } // TODO: not currently used outside
 
     public IGameState GameState { get; private set; }
 
@@ -27,7 +27,20 @@ public class Gameplay : Singleton<Gameplay>
         PlayerKickedHandler = gameSetupFactory.CreatePlayerKickedHandler();
         PlayerHeadbuttedHandler = gameSetupFactory.CreatePlayerHeadbuttedHandler();
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        // SceneManager.sceneLoaded +=
+        // previously we called setup from within the elevator scene and the Setup was finished on the next scene load;
+
+        //TODO: fix properly
+        StartGame();
+    }
+
+    private void StartGame()
+    {
+        GameState.InitOnSceneLoad();
+        PlayerRespawn.InitOnSceneLoad();
+        PlayerKnockedOutHandler.InitOnSceneLoad();
+        PlayerKickedHandler.InitOnSceneLoad();
+        PlayerHeadbuttedHandler.InitOnSceneLoad();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -37,11 +50,7 @@ public class Gameplay : Singleton<Gameplay>
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
 
-            GameState.InitOnSceneLoad();
-            PlayerRespawn.InitOnSceneLoad();
-            PlayerKnockedOutHandler.InitOnSceneLoad();
-            PlayerKickedHandler.InitOnSceneLoad();
-            PlayerHeadbuttedHandler.InitOnSceneLoad();
+            StartGame();
 
             InGame = true;
         }
