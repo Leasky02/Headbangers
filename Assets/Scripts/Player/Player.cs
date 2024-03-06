@@ -20,7 +20,12 @@ public class Player : MonoBehaviour
         {
             return gameObject.GetComponent<Player>();
         }
-        return LS.Helpers.GetComponentInParentWithTag<Player>(gameObject, Tag);
+        Player player = LS.Helpers.GetComponentInParentWithTag<Player>(gameObject, Tag);
+        if (player == null)
+        {
+            Debug.Log("Player.GetPlayerComponent : No Player Component Found");
+        }
+        return player;
     }
 
     public void Init(int playerIndex)
