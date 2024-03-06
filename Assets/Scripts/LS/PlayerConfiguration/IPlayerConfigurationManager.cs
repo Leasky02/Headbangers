@@ -19,7 +19,7 @@ namespace LS
             base.Awake();
 
             playerConfigs = new List<TPlayerConfiguration>();
-            DisableJoining();
+            EnableJoining();
         }
 
         private void OnEnable()
@@ -49,7 +49,7 @@ namespace LS
 
         public void OnPlayerJoined(PlayerInput pi)
         {
-            //Debug.Log("Player Joined, playerIndex: " + pi.playerIndex + ", user.index: " + pi.user.index);
+            Debug.Log("Player Joined, playerIndex: " + pi.playerIndex + ", user.index: " + pi.user.index);
             if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
             {
                 // Set as child of this
